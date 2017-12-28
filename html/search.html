@@ -1,0 +1,536 @@
+<div class="maincontent-bgc padding-bottom-25 hidden-overflow-x">
+    <!--搜索框-->
+    <div class="hidden-overflow-x ">
+
+
+        <div class="my-box noborder" style="padding: 0;background-color: transparent">
+            <div class="container" style="padding: 0">
+                <!--<div class="box-header" style="background-color: #febb02;margin: 0">-->
+                    <!--<div class="box-corner">-->
+                        <!--<button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"-->
+                                <!--aria-expanded="true" style="outline: 0">-->
+                            <!--<i class="glyphicon" style="color: #111111"></i>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<h4 class="box-header-title" style="color: #111111;font-size: 18px;margin-left: 25px">Search</h4>-->
+                <!--</div>-->
+
+                <div class="box-body collapse in my-box-boundary " id="isme"
+                     style="padding-bottom: 0;padding-top: 0">
+
+                    <div id="searchCarForm" class="row">
+                        <form>
+                            <div class="col-md-12">
+                                <div class="search"  style="">
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-6 col-sm-3">
+                                            <div class="form-group mainsearch-item">
+
+                                                <div class="input-group controls input-append date form_date" data-date=""
+                                                     data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                                                    <label class="control-label" for="pickupStartDate">Start Date</label>
+                                                    <input ng-model="searchMsg.startDate" type="text"
+                                                           class="form-control datepicker" id="pickupStartDate" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6 col-sm-3">
+                                            <div class="form-group mainsearch-item">
+                                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                                                    <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                                    <select ng-model="searchMsg.startTime" id="pickupStartTime"
+                                                            class="form-control">
+                                                        <option value="">Pickup Time</option>
+                                                        <option value="00:00">00:00</option>
+                                                        <option value="01:00">01:00</option>
+                                                        <option value="02:00">02:00</option>
+                                                        <option value="03:00">03:00</option>
+                                                        <option value="04:00">04:00</option>
+                                                        <option value="05:00">05:00</option>
+                                                        <option value="06:00">06:00</option>
+                                                        <option value="07:00">07:00</option>
+                                                        <option value="08:00">08:00</option>
+                                                        <option value="09:00">09:00</option>
+                                                        <option value="10:00">10:00</option>
+                                                        <option value="11:00">11:00</option>
+                                                        <option value="12:00">12:00</option>
+                                                        <option value="13:00">13:00</option>
+                                                        <option value="14:00">14:00</option>
+                                                        <option value="15:00">15:00</option>
+                                                        <option value="16:00">16:00</option>
+                                                        <option value="17:00">17:00</option>
+                                                        <option value="18:00">18:00</option>
+                                                        <option value="19:00">19:00</option>
+                                                        <option value="20:00">20:00</option>
+                                                        <option value="21:00">21:00</option>
+                                                        <option value="22:00">22:00</option>
+                                                        <option value="23:00">23:00</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6 col-sm-3">
+                                            <div class="form-group  mainsearch-item">
+                                                <div style="margin-left: 12px">
+                                                    <label class="control-label" for="duration">Duration(hrs)</label>
+                                                    <select ng-model="searchMsg.duration" id="duration"
+                                                            class="form-control ">
+                                                        <option ng-repeat="item in searchMsg.durations" value="{{item.ID}}">
+                                                            {{item.Duration}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6 col-sm-3">
+                                            <div class="form-group mainsearch-item">
+                                                <div style="margin-left: 12px">
+                                                    <label class="control-label" for="rentFor">Vehicle Type</label>
+                                                    <select ng-model="searchMsg.rentFor" id="rentFor"
+                                                            class="form-control ">
+                                                        <option value="0">Any</option>
+                                                        <option ng-repeat="item in searchMsg.rentFors" value="{{item.ID}}">
+                                                            {{item.LeaseTypeName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-6" hidden>
+                                            <div class="form-group mainsearch-item">
+                                                <div style="margin-left: 12px">
+                                                    <label class="control-label" for="pickupCategory">Vehicle Type</label>
+                                                    <select ng-model="searchMsg.category" id="pickupCategory"
+                                                            class="form-control ">
+                                                        <option value="0">Any Category</option>
+                                                        <option ng-repeat="item in searchMsg.categorys" value="{{item.ID}}">
+                                                            {{item.VehicleTypeName}}
+                                                        </option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="form-group mainsearch-item">
+                                                <div style="margin-left: 12px">
+                                                    <label class="control-label" for="pickupLocation">Location</label>
+                                                    <select ng-model="searchMsg.location" id="pickupLocation"
+                                                            class="form-control">
+                                                        <option value="0">Select location</option>
+                                                        <option ng-repeat="item in searchMsg.locations" value="{{item.ID}}">
+                                                            {{item.Address}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6">
+                                            <div class="form-group mainsearch-item">
+                                                <div style="margin-left: 12px">
+                                                    <label class="control-label" for="vehicleNumber">Vehicle Number</label>
+                                                    <select ng-model="searchMsg.vehicleNumber" id="vehicleNumber"
+                                                            class="form-control ">
+                                                        <option value="0">Any</option>
+                                                        <option ng-repeat="item in searchMsg.vehicleNumbers" value="{{item.ID}}">
+                                                            {{item.Plate}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-6">
+                                            <div style="margin-left: 12px">
+                                                <button ng-click="search()" type="button" class="btn btn-block btn-orange form-control"
+                                                        style="margin-top: 35px;font-weight: bold">SEARCH
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--搜索框结尾-->
+
+    <!--步骤-->
+    <div class="step container hidden-xs" ng-if="allCarsMsgs.length>0" >
+        <div class="row" style="margin-left: 0px;margin-right: 0px">
+            <div hidden class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/1_red.png" alt="1">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Searching</h4>
+                                <p>Get the right taxi for you</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media ">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/2_grey.png" alt="2">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Booking Details</h4>
+                                <p> Taxi details and payment</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_grey.png" alt="next">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/3_grey.png" alt="3">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Confirm & Reserved</h4>
+                                <p>Booking confirm information</p>
+                            </div>
+                            <div class="media-right" style="padding-left: 10px">
+                                <div style="width: 64px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <ul class="search-step">
+                    <li>
+                        <a href="#/search">
+                            <img src="img/step_1.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_2_no_select.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_3_no_select.jpg" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <!--步骤结尾-->
+
+    <!--ng-if="!isWaitting&&!isNoCar"-->
+
+
+    <div ng-if="isOtherLocationCarViews" class=" margin-top-25 container" style="padding-right: 0;padding-left: 0">
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-success alert-dismissible " role="alert"
+                 style="margin-right: 15px;margin-left: 15px;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <div class="no-car-tishi-msg">
+                    <h4>
+                        <i class="glyphicon glyphicon-alert"></i>
+                        No results found for this location at this time.
+                    </h4>
+
+                    <p>
+                        There are other cars availabile near the selected location.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--车辆信息展示列表-->
+    <div class="view-car-list container" style="">
+        <div hidden class="my-box my-box-top-border margin-top-20">
+            <div class="box-body row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class=" col-sm-3 col-md-2  hidden-xs box-body-thumb-wrap">
+                            <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
+                        </div>
+                        <div class="col-xs-12  hidden-sm hidden-md hidden-lg box-body-thumb-wrap">
+                            <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-9 col-md-10 ">
+                            <h4 class="box-header-title">Petrol Hybrid | 5 Seater</h4>
+                            <p class="box-header-p">Toyota Prius or similar</p>
+                            <a href="#">
+                                <i class="glyphicon glyphicon-star-empty"></i>
+                                Anchorvale Rd Blk 308
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 top-border margin-top-20">
+                    <div class="row">
+                        <div class=" col-sm-5 col-md-4 col-xs-12">
+                            <div class="row text-center">
+                                <div class="col-md-4 col-xs-4 col-sm-4">
+                                    <h5>Pickup</h5>
+                                    <p>
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        15:00
+                                    </p>
+                                    <p>
+                                        4 Aug 2017
+                                    </p>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-sm-4 pic-center-wrap margin-top-25" style="">
+                                    <i class="glyphicon glyphicon-arrow-right"></i>
+                                </div>
+                                <div class="col-md-4 col-xs-4 col-sm-4">
+                                    <h5>Return</h5>
+                                    <p>
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        15:00
+                                    </p>
+                                    <p>
+                                        4 Aug 2017
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-sm-3 col-md-2 col-xs-12 text-center">
+                            <h5>Duration</h5>
+                            <h5>
+                                <i class="glyphicon glyphicon-time"></i>
+                                4hrs
+                            </h5>
+                        </div>
+                        <div class=" col-md-2 hidden-xs hidden-sm"></div>
+                        <div class=" col-sm-2 col-md-2 hidden-xs">
+                            <h2>$193.4</h2>
+                        </div>
+                        <div class=" col-sm-2 col-md-2 col-xs-12 text-center margin-top-20">
+                            <a href="#" class="btn btn-primary btn-block">View Car</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div hidden class="row">
+            <div ng-repeat="item in allCarsMsgs" class="col-md-4 col-sm-6 col-xs-12">
+                <div class="my-box  margin-top-20" style="padding-top: 0">
+                    <div class="box-body row" style="padding-top: 0">
+                        <div class="col-md-12">
+                            <div class="row box-photo-border" >
+                                <div class="col-md-12 col-xs-12 text-center" style="padding-top: 10px" >
+                                    <a href="http://maps.google.com?q={{item.Latitude}},{{item.Longitude}}&ll={{item.Latitude}},{{item.Longitude}}" target="_blank">
+                                        <i class="glyphicon glyphicon-map-marker"></i>
+                                        {{item.Address}}
+                                    </a>
+                                </div>
+                                <div class="col-md-12 col-xs-12 box-body-thumb-wrap">
+                                    <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
+                                </div>
+                                <div class="col-md-12 col-xs-12 text-center">
+                                    <h4 class="box-header-title">{{item.VehicleTypeName}} | {{item.Seats}} Seater</h4>
+                                    <p class="box-header-p">{{item.VehicleModelName}} ({{item.Plate}})</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-xs-12  margin-top-20">
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="row text-center">
+                                        <div class="col-md-5 col-xs-5 col-sm-5">
+                                            <h5 style="font-size: 16px;font-weight: bold">Pickup</h5>
+                                            <p style="font-size: 14px;font-weight: bold">
+                                                <i class="fa" ng-class="isDayOrNight(item.StartTime)"></i>
+                                                 {{item.StartTime}}
+                                            </p>
+                                            <p style="font-size: 14px;">
+
+                                            </p>
+                                        </div>
+                                        <div class="col-md-2 col-xs-2 col-sm-2 pic-center-wrap margin-top-25" style="">
+                                            <i class="glyphicon glyphicon-arrow-right"></i>
+                                        </div>
+                                        <div class="col-md-5 col-xs-5 col-sm-5">
+                                            <h5 style="font-size: 16px;font-weight: bold">Return</h5>
+                                            <p style="font-size: 14px;font-weight: bold">
+                                                <i class="fa" ng-class="isDayOrNight(item.EndTime)"></i>
+                                                 {{item.EndTime}}
+                                            </p>
+                                            <p style="font-size: 14px;">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                                    <h5 style="font-size: 16px;font-weight: bold">Booking Total</h5>
+                                    <p style="font-size: 16px;font-weight: bold;border-top: 1px solid #aaa;padding-top: 10px">
+                                        $ {{(item.TotalPrice/100).toFixed(2)}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 text-center margin-top-20">
+                                <a href="#/booking/{{item.ID}}" class="btn btn-success btn-block"
+                                   style="font-size: 18px">Booking it now</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div ng-repeat="item in allCarsMsgs" class="col-md-6 margin-top-20" style="padding: 0 5px">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="car-pic-zhanshi" style="">
+                            <div class="img-container col-xs-4" style="">
+                                <div class="img-show" style="height: 150px">
+                                    <img ng-src="{{item.Photo}}" style="">
+                                </div>
+
+                            </div>
+                            <div class="msg-container col-xs-5" style="padding-right: 0;padding-left: 0">
+                                <div class="msg-show" style=" height:150px;width: 80%">
+                                    <div class="location">
+                                        <a href="http://maps.google.com?q={{item.Latitude}},{{item.Longitude}}&ll={{item.Latitude}},{{item.Longitude}}">
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                            {{item.Address}}
+                                        </a>
+                                    </div>
+                                    <div class="time" >{{getHour(item.StartTime)}} :00 - {{getHour(item.EndTime)}}: 00</div>
+                                    <div class="car-type">TAXI - {{item.VehicleTypeName}}</div>
+                                    <div class="car-seats">{{item.Seats}} Seater [ {{item.VehicleModelName}} ]</div>
+                                </div>
+
+                                <!--<div class="msg-show" style=" height:150px;width: 20%">-->
+                                <!--<img src="img/go_right.png" style="">-->
+                                <!--</div>-->
+                            </div>
+
+                            <div class="col-xs-3 msg-container" style="padding-right: 0;padding-left: 0">
+                                <div class="msg-show" style=" height:150px;">
+                                    <div class="price">
+                                        $ {{(item.TotalPrice/100).toFixed(2)}}
+                                    </div>
+                                    <div class="book-btn">
+                                        <a href="#/booking/{{item.ID}}" class="btn btn-dark" style="">VIEW DEAILS</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--车辆信息展示列表结尾-->
+
+
+    <div ng-if="isNoCar" class=" margin-top-25 container" style="padding-right: 0;padding-left: 0">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-danger alert-dismissible " role="alert"
+                     style="margin-right: 15px;margin-left: 15px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <div class="no-car-tishi-msg">
+                        <h4>
+                            <i class="glyphicon glyphicon-alert"></i>
+                            No results found for this location at this time.
+                        </h4>
+
+                        <p>
+                            There are no cars availabile in based on your selection for
+                            <b>Today</b>
+                            . You might want to:
+                        </p>
+                        <ul>
+                            <li>Please select the right location for you</li>
+                            <li>Select another pickup time</li>
+                            <li>Select another location</li>
+                            <li>Select another category</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="isWaitting" class="container-fluid margin-top-25" style="margin-bottom: 250px">
+        <div class="pic-center-wrap col-md-12 col-sm-12 col-xs-12">
+            <img src="img/waiting.gif">
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'en',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        startDate: new Date()
+    });
+</script>

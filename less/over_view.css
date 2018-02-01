@@ -1,0 +1,341 @@
+.nopadding {
+  padding: 0;
+}
+.hidden-overflow-x {
+  overflow-x: hidden;
+}
+.bottom-border {
+  border-bottom: 2px solid #e81e06;
+}
+.top-border {
+  border-top: 2px solid #e81e06;
+}
+.noborder {
+  border-radius: 0;
+}
+.hidden-show-transation {
+  -webkit-transition: all 0.3s ease-in;
+  -o-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+.no-margin {
+  margin-top: -20px;
+}
+.padding-top-25 {
+  padding-top: 25px;
+}
+.padding-top-20 {
+  padding-top: 20px;
+}
+.padding-bottom-25 {
+  padding-bottom: 25px;
+}
+.padding-bottom-20 {
+  padding-bottom: 20px;
+}
+.padding-left-25 {
+  padding-left: 25px;
+}
+.padding-left-20 {
+  padding-left: 20px;
+}
+.padding-right-25 {
+  padding-right: 25px;
+}
+.padding-right-20 {
+  padding-right: 20px;
+}
+.margin-top-25 {
+  margin-top: 25px;
+}
+.margin-top-20 {
+  margin-top: 20px;
+}
+.margin-top-15 {
+  margin-top: 15px;
+}
+.margin-top-10 {
+  margin-top: 10px;
+}
+.margin-bottom-25 {
+  margin-bottom: 25px;
+}
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+.margin-bottom-15 {
+  margin-bottom: 15px;
+}
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+.margin-left-25 {
+  margin-left: 25px;
+}
+.margin-left-20 {
+  margin-left: 20px;
+}
+.margin-left-15 {
+  margin-left: 15px;
+}
+.margin-left-10 {
+  margin-left: 10px;
+}
+.margin-right-25 {
+  margin-right: 25px;
+}
+.margin-right-20 {
+  margin-right: 20px;
+}
+.margin-right-15 {
+  margin-right: 15px;
+}
+.margin-right-10 {
+  margin-right: 10px;
+}
+.maincontent-bgc {
+  background-color: #f2f2f2;
+}
+.error-tishi {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+}
+.zhanwei-tishi {
+  height: 30px;
+  margin: 0;
+  padding: 0;
+}
+.left-right-padding-40 {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.left-right-padding-15 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.modal-header-bg-color {
+  background-color: #e81e06 !important;
+}
+.modal-header-bg-color > h4 {
+  color: #fff;
+}
+.move-on-status {
+  -webkit-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  padding: 15px 10px;
+}
+.move-on-status:hover {
+  -webkit-transform: translate(0, 2px);
+  -moz-transform: translate(0, 2px);
+  -ms-transform: translate(0, 2px);
+  -o-transform: translate(0, 2px);
+  transform: translate(0, 2px);
+  -webkit-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+.move-on-status:hover .media-body h4 {
+  color: #e81e06;
+}
+.move-title {
+  position: relative;
+  animation: move 3s linear infinite;
+  -moz-animation: move 3s linear infinite;
+  /* Firefox */
+  -webkit-animation: move 3s linear infinite;
+  /* Safari and Chrome */
+  -o-animation: move 3s linear infinite;
+  /* Opera */
+}
+@keyframes move {
+  0% {
+    top: 0;
+    -webkit-animation-timing-function: ease-in;
+    color: #f2f2f2;
+  }
+  65% {
+    top: 0px;
+    color: #e81e06;
+  }
+  100% {
+    top: 0;
+    color: #f2f2f2;
+  }
+}
+.time-box-wrap .col-xs-1 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.time-box-wrap .time-box-div {
+  width: 100%;
+  height: 0px;
+  padding-bottom: 100%;
+  overflow: hidden;
+  margin: 0;
+  position: relative;
+  color: #fff;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .time-box-wrap .col-xs-1 {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+.good-padding-bottom-l {
+  padding-bottom: 360px;
+}
+.good-padding-bottom-m {
+  padding-bottom: 240px;
+}
+.good-padding-bottom-s {
+  padding-bottom: 120px;
+}
+.good-margin-top-l {
+  margin-top: 240px;
+}
+.good-margin-top-m {
+  margin-top: 160px;
+}
+.good-margin-top-s {
+  margin-top: 100px;
+}
+.good-padding-top-l {
+  padding-top: 360px;
+}
+.good-padding-top-m {
+  padding-top: 240px;
+}
+.good-padding-top-s {
+  padding-top: 120px;
+}
+.good-margin-bottom-l {
+  margin-bottom: 240px;
+}
+.good-margin-bottom-m {
+  margin-bottom: 160px;
+}
+.good-margin-bottom-s {
+  margin-bottom: 100px;
+}
+.good-quadrate {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+.good-padding-top-bottom-l {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
+.good-padding-top-bottom-m {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.good-margin-top-bottom-m {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.good-margin-top-bottom-s {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.good-margin-top-50-0 {
+  margin-top: 50px;
+}
+.good-margin-top-0-20 {
+  margin-top: 0px;
+}
+.padding-left-10-right-5 {
+  padding-left: 10px;
+  padding-right: 5px;
+}
+.padding-left-5-right-10 {
+  padding-left: 5px;
+  padding-right: 10px;
+}
+@media (max-width: 767px) {
+  .good-padding-bottom-l {
+    padding-bottom: 120px;
+  }
+  .good-padding-bottom-m {
+    padding-bottom: 50px;
+  }
+  .good-padding-bottom-s {
+    padding-bottom: 40px;
+  }
+  .good-margin-top-l {
+    margin-top: 40px;
+  }
+  .good-margin-top-m {
+    margin-top: 30px;
+  }
+  .good-margin-top-s {
+    margin-top: 25px;
+  }
+  .good-padding-top-l {
+    padding-top: 60px;
+  }
+  .good-padding-top-m {
+    padding-top: 50px;
+  }
+  .good-padding-top-s {
+    padding-top: 40px;
+  }
+  .good-margin-bottom-l {
+    margin-bottom: 80px;
+  }
+  .good-margin-bottom-m {
+    margin-bottom: 30px;
+  }
+  .good-margin-bottom-s {
+    margin-bottom: 25px;
+  }
+  .good-quadrate {
+    width: 13px;
+    height: 13px;
+  }
+  .left-right-padding-40 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .good-padding-top-bottom-l {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  .good-padding-top-bottom-m {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .good-margin-top-bottom-m {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  .good-margin-top-50-0 {
+    margin-top: 0px;
+  }
+  .good-margin-top-0-20 {
+    margin-top: 20px;
+  }
+  .xs-left-right-padding-25 {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+  .padding-left-10-right-5 {
+    padding-left: 25px;
+  }
+  .padding-left-5-right-10 {
+    padding-right: 25px;
+  }
+}
+@media (max-width: 992px) {
+  .good-margin-top-0-20 {
+    margin-top: 20px;
+  }
+}

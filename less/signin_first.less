@@ -1,0 +1,78 @@
+@import "variable";
+
+.sign-first-big-title{
+  margin-top: 150px;
+  text-align: center;
+  h2{
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 1.5em;
+    color: #fff;
+  }
+
+}
+
+.signin-first-bg {
+  background-image: url("../img/main_introduce_1.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.signin-first {
+  overflow-x: hidden;
+  padding-top: 0px;
+  padding-bottom: 80px;
+  .sign-in-background{
+    margin: 25px 0px ;
+    background-color: rgba(230,230,230,0.9);
+    padding: 15px 10px;
+    border-top: 3px solid @navbar-background-color;
+    border-radius: 5px;
+  }
+
+  .signin-first-form {
+    padding: 20px 30px;
+
+    .row {
+      .form-group .tishi-msg {
+        padding-top: 7px;
+        text-align: left;
+      }
+    }
+  }
+}
+
+.success-span{
+  color:#55dd55;
+  &:before {
+    content: "\e013";
+  }
+}
+
+.error-span{
+  color:#dd5555;
+  font-weight: bold;
+  &:before {
+    content: "\e014";
+  }
+}
+
+@media(max-width: @xs-width){
+
+  .signin-first {
+    padding-bottom: 0px;
+    .sign-in-background {
+      margin-top: 25px;
+    }
+  }
+  .sign-first-big-title{
+    margin-top: 20px;
+    h2 {
+      font-size: 36px;
+    }
+  }
+}

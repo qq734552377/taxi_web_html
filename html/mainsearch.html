@@ -1,0 +1,437 @@
+<div class="">
+    <div class="bg">
+        <div class="container">
+            <div class="row">
+                <!--主副标题-->
+                <div class="col-md-12">
+                    <h1 class="big-title" style="color: #ffffff;text-align: center;margin-top: 50px">RENT A TAXI WITH
+                        FLEXIBLE HOURLY RATES</h1>
+                    <div class="col-md-6 col-md-offset-3 hidden-xs">
+                        <h3 class="sub-title">EARN EXTRA INCOME AT YOUR CONVENIENCE</h3>
+                    </div>
+                </div>
+                <!--主副标题结尾-->
+                <div class="col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0 col-sm-12 col-sm-offset-0"
+                     style="margin-bottom: 100px">
+                    <div class="mainsearch">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <div class="form-group mainsearch-item">
+
+                                    <div class="input-group controls input-append date form_date" data-date=""
+                                         data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                                        <label class="control-label" for="pickupStartDate">Start Date</label>
+                                        <input ng-model="searchMsg.startDate" type="text"
+                                               class="form-control datepicker" id="pickupStartDate" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <div class="form-group mainsearch-item">
+                                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                                        <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                        <select ng-model="searchMsg.startTime" id="pickupStartTime"
+                                                class="form-control">
+                                            <option value="">Pickup Time</option>
+                                            <option value="00:00">00:00</option>
+                                            <option value="01:00">01:00</option>
+                                            <option value="02:00">02:00</option>
+                                            <option value="03:00">03:00</option>
+                                            <option value="04:00">04:00</option>
+                                            <option value="05:00">05:00</option>
+                                            <option value="06:00">06:00</option>
+                                            <option value="07:00">07:00</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="18:00">18:00</option>
+                                            <option value="19:00">19:00</option>
+                                            <option value="20:00">20:00</option>
+                                            <option value="21:00">21:00</option>
+                                            <option value="22:00">22:00</option>
+                                            <option value="23:00">23:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <div class="form-group  mainsearch-item">
+                                    <div style="margin-left: 12px">
+                                        <label class="control-label" for="duration">Duration(hrs)</label>
+                                        <select ng-model="searchMsg.duration" id="duration"
+                                                class="form-control ">
+                                            <option ng-repeat="item in searchMsg.durations" value="{{item.ID}}">
+                                                {{item.Duration}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6 col-sm-3">
+                                <div class="form-group mainsearch-item">
+                                    <div style="margin-left: 12px">
+                                        <label class="control-label" for="rentFor">Vehicle Type</label>
+                                        <select ng-model="searchMsg.rentFor" id="rentFor"
+                                                class="form-control ">
+                                            <option value="0">Any</option>
+                                            <option ng-repeat="item in searchMsg.rentFors" value="{{item.ID}}">
+                                                {{item.LeaseTypeName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6" hidden>
+                                <div class="form-group mainsearch-item">
+                                    <div style="margin-left: 12px">
+                                        <label class="control-label" for="pickupCategory">Vehicle Type</label>
+                                        <select ng-model="searchMsg.category" id="pickupCategory"
+                                                class="form-control ">
+                                            <option value="0">Any Category</option>
+                                            <option ng-repeat="item in searchMsg.categorys" value="{{item.ID}}">
+                                                {{item.VehicleTypeName}}
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group mainsearch-item">
+                                    <div style="margin-left: 12px">
+                                        <label class="control-label" for="pickupLocation">Location</label>
+                                        <select ng-model="searchMsg.location" id="pickupLocation"
+                                                class="form-control">
+                                            <option value="0">Select location</option>
+                                            <option ng-repeat="item in searchMsg.locations" value="{{item.ID}}">
+                                                {{item.Address}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="form-group mainsearch-item">
+                                    <div style="margin-left: 12px">
+                                        <label class="control-label" for="vehicleNumber">Vehicle Number</label>
+                                        <select ng-model="searchMsg.vehicleNumber" id="vehicleNumber"
+                                                class="form-control ">
+                                            <option value="0">Any</option>
+                                            <option ng-repeat="item in searchMsg.vehicleNumbers" value="{{item.ID}}">
+                                                {{item.Plate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div style="margin-left: 12px">
+                                    <button ng-click="mainsearch()" type="button" class="btn btn-block btn-success"
+                                            style="margin-top: 30px">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content animate-box-left" style="padding: 20px 0">
+        <div class="container">
+            <h2 class="text-center">WHAT IS TAXI SHARE?</h2>
+
+            <div class="row">
+                <div class="col-md-12 embed-responsive embed-responsive-16by9">
+
+                    <iframe src="https://www.youtube.com/embed/N7D5U1lT3iA"
+                            width="100%" height="100%" frameborder="0" style="border:0;margin-top: 20px;padding: 0" allowfullscreen>
+
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="some-thing-to-show main-content" style="padding: 20px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center animate-box-left">WHY TAXI SHARE?</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="mylunbo" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators slide">
+                            <li data-target="#mylunbo" data-slide-to="0" class="active"></li>
+                            <li data-target="#mylunbo" data-slide-to="1"></li>
+                            <li data-target="#mylunbo" data-slide-to="2"></li>
+                            <li data-target="#mylunbo" data-slide-to="3"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="img/affordable.png" alt="a">
+                                <div class="carousel-caption slide">
+                                    <h3>Affordable</h3>
+                                    <p>Low hourly rates from $5.80 per hour (min. 3 hours).</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="img/flexible.png" alt="b">
+                                <div class="carousel-caption slide">
+                                    <h3>Flexible</h3>
+                                    <p>Available anytime. No contract needed.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="img/convenient.png" alt="c">
+                                <div class="carousel-caption slide" >
+                                    <h3>Convenient</h3>
+                                    <p>Multiple pick up locations islandwide for taxi collection & return.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="img/fullyequipped.png" alt="d">
+                                <div class="carousel-caption slide">
+                                    <h3>Fully Equipped</h3>
+                                    <p>24-hr Ops centre, call booking and cashless payment terminal.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <!--<a class="left carousel-control" data-target="#mylunbo" role="button" data-slide="prev">-->
+                            <!--<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
+                            <!--<span class="sr-only">Previous</span>-->
+                        <!--</a>-->
+                        <!--<a class="right carousel-control" data-target="#mylunbo" role="button" data-slide="next">-->
+                            <!--<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
+                            <!--<span class="sr-only">Next</span>-->
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="some-thing-to-show main-content" style="padding: 20px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center animate-box-right">HOW IT WORKS</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 margin-top-20">
+                    <div class="media move-on-status">
+                        <div class="media-left media-middle">
+                            <a href="">
+                                <img class="media-object" src="img/registered (1).png" alt="q">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="padding-top: 15px;">Register</h4>
+                            <p style="">Register as a SMRT TAXI SHARE Driver.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 margin-top-20">
+                    <div class="media move-on-status">
+                        <div class="media-left media-middle">
+                            <a href="">
+                                <img class="media-object" src="img/book.png" alt="q">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="padding-top: 15px;">Book</h4>
+                            <p style="">Book a taxi based on your preferred time and location.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 margin-top-20">
+                    <div class="media move-on-status">
+                        <div class="media-left media-middle">
+                            <a href="">
+                                <img class="media-object" src="img/unlock.png" alt="q">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="padding-top: 15px;">Unlock & Drive</h4>
+                            <p style="">When you find the taxi, unlock it through our web app and begin your trip.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 margin-top-20">
+                    <div class="media move-on-status">
+                        <div class="media-left media-middle">
+                            <a href="">
+                                <img class="media-object" src="img/return.png" alt="q">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading" style="padding-top: 15px;">Return</h4>
+                            <p style="">Park the taxi back at the same location, lock the taxi and end your trip.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" style="padding: 20px 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 embed-responsive embed-responsive-16by9">
+                    <iframe src="https://www.youtube.com/embed/sQWfhnl__q8"
+                            width="100%" height="100%" frameborder="0" style="border:0;margin-top: 20px;padding: 0" allowfullscreen>
+
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <iframe src="http://www.google.cn/maps/embed?pb=!1m14!1m12!1m3!1d127638.8064627345!2d103.82576233731994!3d1.3488812724637005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-CN!2scn!4v1508915499018"
+            width="100%" height="450px" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
+
+
+</div>
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        startDate: new Date()
+    });
+    $('.carousel').carousel({
+        interval: 3000
+    })
+</script>
+
+<script>
+
+    $(function () {
+        contentWayPoint();
+        contentWayPointLeft();
+        contentWayPointRight();
+        contentWayPointPulse();
+    });
+
+
+
+
+    var contentWayPoint = function() {
+        var i = 0;
+        $('.animate-box').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass(' animated  fadeInUp');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+
+    }
+
+
+    var contentWayPointLeft = function() {
+        var i = 0;
+        $('.animate-box-left').waypoint( function( direction ) {
+            if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function(){
+                    $('body .animate-box-left.item-animate').each(function(k){
+                        var el = $(this);
+                        setTimeout( function () {
+                            el.addClass('fadeInLeft animated');
+                            el.removeClass('item-animate');
+                        },  k * 200, 'easeInOutExpo' );
+                    });
+                }, 100);
+            }
+        } , { offset: '85%' } );
+
+    };
+
+    var contentWayPointRight = function() {
+        var i = 0;
+        $('.animate-box-right').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box-right.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass('fadeInRight animated');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+    }
+    var contentWayPointPulse = function() {
+        var i = 0;
+        $('.animate-box-pulse').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box-pulse.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass('pulse  animated');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+    }
+</script>

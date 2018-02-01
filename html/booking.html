@@ -1,0 +1,583 @@
+<!--标签盒子-->
+
+<div class="  padding-bottom-25  maincontent-bgc hidden-overflow-x">
+
+
+    <div class="step container hidden-xs">
+        <div class="row">
+            <div hidden class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a href="#/search">
+                                    <img class="media-object" src="img/1_red.png" alt="1">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Searching</h4>
+                                <p>Get the right taxi for you</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/2_red.png" alt="2">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Booking Details</h4>
+                                <p> Taxi details and payment</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/3_grey.png" alt="3">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Confirm & Reserved</h4>
+                                <p>Booking confirm information</p>
+                            </div>
+                            <div class="media-right" style="padding-left: 10px">
+                                <div style="width: 64px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="search-step">
+                    <li>
+                        <a href="#/search">
+                            <img src="img/step_1_selected.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+
+                    </li>
+                    <li>
+                        <a href="#/booking_deatils/{{carMsg.ID}}">
+                            <img src="img/step_2_selected.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_3_select.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <!--信息提示-->
+    <div class="hidden container margin-top-25" ng-if="tishiBox.isShow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <p style="font-size: 16px" ng-bind="tishiBox.msg">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--信息提示结尾-->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right margin-top-20">
+                <a href="#/booking_deatils/{{carMsg.ID}}" style="color: #787878">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    Back to Booking Details
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="timeTable margin-top-10">
+                    <div class="row">
+                        <div class="col-md-6 margin-top-20">
+
+                            <div class="my-box">
+                                <div class="box-body ">
+                                    <div class="row">
+                                        <div class="col-xs-12 box-body-thumb-wrap">
+                                            <img ng-src="{{carMsg.Photo}}" alt="thumb" class="box-body-thumb"/>
+                                        </div>
+                                        <div class="col-xs-12 margin-top-20">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <a class="booking-container ">
+                                                        <div class="booking-cilcle">
+                                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-8 msg-container">
+
+                                                    <div class="msg-show" style=" height:50px">
+                                                        <strong style="font-size: 20px">
+                                                            {{carMsg.Address}}
+                                                        </strong>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 margin-top-20">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <a class="booking-container ">
+                                                        <div class="booking-cilcle">
+                                                            <i class="fa fa-taxi"></i>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-8 msg-container">
+
+                                                    <div class="msg-show" style=" height:50px">
+                                                        <strong style="font-size: 20px">
+                                                            TAXI - {{carMsg.VehicleTypeName}}
+                                                        </strong><br>
+                                                        {{carMsg.Seats}} Seater [ {{carMsg.VehicleModelName}} - {{carMsg.Plate}} ]
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 margin-top-20" >
+
+                                            <div  style="border-top: 1px solid #181a1a">
+                                                <h4 class="margin-top-20" style="font-weight: bold">
+                                                    BOOKING INFO
+                                                </h4>
+                                                <div class="row margin-top-20">
+                                                    <div class="col-xs-6">
+                                                        <h5 class="" style="font-size: 16px;font-weight: bold;color: #e81e06">
+                                                            <i class="glyphicon glyphicon-time" style="color: #181a1a"></i>
+                                                            &nbsp;PICKUP
+                                                        </h5>
+                                                        <p  style="font-size: 16px;font-weight: bold">
+                                                                {{getHour(carPriceList.StartTimeHour)}} :00
+                                                        </p>
+                                                        <p style="font-size: 18px">
+                                                           {{getEnglishYearAppare(carPriceList.StartTimeHour)}}
+                                                        </p>
+
+                                                    </div>
+                                                    <div hidden class="col-xs-2 margin-top-20">
+                                                        <strong >
+                                                            <i class="fa fa-arrows-h"></i>
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <h5 class="" style="font-size: 16px;font-weight: bold;color: #e81e06">
+                                                            <i class="glyphicon glyphicon-time" style="color: #181a1a"></i>
+                                                            RETURN
+                                                        </h5>
+                                                        <p style="font-size: 16px;font-weight: bold">
+                                                            {{getHour(carPriceList.EndTimeHour)}} :00
+
+                                                        </p>
+                                                        <p style="font-size: 18px">
+                                                            {{getEnglishYearAppare(carPriceList.EndTimeHour)}}
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+
+                                                <h4 class="margin-top-20" style="">
+                                                    Total Booking time : {{carMsg.Duration > 1 ? carMsg.Duration + " hours" : carMsg.Duration + " hours"}}
+                                                </h4>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div ng-if="appContext.isAut" class="col-xs-12 margin-top-20">
+                                            <div  style="border-top: 1px solid #181a1a">
+                                                <h4 class="margin-top-20" style="font-weight: bold">
+                                                    E-WALLET CREDITS
+                                                    <span class="label label-dark">
+                                                        <a href="#/sidemenu/topup" style="color: #fff">
+                                                            TOP UP
+                                                        </a>
+                                                    </span>
+                                                </h4>
+
+                                                <table class="table table-no-border margin-top-20">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="left" style="font-size: 22px">
+                                                                Available Balance
+                                                            </td>
+                                                            <td class="right text-right" style="font-size: 22px">
+                                                                ${{appContext.userAccountMoney}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-xs-12 margin-top-20">
+                                            <div  style="border-top: 1px solid #181a1a">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 margin-top-20">
+                            <div class="my-box ">
+                                <div class="box-body  ">
+                                    <div class="row">
+                                        <div ng-if="isWaitting" class="loadPice col-md-12 text-center">
+                                            <img src="img/waiting.gif">
+                                        </div>
+
+                                        <div class="payPrice" ng-if="!isWaitting">
+
+                                            <!--个人账户-->
+                                            <div class="col-xs-12 myAccount">
+                                                <div hidden class="promoCode">
+                                                    <table class="table table-no-border">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="left text-left">
+                                                                <strong>Promo Code</strong>
+                                                            </td>
+                                                            <td class="right text-right" style="width: 50%">
+                                                                <input type="text" class="form-control "
+                                                                       ng-model="carMsg.PromoCode"
+                                                                       style="padding:0 6px;height:28px;font-size: 18px">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                <span class="tishi-msg col-xs-12 glyphicon {{errorMsg.PromoCodeSpan}}">&nbsp;{{errorMsg.PromoCodeMsg}}</span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                                <div class="wrap">
+                                                    <div class="my-account-header">
+                                                        <b>
+                                                                OPTIONAL ADD-ONS
+                                                        </b>
+                                                    </div>
+
+
+                                                    <div class="my-account-body">
+                                                        <!--保险费率-->
+                                                        <div class="insurance countPrice" ng-if="!isWaitting">
+                                                            <div class="form-group row" ng-repeat="item2 in insuranceList">
+                                                                <div class="col-xs-11 col-xs-offset-1">
+                                                                    <div class="checkbox">
+                                                                        <label style="padding-right: 20px">
+                                                                            <input name="insuranceType" type="checkbox" value="{{item2.ID}}" id="insuranceCheck{{item2.ID}}" checked>
+                                                                                 <strong style="font-size: 18px">{{appContext.AERString}}</strong><br>
+                                                                                {{item2.Remarks}}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-xs-12">
+                                                                    <div class="totalPrice">
+                                                                        <table class="table">
+                                                                            <tbody>
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!--保险费率END-->
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="wrap margin-top-20" style="border: 2px solid #2d2d2d">
+                                                    <div class="my-account-header" style="background-color: #2d2d2d">
+                                                        <b>
+                                                           RENTAL SUMMARY
+                                                        </b>
+                                                    </div>
+                                                    <div class="my-account-body">
+
+                                                        <div class="row">
+                                                            <!--计算价格-->
+                                                            <div class="col-xs-12 countPrice">
+                                                                <div class="top">
+                                                                    <table class="table table-no-border">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td class="text-left" style="color: #e81e06;font-weight: bold;font-size: 14px">
+                                                                                RENTAL
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr ng-repeat="item in carPriceList.Report">
+                                                                            <td class="left">
+                                                                                <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
+                                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} *
+                                                                                {{item.TotalHour >1 ?
+                                                                                (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
+                                                                            </td>
+                                                                            <td class="right text-right">
+                                                                                <br>
+                                                                                ${{(item.Price/100).toFixed(2)}}
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr ng-if="carPriceList.CleaningFee > 0">
+                                                                            <td class="left">
+                                                                                <strong>Cleaning Fee</strong><br>
+                                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} *
+                                                                                {{carMsg.Duration >1 ?
+                                                                                (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}
+                                                                            </td>
+                                                                            <td class="right text-right">
+                                                                                <br>
+                                                                                ${{((carPriceList.CleaningFee*carMsg.Duration)/100).toFixed(2)}}
+                                                                            </td>
+                                                                        </tr>
+
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="" style="border-top: 1px solid #787878">
+                                                                    <table class="table table-no-border">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-left" style="color: #e81e06;font-weight: bold;font-size: 14px">
+                                                                                    COST
+                                                                                </td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td class="left">
+                                                                                    <b>Rental Total</b>
+                                                                                </td>
+                                                                                <td class="right text-right">
+                                                                                    ${{(carPriceList.BookingTotal/100).toFixed(2)}}
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="left">
+                                                                                    <b>{{appContext.AERString}}</b>
+                                                                                </td>
+                                                                                <td class="right text-right" id="totalInsurance">
+                                                                                    ${{(insuranceMsg.totalPrice*carMsg.Duration/100).toFixed(2)}}
+                                                                                </td>
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+
+                                                            </div>
+                                                            <!--计算价格End-->
+
+
+                                                            <!--总价格-->
+                                                            <div class="col-xs-12 countPrice">
+                                                                <div class="" style="border-top: 1px solid #787878">
+                                                                    <table class="table table-no-border">
+                                                                        <tbody>
+                                                                        <tr ng-if="appContext.promoData.TotalPreferential">
+                                                                            <td class="left">
+                                                                                <b>Discount</b>
+                                                                            </td>
+                                                                            <td class="right text-right">
+                                                                                $-{{((appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)).toFixed(2)}}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="left" style="color: #e81e06;font-weight: bold;font-size: 14px">
+                                                                                <b>TOTAL TO BE PAID</b>
+                                                                            </td>
+                                                                            <td class="right text-right" id="totalFees" style="font-size:36px;font-weight: bold">
+                                                                                ${{((totalFees/100) - (appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)).toFixed(2)}}
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td class="text-right" colspan="2" style="font-size: 14px">
+                                                                                Includes taxes and surcharges
+                                                                            </td>
+                                                                        </tr>
+
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                            <!--总价格END-->
+                                                        </div>
+
+
+
+
+                                                        <table hidden class="table table-no-border">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="left">
+                                                                    <b>Available</b>
+                                                                </td>
+                                                                <td class="right text-right">
+                                                                    ${{appContext.userAccountMoney}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="left">
+                                                                    <b>Total Fees</b>
+                                                                </td>
+                                                                <td class="right text-right">
+                                                                    $-{{(totalFees/100).toFixed(2)}}
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="left">
+                                                                    <b>Discount</b>
+                                                                </td>
+                                                                <td class="right text-right">
+                                                                    $+{{((appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)).toFixed(2)}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="balance"
+                                                                ng-class="{'red-font':(appContext.userAccountMoney - (totalFees/100) +(appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)) <= 0}">
+                                                                <td class="left ">
+                                                                    <b>Balance</b>
+                                                                </td>
+                                                                <td class="right text-right ">
+                                                                    ${{(appContext.userAccountMoney -
+                                                                    (totalFees/100) +
+                                                                    (appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)
+                                                                    ).toFixed(2)}}
+                                                                </td>
+                                                            </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--个人账户End-->
+
+
+                                            <!--结算-->
+                                            <div class="col-xs-12">
+                                                <div ng-if="!appContext.isAut">
+                                                    <button ng-click="goToLogin()" class="btn btn-success btn-block">
+                                                        <b> LOG IN</b>
+                                                    </button>
+                                                </div>
+                                                <div ng-if="appContext.isAut&& (appContext.userAccountMoney - (totalFees/100) +(appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0))>0"
+                                                     class="col-xs-12 booking">
+                                                    <div class="form-group">
+                                                        <div class="agreeMe">
+                                                            <label>
+                                                                <input ng-model="appContext.isAgreeMe" type="checkbox">
+                                                                I agree to the <a href="#/terms" target="_blank">terms and
+                                                                conditions</a>
+                                                                as stated in the website.
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <a id="booking" class="btn btn-orange btn-block" style="color:#181a1a;font-weight: bold;"
+                                                       ng-click="bookingTheCar()"
+                                                       style="color: #fff;font-weight: bold">MAKE PAYMENT</a>
+                                                </div>
+                                            </div>
+
+                                            <!--结算End-->
+
+                                            <div ng-if="appContext.isAut" class="col-xs-12">
+                                                <table class="table table-no-border">
+                                                    <tbody>
+                                                    <tr ng-if="(appContext.userAccountMoney - (totalFees/100) +(appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0))<=0"
+                                                        id="noMoreMoney" class="noMoreMoney">
+                                                        <td colspan="2">
+                                                            * Insufficient Credits in your e-Wallet,
+                                                            <span class="label label-warning">
+                                                                <a href="#/sidemenu/topup" style="color: #fff">
+                                                                    click here
+                                                                </a>
+                                                            </span>
+                                                             &nbsp;to top up.
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<!--标签盒子结尾-->

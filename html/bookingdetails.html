@@ -1,0 +1,453 @@
+<div class="  maincontent-bgc hidden-overflow-x"
+     style="padding-bottom: 100px">
+
+    <!--等待加载完成gif-->
+    <div ng-if="isWaitting" class="container-fluid margin-top-25">
+        <div class="pic-center-wrap col-md-12 col-sm-12 col-xs-12">
+            <img src="img/waiting.gif">
+        </div>
+    </div>
+    <!--等待加载完成gif结尾-->
+
+
+    <!--信息提示-->
+    <div class="container margin-top-25" style="margin-bottom: 300px" ng-if="tishiBox.isShow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <p ng-bind="tishiBox.msg" style="font-size: 16px">
+                        Comfirm 3 booking per week and get 50% off the 4th booking !
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--信息提示结尾-->
+
+    <div ng-if="!tishiBox.isShow" class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="my-box my-box-top-border margin-top-20">
+                    <div class="box-header">
+                        <h4 class="box-header-title text-center">Reservation No:{{bookingMsg.list.LeaseNumber}}</h4>
+                        <h4 class="box-header-title text-center">Vehical:{{ bookingMsg.list.VehicleModels +'('+bookingMsg.list.VehicleName+')'}}</h4>
+                    </div>
+                    <div class="box-body  my-box-boundary">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 box-body-thumb-wrap">
+                                <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
+                            </div>
+                            <div class="col-md-12 ">
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">Pickup Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{bookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(bookingMsg.list.LeaseStartTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{bookingMsg.list.LeaseStartTime}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop off
+                                    Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{bookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(bookingMsg.list.LeaseEndTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{bookingMsg.list.LeaseEndTime}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Duration</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <p>
+                                                    {{bookingMsg.duration - bookingMsg.list.RenewalDuration}} hrs
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Extension</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{bookingMsg.list.RenewalDuration}} {{bookingMsg.list.RenewalDuration > 1 ? 'hrs' : 'hr'}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+
+                                            <div ng-if="bookingMsg.list.LeaseStatus!=0"
+                                                 class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                                <div class=" btn-group btn-group-justified">
+                                                    <div class=" btn-group ">
+                                                        <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                            NEED HELP ? &nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a ng-click="goToReportIssue()">REPORT ISSUE</a></li>
+                                                            <!--<li><a ng-click="goToBreakDown('Report Break Down')">Break down</a></li>-->
+                                                            <!--<li><a ng-click="goToBreakDown('Report Accident')">Accident</a></li>-->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-6 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==0">
+                                                <a class="btn btn-block btn-success" href="#/sidemenu/extendBooking/{{bookingMsg.list.LeaseNumber}}"
+                                                   style="color: #fff">
+                                                    Extend Trip
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6 margin-top-20 col-sm-6 col-xs-6"
+                                                 ng-if="bookingMsg.list.LeaseStatus==0">
+                                                <a class="btn btn-block btn-success " role="button" ng-click="getCanStartTrip()"
+                                                   style="color: #fff">
+                                                    Start Trip
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6  col-sm-6 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
+                                                <a class="btn btn-block btn-danger" data-toggle="modal" data-target="#issuerCancelTrip"
+                                                   style="color: #fff">
+                                                    Cancel Trip
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="payPrice ">
+
+                                <!--个人账户-->
+                                <div class="col-md-12 myAccount margin-top-25">
+                                    <div class="wrap">
+                                        <div class="my-account-header">
+                                            <b>
+                                                Trip Details
+                                            </b>
+                                        </div>
+                                        <div class="my-account-body">
+                                            <table class="table table-no-border">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Status</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        {{bookingMsg.list.LeaseStatusName}}
+                                                    </td>
+                                                </tr>
+                                                <!--订单费用-->
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Rental Total</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential - bookingMsg.list.TotalPremium)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--保险费用-->
+                                                <tr ng-if="bookingMsg.list.TotalPremium > 0 ">
+                                                    <td class="left">
+                                                        <b>{{appContext.AERStringAD}}</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{(bookingMsg.list.TotalPremium/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--清洁费用-->
+                                                <tr hidden ng-if="bookingMsg.list.CleaningFee > 0">
+                                                    <td class="left">
+                                                        <b>Cleaning Fee</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{(bookingMsg.list.CleaningFee/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--优惠的价格-->
+                                                <tr ng-if="bookingMsg.fees.TotalPreferential > 0">
+                                                    <td class="left">
+                                                        <b>Discount</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $+{{(bookingMsg.fees.TotalPreferential/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--续订费用-->
+                                                <tr ng-if="bookingMsg.renewFees && bookingMsg.renewFees != null">
+                                                    <td class="left">
+                                                        <b>ExtensionFees</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{(bookingMsg.list.RenewalMount/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--迟还费用-->
+                                                <tr ng-if="bookingMsg.lateView && bookingMsg.lateView != null && bookingMsg.lateView.Price >0">
+                                                    <td class="left">
+                                                        <b>LateFees</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{(bookingMsg.lateView.Price/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!--取消费用-->
+                                                <tr ng-if="bookingMsg.leaseCancelView && bookingMsg.leaseCancelView!= null">
+                                                    <td class="left">
+                                                        <b>Cancel Return</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                         $+{{((bookingMsg.fees.BookingTotal + bookingMsg.list.RenewalMount - bookingMsg.leaseCancelView.LeaseCancelMount)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--个人账户End-->
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-left "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/mybookings">
+                                    To Bookings
+                                </a>
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-right "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/search">
+                                    New Booking
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="my-box my-box-top-border margin-top-20" id="adressMap">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Map</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme">
+                        <div class="map-area" style="height: 300px;">
+                            <iframe id="mapFrame"
+                                    width="100%" height="300" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-box my-box-top-border margin-top-20 ">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme2" aria-controls="isme2"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Address, Directions to vehicle</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme2">
+                        <div class="map-area" style="">
+                            <div class="map-area" style="">
+                                <p>{{bookingMsg.list.Location}}</p>
+                                <p>
+                                    {{bookingMsg.list.Remarks}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div hidden class="timeTable margin-top-25">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
+                                    <button class="btn btn-block btn-success">
+                                        START TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0 || bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
+                                    <button class="btn btn-block btn-warning">
+                                        END TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
+                                    <button class="btn btn-block btn-warning">
+                                        EXTEND TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20 " ng-if="bookingMsg.list.LeaseStatus!=3">
+                                    <div class=" btn-group btn-group-justified">
+                                        <div class=" btn-group ">
+                                            <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                NEED HELP ? &nbsp;&nbsp;<span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Report issue</a></li>
+                                                <li><a href="#">Break down</a></li>
+                                                <li><a href="#">Accident</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
+                                    <button class="btn btn-block btn-danger">
+                                        CANCEL
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 col-sm-6 text-left "
+                             style="margin-top: 20px ;">
+                            <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/mybookings">
+                                Back to Bookings
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 col-sm-6 text-right "
+                             style="margin-top: 20px ;">
+                            <a style="font-size: 16px;font-weight: bold;" href="#/search">
+                                Start a new booking
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!--提示模态框-->
+<div class="example-modal">
+    <div class="modal modal-default fade" id="issuerCancelTrip" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Are you sure you will cancel the booking ?</h4>
+                </div>
+                <div class="modal-body" style="">
+
+                    <div class="form-group">
+                        <label for="cancel_reason">Cancel Reason</label>
+                        <select ng-model="appContext.endTrip.LeaseCancelReason" id="cancel_reason"  class="form-control">
+                            <option value="0">I just want to cancel!</option>
+                            <option ng-repeat="item in appContext.CancelReasons" value="{{item.ID}}">{{item.LeaseCancelReason}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason_description">Description of the Reason</label>
+                        <textarea id="reason_description" ng-model="appContext.endTrip.Memo" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <p style="font-size: 16px">
+                        <strong>Note:</strong>
+                        If you cancel the order, we will charge a certain fee!If you want to learn more, click <a ng-click="goToFaqCancelAq()"> here</a>.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success"  data-dismiss="modal">No</a>
+                    <a type="button" class="btn btn-danger" ng-click="cancelTrip()">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--提示模态框结尾-->

@@ -1,0 +1,84 @@
+<div class="container-fluid good-padding-bottom-l">
+    <div class="row">
+        <div class="col-md-12 ">
+            <!--Issue Report Status-->
+            <div ng-repeat="item in appContext.issueStausObj" class="my-box my-box-top-border margin-top-20 ">
+                <div class="box-header">
+                    <h4 class="box-header-title">Issue Report Status</h4>
+                </div>
+                <div class="box-body my-box-boundary topup " style="margin-left: 20px ;margin-right: 20px;">
+                    <div ng-if="item.IsHandlerName" class="row ">
+                        <div class="col-xs-6 col-md-4">
+                            <strong>Status</strong>
+                        </div>
+                        <div class="col-xs-6 col-md-8">
+                            <p style="margin-left: 10px">
+                                {{item.IsHandlerName}}
+                            </p>
+                        </div>
+                    </div>
+                    <div ng-if="item.IssueType" class="row ">
+                        <div class="col-xs-6 col-md-4">
+                            <strong>Issue Type</strong>
+                        </div>
+                        <div class="col-xs-6 col-md-8">
+                            <p style="margin-left: 10px">
+                                {{item.IssueType}}
+                            </p>
+                        </div>
+                    </div>
+                    <div hidden class="row ">
+                        <div class="col-xs-6 col-md-4">
+                            <strong>SubTitle</strong>
+                        </div>
+                        <div class="col-xs-6 col-md-8">
+                            {{}}
+                        </div>
+                    </div>
+
+                    <div ng-if="item.Remarks" class="row">
+                        <div class="col-xs-6 col-md-4">
+                            <strong>Description of the Issue</strong>
+                        </div>
+                        <div class="col-xs-6 col-md-8">
+                            <p style="margin-left:10px">
+                                {{item.Remarks}}
+                            </p>
+                        </div>
+                    </div>
+                    <div ng-if="item.IssuePhoto1" class="row">
+                        <div class="col-md-4">
+                            <strong>Photographic Evidence</strong>
+                        </div>
+                        <div class="col-md-8 margin-top-10">
+                            <img  ng-src="{{item.IssuePhoto1}}" alt="evidence-photo" style="height: 140px;margin-left: 10px">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Issue Report Status end-->
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <div hidden class="row margin-top-25">
+        <div class="col-md-12" ng-if="tishiBox.isShow">
+            <div class="alert {{tishiBox.color}} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 style="font-size: 18px" ng-bind="tishiBox.title"></h4>
+                <p style="font-size: 16px" ng-bind="tishiBox.msg">
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,81 @@
+<div class="some-thing-to-show main-content" style="">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="my-profile-header">
+                <div class="content-level-nav">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="padding: 0">
+        <div class="row margin-top-20 margin-bottom-20">
+
+            <div class="col-md-4">
+                <div class="img-show" style="text-align: center">
+                    <img src="img/my_profile_1.png" style="height: 400px">
+                </div>
+            </div>
+
+            <div class="col-md-8  msg-container">
+
+                <div class="msg-show" style=" height:400px;width: 80%;padding-left: 30px">
+                    <h4 class="my-profile-driver-title">
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                        &nbsp;&nbsp;Driver's Profile
+                    </h4>
+                    <div style="padding: 20px ;border: 1px solid #dcdcdc">
+                        <table class="table table-no-border my-profile-personal-msg">
+                            <tbody>
+                            <tr>
+                                <td class="left">
+                                    <strong>Name</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>NRIC</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.NRIC}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>Contact</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Phone}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>Email</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Email}}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <a href="#/sidemenu/editprofile" class="btn btn-dark">EDIT PROFILE</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

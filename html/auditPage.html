@@ -1,0 +1,76 @@
+<div class="audit-page-bgi main-content">
+    <div class="step container" style="background-color: rgba(255,255,255,0.7);">
+        <div class="row">
+            <div class="col-xs-11 col-xs-offset-1 ">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/1_red.png" alt="1">
+                                </a>
+                            </div>
+                            <div class="media-body hidden-xs hidden-sm">
+                                <h4 class="media-heading" style="margin-top: 10px">First Step</h4>
+                                <p>Basic Information</p>
+                            </div>
+                            <div class="media-right hidden-xs">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/2_red.png" alt="2">
+                                </a>
+                            </div>
+                            <div class="media-body hidden-xs hidden-sm">
+                                <h4 class="media-heading" style="margin-top: 10px">Second Step</h4>
+                                <p>Personal Information</p>
+                            </div>
+                            <div class="media-right hidden-xs">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/3_red.png" alt="3">
+                                </a>
+                            </div>
+                            <div class="media-body hidden-xs hidden-sm">
+                                <h4 class="media-heading" style="margin-top: 10px">Third Step</h4>
+                                <p>Assessment</p>
+                            </div>
+                            <div class="media-right hidden-xs" style="padding-left: 10px">
+                                <div style="width: 64px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="waitObj.isShowAll" class="container margin-top-25" style="margin-bottom: 250px">
+        <div class="pic-center-wrap col-md-12 col-sm-12 col-xs-12 audit-page-msg">
+            <h3 ng-bind="waitObj.title" style="color:#5cb85c "></h3>
+            <img src="img/waiting.gif" class="margin-top-20" ng-if="waitObj.isShowWaitImg">
+            <div class="margin-top-20" ng-if="waitObj.isShowlockBtn">
+                <i class="glyphicon glyphicon-thumbs-up" style="font-size: 64px;color: #5cb85c"></i><br>
+            </div>
+            <h4 class="margin-top-20" ng-bind="waitObj.msg"></h4>
+            <a href="#/login" class="btn btn-success">Login In</a>
+        </div>
+    </div>
+</div>

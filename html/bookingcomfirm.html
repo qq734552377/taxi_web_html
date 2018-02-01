@@ -1,0 +1,418 @@
+<div class="  maincontent-bgc hidden-overflow-x"
+     style="padding-bottom: 100px">
+    <div class="step hidden-xs container" >
+        <div class="row">
+            <div hidden class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a href="#/search">
+                                    <img class="media-object" src="img/1_red.png" alt="1">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Searching</h4>
+                                <p>Get the right taxi for you</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/2_red.png" alt="2">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Booking Details</h4>
+                                <p> Taxi details and payment</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/3_red.png" alt="3">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Confirm & Reserved</h4>
+                                <p>Booking confirm information</p>
+                            </div>
+                            <div class="media-right" style="padding-left: 10px">
+                                <div style="width: 64px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div hidden class="col-md-12">
+                <ul class="search-step">
+                    <li>
+                        <a href="#/search">
+                            <img src="img/step_1_selected.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_2_selected.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_3_select.jpg" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--等待加载完成gif-->
+    <div ng-if="isWaitting" class="container-fluid margin-top-25">
+        <div class="pic-center-wrap col-md-12 col-sm-12 col-xs-12">
+            <img src="img/waiting.gif">
+        </div>
+    </div>
+    <!--等待加载完成gif结尾-->
+
+
+    <!--信息提示-->
+    <div class="container margin-top-25" ng-if="tishiBox.isShow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <p ng-bind="tishiBox.msg" style="font-size: 16px">
+                        Comfirm 3 booking per week and get 50% off the 4th booking !
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--信息提示结尾-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="my-box my-box-top-border margin-top-20">
+                    <div class="box-header">
+                        <h4 class="box-header-title text-center">Reservation No:{{lastBookingMsg.list.LeaseNumber}}</h4>
+                        <h4 class="box-header-title text-center">Vehical:{{bookingMsg.list.VehicleModels +'('+lastBookingMsg.list.VehicleName+')'}}</h4>
+                    </div>
+                    <div class="box-body  my-box-boundary">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-xs-12 box-body-thumb-wrap">
+                                <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
+                            </div>
+                            <div class="col-md-12 ">
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">Pickup Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{lastBookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseStartTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{lastBookingMsg.list.LeaseStartTime}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop off
+                                    Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{lastBookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseEndTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{lastBookingMsg.list.LeaseEndTime}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-6  ">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Duration</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center" >
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{lastBookingMsg.duration}} hrs
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-xs-6  ">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Extension</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{lastBookingMsg.list.RenewalDuration}} {{lastBookingMsg.list.RenewalDuration > 1 ? 'hrs' : 'hr'}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="payPrice">
+
+                                <!--个人账户-->
+                                <div class="col-md-12 myAccount">
+                                    <div class="wrap">
+                                        <div class="my-account-header">
+                                            <b>
+                                                Charges
+                                            </b>
+                                        </div>
+                                        <div class="my-account-body">
+                                            <table class="table table-no-border">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Available</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        ${{((lastBookingMsg.list.LastAmount + lastBookingMsg.list.LeaseMount)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                               <!-- 租赁费用-->
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Rental Total</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.LeaseMount + lastBookingMsg.fees.TotalPreferential - lastBookingMsg.list.TotalPremium )/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 保险费用-->
+                                                <tr ng-if="lastBookingMsg.list.TotalPremium > 0">
+                                                    <td class="left">
+                                                        <b>{{appContext.AERStringAD}}</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                         $-{{((lastBookingMsg.list.TotalPremium/100)).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 清洁费用-->
+                                                <tr hidden ng-if="lastBookingMsg.list.CleaningFee > 0">
+                                                    <td class="left">
+                                                        <b>Cleaning Fee</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.CleaningFee/100)).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+
+                                                <!--优惠码价格-->
+                                                <tr ng-if="lastBookingMsg.fees.TotalPreferential > 0">
+                                                    <td class="left">
+                                                        <b>Discount</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                         $+{{(lastBookingMsg.fees.TotalPreferential/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="balance" ng-class="{'red-font':(lastBookingMsg.list.LastAmount/100) <= 0}">
+                                                    <td class="left ">
+                                                        <b>Balance</b>
+                                                    </td>
+                                                    <td class="right text-right ">
+                                                        ${{(lastBookingMsg.list.LastAmount/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--个人账户End-->
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-left "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/account">
+                                    To Account
+                                </a>
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-right "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/search">
+                                    New Booking
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="my-box my-box-top-border margin-top-20" id="adressMap">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Map</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme">
+                        <div class="map-area" style="height: 300px;">
+                            <iframe id="mapFrame"
+                                    width="100%" height="300" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-box my-box-top-border margin-top-20 ">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme2" aria-controls="isme2"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Address, Directions to vehicle</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme2">
+                        <div class="map-area" style="">
+                            <div class="map-area" style="">
+                                <p>{{lastBookingMsg.list.Location}}</p>
+                                <p>
+                                    {{lastBookingMsg.list.Remarks}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div hidden class="timeTable margin-top-25">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center table-title">
+                                <h4 style="font-weight: bold"></h4>
+                            </div>
+                            <table class="table-time">
+                                <thead>
+                                <tr>
+                                    <th ng-repeat="item in timeTable.times" ng-bind="item"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td ng-repeat="item in timeTable.bgcolors" class="{{item.bgcClass}}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-8 col-md-offset-2 margin-top-20 col-xs-10 col-xs-offset-1">
+                            <button class="btn btn-block btn-success" >
+                                Sucess<br>
+                                <small>Your car has benn booked</small>
+                            </button>
+                        </div>
+
+                        <div class="col-md-8 col-md-offset-2 text-right col-xs-10 col-xs-offset-1"
+                             style="margin-top: 10px ;">
+                            <a style="font-size: 16px;font-weight: bold;" href="#/search">
+                                More Booking
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

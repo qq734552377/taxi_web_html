@@ -1,0 +1,704 @@
+<div class="container-fluid">
+
+    <div class="margin-top-25 good-margin-bottom-l">
+
+        <div class="row">
+            <div class="col-md-6" >
+                <!--Profile-->
+                <div class="my-box my-box-top-border margin-top-20 ">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title"><i class="glyphicon glyphicon-user"></i>&nbsp;Profile</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme">
+                        <table class="table table-no-border profile-ps">
+                            <tbody>
+                            <tr>
+                                <td class="left">
+                                    <strong>Name</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>NRIC</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.NRIC}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>Contact</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Phone}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>Email</strong>
+                                </td>
+                                <td class="right">
+                                    {{appContext.userMsg.Email}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong>Balance</strong>
+                                </td>
+                                <td class="right">
+                                    $ {{appContext.userAccountMoney}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row margin-top-25">
+                            <div class="col-md-12" ng-if="tishiBox.isShow">
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 style="font-size: 18px" ng-bind="tishiBox.title"></h4>
+                                    <p style="font-size: 16px" ng-bind="tishiBox.msg">
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-box-boundary" style="padding: 15px 0">
+                            <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/editprofile">Edit Profile</a>
+                            <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/topup">Top Up</a>
+                            <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/wallet">View History</a>
+                            <a ng-if="appContext.userMsg.UserStatus=='Fail'" class="btn btn-success" role="button" href="#/signup_f">Sign Up Again</a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--Profile end-->
+            </div>
+            <div class="col-md-6" hidden>
+                <!--wallet-->
+                <div class="my-box my-box-top-border margin-top-20 ">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme2" aria-controls="isme2"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title"><i class="glyphicon glyphicon-usd"></i>&nbsp;E-Wallet</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme2">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <p>Your Balance</p>
+                                <h2>$ 50.00</h2>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+
+                            </div>
+                        </div>
+                        <div class="my-box-boundary" style="padding: 15px 0">
+                            <a class="btn btn-primary" role="button" href="#/sidemenu/topup">Top Up</a>
+                            <a class="btn btn-primary" role="button" href="#/sidemenu/wallet">View History</a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--wallet end-->
+            </div>
+
+            <div class="col-md-6" ng-if="appContext.lastBooking ">
+                <div class="my-box my-box-top-border margin-top-20" >
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme3" aria-controls="isme3"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 ng-if="appContext.lastBooking.list.LeaseStatus==1" class="box-header-title"><i
+                                class="glyphicon"></i>&nbsp;Current Booking</h4>
+                        <h4 ng-if="appContext.lastBooking.list.LeaseStatus==0" class="box-header-title"><i
+                                class="glyphicon"></i>&nbsp;Today Booking</h4>
+                    </div>
+                    <div class="box-body  my-box-boundary collapse in" id="isme3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Your
+                                    Vehicle</h5>
+
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <p>{{appContext.lastBooking.list.VehicleModels}} (
+                                                    {{appContext.lastBooking.list.VehicleName}} )</p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <p>{{appContext.lastBooking.list.VehicleType}} |
+                                                    {{appContext.lastBooking.list.VehicleSeats}} seater</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!--<div class="col-sm-12 col-md-12 col-xs-12 box-body-thumb-wrap">-->
+                            <!--<img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>-->
+                            <!--</div>-->
+                            <div class="col-md-12" ng-if="appContext.lastBooking.list.LeaseStatus==1">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Time
+                                    Remaining</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p ng-class="{'warn-color':remainingTime.isTimeout}" style="font-weight: bold;">
+                                           <i class="glyphicon glyphicon-minus" style="font-size: 8px"  ng-if="remainingTime.isTimeout"></i>{{ remainingTime.day > 0 ? (remainingTime.day + 'day ') : (' ')}}{{remainingTime.hour}} hr {{remainingTime.min}} min {{remainingTime.second}} s
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 ">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Pickup
+                                    Details</h5>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <a data-toggle="modal" data-target="#mapModal">
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a data-toggle="modal" data-target="#mapModal" style="cursor: pointer">
+                                            {{appContext.lastBooking.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(appContext.lastBooking.list.LeaseStartTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{appContext.lastBooking.list.LeaseStartTime}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop
+                                    off
+                                    Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <a data-toggle="modal" data-target="#mapModal">
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a data-toggle="modal" data-target="#mapModal" style="cursor: pointer">
+                                            {{appContext.lastBooking.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa " ng-class="isDayOrNight(appContext.lastBooking.list.LeaseEndTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{appContext.lastBooking.list.LeaseEndTime}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==0" class=" col-xs-6">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">
+                                            Duration</h5>
+
+                                        <div class="row">
+                                            <div class=" col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{appContext.lastBooking.duration - appContext.lastBooking.list.RenewalDuration}} hrs
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==0" class="col-xs-6">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">
+                                            Extension</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-9">
+                                                <p>
+                                                    {{appContext.lastBooking.list.RenewalDuration}} {{appContext.lastBooking.list.RenewalDuration > 1 ? 'hrs' : 'hr'}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==1"
+                                         class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <div class=" btn-group btn-group-justified">
+                                            <div class=" btn-group ">
+                                                <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    NEED HELP ? &nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a ng-click="goToReportIssue()">REPORT ISSUE</a></li>
+                                                    <!--<li><a ng-click="goToBreakDown('Report Break Down')">Break down</a></li>-->
+                                                    <!--<li><a ng-click="goToBreakDown('Report Accident')">Accident</a></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==0"
+                                         class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+
+                                        <a class="btn btn-block btn-warning " role="button"
+                                           href="#/bookingdetails/{{appContext.lastBooking.list.LeaseNumber}}"
+                                           style="color: #fff">
+                                            View Booking
+                                        </a>
+                                    </div>
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==0"
+                                         class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+
+                                        <a class="btn btn-block btn-success " role="button" ng-click="getCanStartTrip()"
+                                           style="color: #fff">
+                                            Start Trip
+                                        </a>
+                                    </div>
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==1 "
+                                         class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <a class="btn btn-block btn-success" href="#/sidemenu/extendBooking/{{appContext.lastBooking.list.LeaseNumber}}"
+                                           style="color: #fff">
+                                            Extend Trip
+                                        </a>
+                                    </div>
+
+                                    <div ng-if="appContext.lastBooking.list.LeaseStatus==1"
+                                         class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <button class="btn btn-block btn-danger " data-toggle="modal" data-target="#issuerEndTrip"
+                                                style="color: #fff">
+                                            End Trip
+                                        </button>
+                                    </div>
+
+                                    <div hidden class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <button class="btn btn-block btn-danger">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6" hidden>
+                <div class="my-box my-box-top-border margin-top-20">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme4" aria-controls="isme3"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title"><i class="glyphicon"></i>&nbsp;Today Booking</h4>
+                    </div>
+                    <div class="box-body  my-box-boundary collapse in" id="isme4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Your
+                                    Vehicle</h5>
+
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <p>Toyota Prius (SHC4656X)</p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <p>Petrol Hybrid | (4 seater)</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!--<div class="col-sm-12 col-md-12 col-xs-12 box-body-thumb-wrap">-->
+                            <!--<img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>-->
+                            <!--</div>-->
+                            <div class="col-md-12" hidden>
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Time
+                                    Remaining</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p >
+                                            {{remainingTime.hour}} hr {{remainingTime.min}} min {{remainingTime.second}} s
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 ">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Pickup
+                                    Details</h5>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a>
+                                            354 Admiralty Dr, Singapore 750354
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            2017-08-04 15:00
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop
+                                    off
+                                    Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a>
+                                            354 Admiralty Dr, Singapore 750354
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            2017-08-14 15:00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">
+                                    Duration</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            4 hrs
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">
+                                    Extension</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                        <p>
+                                            <i class="glyphicon glyphicon-time"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            4 hrs
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div hidden class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <div class=" btn-group btn-group-justified">
+                                            <div class=" btn-group ">
+                                                <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    NEED HELP ? &nbsp;&nbsp;&nbsp;<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Report issue</a></li>
+                                                    <li><a href="#">Break down</a></li>
+                                                    <li><a href="#">Accident</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+
+                                        <button class="btn btn-block btn-warning ">
+                                            VIEW BOOKING
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+
+                                        <button class="btn btn-block btn-success " data-toggle="modal"
+                                                data-target="#moTaiTishiBox">
+                                            START TRIP
+                                        </button>
+                                    </div>
+                                    <div hidden class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <button class="btn btn-block btn-warning">
+                                            Extend Trip
+                                        </button>
+                                    </div>
+                                    <div hidden class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <button class="btn btn-block btn-danger ">
+                                            END TRIP
+                                        </button>
+                                    </div>
+
+                                    <div hidden class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                        <button class="btn btn-block btn-danger">
+                                            CANCEL TRIP
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12" ng-if="!appContext.lastBooking && appContext.userMsg.UserStatus=='Success'">
+                <div  class="margin-top-20">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <p style="font-size: 16px">
+                            You do not have any bookings today. Click <a href="#/search" class="label label-danger">here</a> to make a booking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row time-box-wrap" hidden>
+            <div class="col-md-6 margin-top-20">
+                <div class="row">
+                    <div class="col-xs-1" ng-repeat="item in timeBox.firstBackground">
+                        <div class="time-box-div {{item.bgcClass}}">{{item.string}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 margin-top-20">
+                <div class="row">
+                    <div class="col-xs-1" ng-repeat="item in timeBox.secondBackground">
+                        <div class="time-box-div {{item.bgcClass}}">{{item.string}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</div>
+
+
+<!--提示模态框-->
+<div class="example-modal">
+    <div class="modal modal-default fade" id="issuerEndTrip" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Before you end your trip </h4>
+                </div>
+                <div class="modal-body" style="">
+                    <p style="font-size: 16px">Are you parked at the designated lots @ {{appContext.lastBooking.list.Number}}, Lots Any lot withing deck {{appContext.lastBooking.list.Number}}
+                        ?</p>
+                    <form style="margin-left: 30px">
+                        <div class="radio" style="font-size: 16px" >
+                            <label>
+                                <input type="radio" ng-value=true ng-model="appContext.endTrip.isDesignLocation"  name="know">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="radio" style="font-size: 16px">
+                            <label>
+                                <input type="radio"ng-value=false ng-model="appContext.endTrip.isDesignLocation"  name="know">
+                                No
+                            </label>
+                        </div>
+
+                        <div class="form-group" ng-if="!appContext.endTrip.isDesignLocation">
+                            <textarea id="form_description" required="required"
+                                      placeholder="Please indicate where you parked. (e.g: Deck {{appContext.lastBooking.list.Number}})"
+                                      class="form-control" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success" ng-click="goToEndtrip()">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--提示模态框结尾-->
+
+
+<!--位置提示模态框-->
+<div class="example-modal">
+    <div class="modal modal-default fade" id="mapModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="update_title">Taxi Location</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <div style="height: 300px; ">
+                        <iframe id="mapFrame"
+                                width="100%" height="300" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold;text-align: left">
+                                Address
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p style="text-align: left">
+                                        {{appContext.lastBooking.list.Location}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold;text-align: left">
+                                Directions to vehicle
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p style="text-align: left">
+                                        {{appContext.lastBooking.list.Remarks}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--位置提示模态框结尾-->

@@ -1,0 +1,384 @@
+<!--标签盒子-->
+
+<div class="  padding-bottom-25  maincontent-bgc hidden-overflow-x">
+
+
+    <div class="step container hidden-xs">
+        <div class="row">
+            <div hidden class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a href="#/search">
+                                    <img class="media-object" src="img/1_red.png" alt="1">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Searching</h4>
+                                <p>Get the right taxi for you</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media active">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/2_red.png" alt="2">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Booking Details</h4>
+                                <p> Taxi details and payment</p>
+                            </div>
+                            <div class="media-right">
+                                <a>
+                                    <img class="media-object" src="img/next_red.png" alt="next">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 ">
+                        <div class="media">
+                            <div class="media-left">
+                                <a>
+                                    <img class="media-object" src="img/3_grey.png" alt="3">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading" style="margin-top: 10px">Confirm & Reserved</h4>
+                                <p>Booking confirm information</p>
+                            </div>
+                            <div class="media-right" style="padding-left: 10px">
+                                <div style="width: 64px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <ul class="search-step">
+                    <li>
+                        <a href="#/search">
+                            <img src="img/step_1_selected.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_2_select.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                    <li>
+                        <img src="img/step_line.jpg" alt="" style="height: 50px">
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/step_3_no_select.png" alt="" style="height: 50px">
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <!--信息提示-->
+    <div class="hidden container margin-top-25" ng-if="tishiBox.isShow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <p style="font-size: 16px" ng-bind="tishiBox.msg">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--信息提示结尾-->
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right margin-top-20">
+                <a href="#/search" style="color: #787878">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    Back to list
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="timeTable margin-top-10">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center table-title" style="font-size: 18px">
+                                <a ng-if="currentDay!=0" ng-click="jumpDayCarState(currentDay-1)"><i
+                                        class="glyphicon glyphicon-chevron-left"></i></a>
+                                &nbsp;&nbsp;
+                                {{currentDate}}
+                                &nbsp;&nbsp;
+                                <a ng-if="currentDay!=28" ng-click="jumpDayCarState(currentDay+1)"><i
+                                        class="glyphicon glyphicon-chevron-right"></i></a>
+                            </div>
+                            <div ng-if="isGetCarStateWaitting" class="loadPice col-md-12 text-center margin-top-25">
+                                <img src="img/waiting.gif">
+                            </div>
+
+                            <table ng-if='!isGetCarStateWaitting' class="table-time margin-top-25">
+                                <thead>
+                                <tr>
+                                    <th ng-repeat="item in timeTable.times" ng-bind="item"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td ng-repeat="item in timeTable.bgcolors" class="{{item.bgcClass}}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-12">
+                            <table class="table-time" style="">
+                                <thead>
+                                <tr>
+                                    <th ng-repeat="item in timeTable.times" ng-bind=""></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="can-booking-bgc"></td>
+                                    <td colspan="3" class="">Available</td>
+                                    <td class="not-booking-bgc"></td>
+                                    <td colspan="3" class="">Unavailable</td>
+                                    <td class="may-booking-bgc"></td>
+                                    <td colspan="15" class="">Limited Cars &nbsp;&nbsp;<a ng-click="goToFaqWithId('data-target_t3_q4')">What is?</a></td>
+                                </tr>
+                                <tr>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row margin-top-20">
+                        <div class="col-md-8">
+                            <div class="row ">
+                                <div class="col-sm-6 margin-top-20">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <a class="booking-details-container " ng-click="scrollToMap()">
+                                                <div class="booking-details-cilcle">
+                                                    <i class="glyphicon glyphicon-map-marker"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-8 msg-container">
+
+                                            <div class="msg-show" style=" height:80px">
+                                                <strong style="font-size: 24px">
+                                                    {{carMsg.Address}}
+                                                </strong>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 margin-top-20">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <a class="booking-details-container ">
+                                                <div class="booking-details-cilcle">
+                                                    <i class="fa fa-taxi"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-8 msg-container">
+
+                                            <div class="msg-show" style=" height:80px">
+                                                <strong style="font-size: 24px">
+                                                    TAXI - {{carMsg.VehicleTypeName}}
+                                                </strong>
+                                                <br>
+                                                {{carMsg.Seats}} Seater [ {{carMsg.VehicleModelName}} - {{carMsg.Plate}} ]
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row margin-top-20" id="adressMap">
+                                <div class="col-md-12">
+                                    <div class="map-area" style="width:100%; min-height:500px; max-height:600px;">
+                                        <!-- http://maps.google.cn/?q=1.45453,103.815945&ll=1.45453,103.815945-->
+
+                                        <iframe id="mapFrame"
+                                                width="100%" height="500" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row margin-top-20 margin-bottom-20">
+                                <div class="col-md-12">
+
+                                    <div class="how-to-get-car">
+                                        <div class="title">
+
+                                            <h4 class="box-header-title">
+                                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                                &nbsp;DIRECTIONS TO VEHICLE
+                                            </h4>
+                                        </div>
+
+                                        <div class="content">
+                                            <p>{{carMsg.Address}}</p>
+                                            <p>
+                                                {{carMsg.Remarks}}
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="my-box margin-top-20">
+                                <div class="box-body">
+                                    <div class="row ">
+                                        <div class="col-xs-12 box-body-thumb-wrap">
+                                            <img ng-src="{{carMsg.Photo}}" alt="thumb" class="box-body-thumb"/>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">PICKUP</h5>
+                                            <p  style="font-size: 16px;font-weight: bold">
+                                                {{getHour(carPriceList.StartTimeHour)}} :00
+                                            </p>
+                                            <p style="font-size: 18px">
+                                                {{getEnglishYearAppare(carPriceList.StartTimeHour)}}
+                                            </p>
+
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">RETURN</h5>
+                                            <p style="font-size: 16px;font-weight: bold">
+                                                {{getHour(carPriceList.EndTimeHour)}} :00
+                                            </p>
+                                            <p style="font-size: 18px">
+                                              {{getEnglishYearAppare(carPriceList.EndTimeHour)}}
+                                            </p>
+
+                                        </div>
+
+                                        <div ng-if="isWaitting" class="loadPice col-md-12 text-center">
+                                            <img src="img/waiting.gif">
+                                        </div>
+
+                                        <div class="payPrice" ng-show="!isWaitting">
+
+                                            <!--计算价格-->
+                                            <div class="col-xs-12 countPrice margin-top-20" >
+                                                <div class="top" style="border-top: 4px solid #787878">
+                                                    <table class="table table-no-border margin-top-20">
+                                                        <tbody>
+                                                        <tr ng-repeat="item in carPriceList.Report">
+                                                            <td class="left">
+                                                                <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
+                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} * {{item.TotalHour >1 ?
+                                                                (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
+                                                            </td>
+                                                            <td class="right text-right">
+                                                                <br>
+                                                                ${{(item.Price/100).toFixed(2)}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="carPriceList.CleaningFee > 0">
+                                                            <td class="left">
+                                                                <strong>Cleaning Fee</strong><br>
+                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} *
+                                                                {{carMsg.Duration >1 ?
+                                                                (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}
+                                                            </td>
+                                                            <td class="right text-right">
+                                                                <br>
+                                                                ${{((carPriceList.CleaningFee*carMsg.Duration)/100).toFixed(2)}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class=" margin-top-20">
+                                                    <table class="table table-no-border" >
+                                                        <tbody>
+
+                                                        <tr>
+                                                            <td class="right text-right">
+                                                                <b>Rental Total</b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="right text-right" style="font-size: 36px;font-weight: bold">
+                                                                ${{(carPriceList.BookingTotal/100).toFixed(2)}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+
+                                            </div>
+                                            <!--计算价格End-->
+
+                                            <div class="col-xs-12">
+                                                <a href="#/booking/{{carMsg.ID}}" class="btn btn-block btn-orange" style="font-weight: bold;color: #181a1a">
+                                                    BOOK CAR
+                                                </a>
+                                            </div>
+
+
+                                            <div class="col-xs-12 text-right margin-top-20">
+                                                <a href="#/search" style="color: #787878">
+                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    Back to list
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--标签盒子结尾-->

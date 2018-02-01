@@ -251,7 +251,7 @@
                     </li>
                     <li>
                         <a href="">
-                            <img src="img/step_3_no_select.jpg" alt="" style="height: 50px">
+                            <img src="img/step_3_no_select.png" alt="" style="height: 50px">
                         </a>
                     </li>
                 </ul>
@@ -447,14 +447,14 @@
                             <div class="msg-container col-xs-5" style="padding-right: 0;padding-left: 0">
                                 <div class="msg-show" style=" height:150px;width: 80%">
                                     <div class="location">
-                                        <a href="http://maps.google.com?q={{item.Latitude}},{{item.Longitude}}&ll={{item.Latitude}},{{item.Longitude}}">
+                                        <a href="http://maps.google.com?q={{item.Latitude}},{{item.Longitude}}&ll={{item.Latitude}},{{item.Longitude}}" target="_blank">
                                             <i class="glyphicon glyphicon-map-marker"></i>
                                             {{item.Address}}
                                         </a>
                                     </div>
                                     <div class="time" >{{getHour(item.StartTime)}} :00 - {{getHour(item.EndTime)}}: 00</div>
                                     <div class="car-type">TAXI - {{item.VehicleTypeName}}</div>
-                                    <div class="car-seats">{{item.Seats}} Seater [ {{item.VehicleModelName}} ]</div>
+                                    <div class="car-seats">{{item.Seats}} Seater [ {{item.VehicleModelName}} - {{item.Plate}} ]</div>
                                 </div>
 
                                 <!--<div class="msg-show" style=" height:150px;width: 20%">-->
@@ -468,7 +468,7 @@
                                         $ {{(item.TotalPrice/100).toFixed(2)}}
                                     </div>
                                     <div class="book-btn">
-                                        <a href="#/booking/{{item.ID}}" class="btn btn-dark" style="">VIEW DEAILS</a>
+                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-dark" style="">VIEW DEAILS</a>
                                     </div>
                                 </div>
 

@@ -20,6 +20,7 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
         console.log('用户是否已登录： ' + newValue)
         if (newValue == false) {
             // window.location.replace('#/login');
+
         }
     });
 

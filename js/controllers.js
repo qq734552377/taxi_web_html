@@ -9,6 +9,13 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
     appContext.getAll().isSidemenu = path.getResult().isSidemenu;//初始化isSidemenu
     $scope.appContext = appContext.getAll();
 
+    $scope.isMain = function () {
+        if(window.location.href.indexOf('main2') >= 0){
+            return true;
+        }
+        return false;
+    }
+
     $scope.logOut = function () {
         logOut.logOut();
     }

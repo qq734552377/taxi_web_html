@@ -359,11 +359,19 @@
                                                                             </td>
                                                                         </tr>
                                                                         <tr ng-repeat="item in carPriceList.Report">
-                                                                            <td class="left">
+                                                                            <td ng-if="!item.MaxDay && !item.MaxWeek"class="left">
                                                                                 <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
-                                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} *
-                                                                                {{item.TotalHour >1 ?
+                                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} * {{item.TotalHour >1 ?
                                                                                 (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
+                                                                            </td>
+
+                                                                            <td ng-if="item.MaxDay && !item.MaxWeek"class="left">
+                                                                                <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
+                                                                                {{appContext.maxDayOrWeekMsg.maxDay}}
+                                                                            </td>
+                                                                            <td ng-if="!item.MaxDay && item.MaxWeek"class="left">
+                                                                                <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
+                                                                                {{appContext.maxDayOrWeekMsg.maxWeek}}
                                                                             </td>
                                                                             <td class="right text-right">
                                                                                 <br>

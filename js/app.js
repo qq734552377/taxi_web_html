@@ -557,10 +557,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
+            app.getAll().isNotificationShow = true;
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
+            app.getAll().isNotificationShow = false;
         }
     })
     .state('contact_us',{

@@ -158,39 +158,46 @@ serviceModule.factory('allUrl',function () {
                 categorys:[],
                 rentFors:[],
                 durations:[
-                    {ID:'3',Duration:'3'},
-                    {ID:'4',Duration:'4'},
-                    {ID:'5',Duration:'5'},
-                    {ID:'6',Duration:'6'},
-                    {ID:'7',Duration:'7'},
-                    {ID:'8',Duration:'8'},
-                    {ID:'9',Duration:'9'},
-                    {ID:'10',Duration:'10'},
-                    {ID:'11',Duration:'11'},
-                    {ID:'12',Duration:'12'},
-                    {ID:'13',Duration:'13'},
-                    {ID:'14',Duration:'14'},
-                    {ID:'15',Duration:'15'},
-                    {ID:'16',Duration:'16'},
-                    {ID:'18',Duration:'18'},
-                    {ID:'19',Duration:'19'},
-                    {ID:'20',Duration:'20'},
-                    {ID:'21',Duration:'21'},
-                    {ID:'22',Duration:'22'},
-                    {ID:'23',Duration:'23'},
-                    {ID:'24',Duration:'24'},
-                    {ID:'25',Duration:'25'},
-                    {ID:'26',Duration:'26'},
-                    {ID:'27',Duration:'27'},
-                    {ID:'28',Duration:'28'},
-                    {ID:'29',Duration:'29'},
-                    {ID:'30',Duration:'30'},
-                    {ID:'31',Duration:'31'},
-                    {ID:'32',Duration:'32'},
-                    {ID:'33',Duration:'33'},
-                    {ID:'34',Duration:'34'},
-                    {ID:'35',Duration:'35'},
-                    {ID:'36',Duration:'36'},
+                    {ID:'3',Duration:'3 hrs'},
+                    {ID:'4',Duration:'4 hrs'},
+                    {ID:'5',Duration:'5 hrs'},
+                    {ID:'6',Duration:'6 hrs'},
+                    {ID:'7',Duration:'7 hrs'},
+                    {ID:'8',Duration:'8 hrs'},
+                    {ID:'9',Duration:'9 hrs'},
+                    {ID:'10',Duration:'10 hrs'},
+                    {ID:'11',Duration:'11 hrs'},
+                    {ID:'12',Duration:'12 hrs'},
+                    {ID:'13',Duration:'13 hrs'},
+                    {ID:'14',Duration:'14 hrs'},
+                    {ID:'15',Duration:'15 hrs'},
+                    {ID:'16',Duration:'16 hrs'},
+                    {ID:'18',Duration:'18 hrs'},
+                    {ID:'19',Duration:'19 hrs'},
+                    {ID:'20',Duration:'20 hrs'},
+                    {ID:'21',Duration:'21 hrs'},
+                    {ID:'22',Duration:'22 hrs'},
+                    {ID:'23',Duration:'23 hrs'},
+                    {ID:'24',Duration:'24 hrs'},
+                    {ID:'25',Duration:'25 hrs'},
+                    {ID:'26',Duration:'26 hrs'},
+                    {ID:'27',Duration:'27 hrs'},
+                    {ID:'28',Duration:'28 hrs'},
+                    {ID:'29',Duration:'29 hrs'},
+                    {ID:'30',Duration:'30 hrs'},
+                    {ID:'31',Duration:'31 hrs'},
+                    {ID:'32',Duration:'32 hrs'},
+                    {ID:'33',Duration:'33 hrs'},
+                    {ID:'34',Duration:'34 hrs'},
+                    {ID:'35',Duration:'35 hrs'},
+                    {ID:'36',Duration:'36 hrs'},
+                    {ID:'48',Duration:'2 days'},
+                    {ID:'72',Duration:'3 days'},
+                    {ID:'96',Duration:'4 days'},
+                    {ID:'120',Duration:'5 days'},
+                    {ID:'144',Duration:'6 days'},
+                    {ID:'168',Duration:'1 week'},
+                    {ID:'720',Duration:'1 month'},
                 ],
                 vehicleNumbers:[]
             },
@@ -285,9 +292,15 @@ serviceModule.factory('allUrl',function () {
             totalFees:{},
             issueStausObj:{},
             allPriceMsg:[],
+            isNotificationShow:false,
+            notification:'Taxi Share Promotion! Chinese New Year rate and daily rate as low as $85/day T&C applies*',
             AERString:'Accident Excess Reduction ( AER )',
             AERStringAD:' A E R ',
-            englishMonth:["Jan.","Feb.","Mar.","Apr.","May.","June.","July.","Aug.","Sept.","Oct","Nov.","Dec."]
+            englishMonth:["Jan.","Feb.","Mar.","Apr.","May.","June.","July.","Aug.","Sept.","Oct","Nov.","Dec."],
+            maxDayOrWeekMsg:{
+                maxDay:'Maximum price rate for the day',
+                maxWeek:'Maximum price rate for the week'
+            }
         };
 
 
@@ -655,12 +668,13 @@ serviceModule.factory('allUrl',function () {
             }
         };
     })
-    .factory('scrollToTop',function () {
+    .factory('scrollToTop',function (appContext) {
 
         return {
             go: function () {
                 $("html, body").animate({
-                    scrollTop: $("#bodyHeader").offset().top }, {duration: 1000,easing: "easeInBack"});
+                        scrollTop: $("#notification").offset().top }, {duration: 750,easing: "easeInBack"});
+
             }
         }
     })

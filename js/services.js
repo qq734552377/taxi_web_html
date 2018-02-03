@@ -197,7 +197,9 @@ serviceModule.factory('allUrl',function () {
                     {ID:'120',Duration:'5 days'},
                     {ID:'144',Duration:'6 days'},
                     {ID:'168',Duration:'1 week'},
-                    {ID:'720',Duration:'1 month'},
+                    {ID:'336',Duration:'2 week'},
+                    {ID:'504',Duration:'3 week'},
+                    {ID:'672',Duration:'4 weeks'},
                 ],
                 vehicleNumbers:[]
             },

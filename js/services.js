@@ -120,6 +120,7 @@ serviceModule.factory('allUrl',function () {
         getThreeCarsUrl:host + '/api/VehicleRecommend',
         queryIssueStatusUrl:host + '/ReportIssue/FrontEndDetailsByBooking',
         queryAllTimePriceUrl:host + '/ExcelImportPrice/FrontEndPriceTableDetails',
+        registAgain:host + '/api/AgainRegister',
 
     }
 })
@@ -197,8 +198,8 @@ serviceModule.factory('allUrl',function () {
                     {ID:'120',Duration:'5 days'},
                     {ID:'144',Duration:'6 days'},
                     {ID:'168',Duration:'1 week'},
-                    {ID:'336',Duration:'2 week'},
-                    {ID:'504',Duration:'3 week'},
+                    {ID:'336',Duration:'2 weeks'},
+                    {ID:'504',Duration:'3 weeks'},
                     {ID:'672',Duration:'4 weeks'},
                 ],
                 vehicleNumbers:[]
@@ -602,6 +603,8 @@ serviceModule.factory('allUrl',function () {
        return {
            logOut:function () {
                appContext.getAll().isAllWaitting = true;
+               appContext.getAll().userMsg = {};
+               appContext.getAll().signinMsg = {};
                localStorage.removeItem('isRemeberMe');
                localStorage.removeItem('Username');
                localStorage.removeItem('Token');

@@ -76,12 +76,12 @@
                         <div class="sign-in-body">
                             <div class="sign-in-content">
 
-                                <form name="signup_s" class="margin-top-25">
+                                <form class="margin-top-25">
                                     <div class="row">
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--regist for-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Whether you are
+                                                <label for="LicenseType" class="sign-in-label">Whether you are
                                                     registering for</label>
                                                 <select ng-model="signin_s.LicenseType" id="LicenseType" class="form-control">
                                                     <option ng-repeat="item in appContext.LicenseTypes" value="{{item.ID}}">{{item.CertificateTypeName}}</option>
@@ -92,7 +92,7 @@
                                         <div class="col-md-5  col-xs-12">
                                             <!--Salutation-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Salutation</label>
+                                                <label for="Salutation" class="sign-in-label">Salutation</label>
                                                 <select ng-model="signin_s.Salutation" id="Salutation" class="form-control">
                                                     <option value="1">Mr</option>
                                                     <option value="2">Mrs</option>
@@ -109,7 +109,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Gender-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Gender</label>
+                                                <label for="Gender" class="sign-in-label">Gender</label>
                                                 <select ng-model="signin_s.Gender" id="Gender" class="form-control">
                                                     <option value="1">Male</option>
                                                     <option value="2">Female</option>
@@ -120,7 +120,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--Nationality-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >Nationality</label>
+                                                <label for="Nationality" class="sign-in-label" >Nationality</label>
                                                 <select ng-model="signin_s.Nationality" id="Nationality" class="form-control">
                                                     <option ng-repeat="item in appContext.Nationalities" value="{{item.ID}}">{{item.Nationality}}</option>
                                                 </select>
@@ -133,7 +133,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Race-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Race</label>
+                                                <label for="Race" class="sign-in-label">Race</label>
                                                 <select ng-model="signin_s.Race" id="Race" class="form-control">
                                                     <option ng-repeat="item in appContext.Races" value="{{item.ID}}">{{item.Race}}</option>
                                                 </select>
@@ -143,7 +143,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--Marital status-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Marital Status</label>
+                                                <label for="MaritalStatus" class="sign-in-label">Marital Status</label>
                                                 <select ng-model="signin_s.MaritalStatus" id="MaritalStatus" class="form-control">
                                                     <option value="1">Single</option>
                                                     <option value="2">Married</option>
@@ -158,7 +158,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Education Level-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Education Level</label>
+                                                <label for="EducationLevel" class="sign-in-label">Education Level</label>
                                                 <select ng-model="signin_s.EducationLevel" id="EducationLevel" class="form-control">
                                                     <option ng-repeat="item in appContext.EducationLevel" value="{{item.ID}}">{{item.EducationLevel}}</option>
                                                 </select>
@@ -177,7 +177,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--Address-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Address</label>
+                                                <label for="Address" class="sign-in-label">Address</label>
                                                 <input ng-model="signin_s.Address" type="text" class="form-control" id="Address"
                                                        required="required" placeholder="">
                                             </div>
@@ -217,7 +217,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Postal Code-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >Postal Code</label>
+                                                <label for="PostalCode" class="sign-in-label" >Postal Code</label>
                                                 <input ng-model="signin_s.PostalCode" type="text" class="form-control" id="PostalCode"
                                                        required="required" placeholder="">
                                             </div>
@@ -226,7 +226,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--Date of Birth-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">Date of Birth</label>
+                                                <label for="DateOfBirth" class="sign-in-label">Date of Birth</label>
 
                                                 <div class="input-group controls input-append date form_date" data-date=""
                                                      data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
@@ -245,7 +245,7 @@
                                         <div  class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Driving License Issue Date-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >Driving License
+                                                <label for="LicenseIssueDate" class="sign-in-label" >Driving License
                                                     Issue
                                                     Date</label>
 
@@ -264,7 +264,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--TDVL First Issue Date-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >TDVL First Issue
+                                                <label for="TVDLIssue" class="sign-in-label" >TDVL First Issue
                                                     Date</label>
 
                                                 <div class="input-group controls input-append date form_date" data-date=""
@@ -284,7 +284,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--TDVL Expiry Date-->
                                             <div class="form-group">
-                                                <label class="sign-in-label">TDVL Expiry Date</label>
+                                                <label for="TVDLExpiry" class="sign-in-label">TDVL Expiry Date</label>
                                                 <div class="input-group controls input-append date form_date" data-date=""
                                                      data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                                         <span class="input-group-addon">
@@ -339,7 +339,7 @@
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--NRIC, Driving License, TDVL (Front)-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >{{msgAboutPic}}
+                                                <label for="signInFileFront" class="sign-in-label" >{{msgAboutPic}}
                                                     (Front)</label>
                                                 <div class="sign-in-modal">
                                                     <a data-toggle="modal" data-target="#modalTdvlPhoto">(Guidelines)</a>
@@ -355,7 +355,7 @@
                                         <div class="col-md-5 col-xs-12">
                                             <!--NRIC, Driving License, TDVL (Back)-->
                                             <div class="form-group">
-                                                <label class="sign-in-label" >{{msgAboutPic}}
+                                                <label for="signInFileBack" class="sign-in-label" >{{msgAboutPic}}
                                                     (Back)</label>
                                                 <div class="sign-in-modal">
                                                     <a data-toggle="modal" data-target="#modalTdvlPhoto">(Guidelines)</a>
@@ -386,7 +386,7 @@
                                             <div class="form-group">
                                                 <label for="PDVLLetter">PDVL Letter</label>
                                                 <input type="file"  id="PDVLLetter"
-                                                       required>
+                                                       ng-required="signin_s.LicenseType==0">
                                                 <img height="140px" id="PDVLLetterImg" class="margin-top-10" style="display: none"/>
                                             </div>
                                             <!--PDVLLetter end-->

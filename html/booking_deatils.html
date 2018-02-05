@@ -195,7 +195,7 @@
                                         <div class="col-xs-8 msg-container">
 
                                             <div class="msg-show" style=" height:80px">
-                                                <strong style="font-size: 24px">
+                                                <strong style="font-size: 18px">
                                                     {{carMsg.Address}}
                                                 </strong>
                                             </div>
@@ -215,7 +215,7 @@
                                         <div class="col-xs-8 msg-container">
 
                                             <div class="msg-show" style=" height:80px">
-                                                <strong style="font-size: 24px">
+                                                <strong style="font-size: 18px">
                                                     TAXI - {{carMsg.VehicleTypeName}}
                                                 </strong>
                                                 <br>
@@ -305,21 +305,21 @@
                                                     <table class="table table-no-border margin-top-20">
                                                         <tbody>
                                                         <tr ng-repeat="item in carPriceList.Report">
-                                                            <td ng-if="!item.MaxDay && !item.MaxWeek"class="left">
+                                                            <td ng-if="!item.MaxDay && !item.MaxWeek && item.Price>0"class="left">
                                                                 <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
                                                                 ${{(item.Price/item.TotalHour/100).toFixed(2)}} * {{item.TotalHour >1 ?
                                                                 (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
                                                             </td>
 
-                                                            <td ng-if="item.MaxDay && !item.MaxWeek"class="left">
+                                                            <td ng-if="item.MaxDay && !item.MaxWeek && item.Price>0"class="left">
                                                                 <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
                                                                 {{appContext.maxDayOrWeekMsg.maxDay}}
                                                             </td>
-                                                            <td ng-if="!item.MaxDay && item.MaxWeek"class="left">
+                                                            <td ng-if="!item.MaxDay && item.MaxWeek && item.Price>0"class="left">
                                                                 <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
                                                                 {{appContext.maxDayOrWeekMsg.maxWeek}}
                                                             </td>
-                                                            <td class="right text-right">
+                                                            <td ng-if="item.Price>0" class="right text-right">
                                                                 <br>
                                                                 ${{(item.Price/100).toFixed(2)}}
                                                             </td>

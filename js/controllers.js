@@ -705,7 +705,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
 
             appContext.getAll().isAllWaitting = true;
             // 提交图片
-            postMultipart(allUrl.signin_sUrl, $scope.signin_s, pic1, pic2, pic3, pic4).success(function (data) {
+            postMultipart(appContext.getAll().userMsg.UserStatus =='Fail'? allUrl.registAgain : allUrl.signin_sUrl, $scope.signin_s, pic1, pic2, pic3, pic4).success(function (data) {
                 console.log(data);
 
                 appContext.getAll().isAllWaitting = false;
@@ -764,7 +764,10 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 method: 'POST',
                 url: url,
                 data: fd,
-                headers: {'Content-Type': undefined},
+                headers: {
+                    'Content-Type': undefined,
+                    Authorization: "Basic " + appContext.getAll().token
+                },
                 transformRequest: angular.identity
             };
             return $http(args);
@@ -777,7 +780,10 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
             window.location.replace('#/login');
             return;
         }
-
+        if(appContext.getAll().userMsg.UserStatus == 'Fail'){
+            window.location.replace('#/sidemenu/account');
+            return;
+        }
         $scope.waitObj = {
             isShowAll: true,
             isShowWaitImg: false,
@@ -988,6 +994,13 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             ],
         };
 
+        $scope.goToSignin_second = function () {
+            appContext.getAll().signinMsg.firstSignUpCompete = true;
+            $state.go('signin_second',{
+                id : ""
+            });
+        };
+
         getUserDetailMsg();
         getUserLastBookingMsg();
         getWallet.init();
@@ -1069,6 +1082,8 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                             appContext.getAll().signinMsg.Race=data.Data.Race + '';
                             appContext.getAll().signinMsg.MaritalStatus=data.Data.MaritalStatus + '';
                             appContext.getAll().signinMsg.MaritalStatus=data.Data.MaritalStatus + '';
+                            appContext.getAll().signinMsg.Password= '123456789';
+                            appContext.getAll().signinMsg.PasswordAgain= '123456789';
                         }
                     }
                 } else {
@@ -1137,6 +1152,11 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
     })
     .controller('editprofileCtr', function ($scope, $http, allUrl, appContext) {
         $scope.$emit('curPath', 'Edit Profile');
+        if(appContext.getAll().userMsg.UserStatus =='Fail'){
+            window.location.replace('#/sidemenu/account');
+            return;
+        }
+
         $scope.errorMsg = {
             emailMsg: '',
             emailSpan: '',
@@ -2467,7 +2487,8 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
                 appContext.getAll().promoData=data.Data;
             } else {
                 if (data.MsgType == 'TokenError') {
-                    $scope.tokenErrorHandle();
+                    appContext.getAll().isAut = false;
+                    $scope.goToLogin();
                     return;
                 }
                 //Nric不可用

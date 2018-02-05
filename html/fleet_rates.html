@@ -129,30 +129,30 @@
                                     </td>
 
                                     <td ng-if = "item.OldWeekly && item.OldWeekly > 0">
-                                        <strike>
-                                            ${{(item.OldWeekly / 100).toFixed(2)}}
+                                        <strike >
+                                            ${{(item.OldWeekly / 100).toFixed(2)}}<br/>
                                         </strike>
-                                        <br/>
+
                                         <strong>
                                             ${{(item.Weekly / 100).toFixed(2)}}
                                         </strong>
                                     </td>
 
                                     <td ng-if = "item.OldDaily && item.OldDaily > 0">
-                                        <strike>
-                                            ${{(item.OldDaily / 100).toFixed(2)}}
+                                        <strike >
+                                            ${{(item.OldDaily / 100).toFixed(2)}} <br/>
                                         </strike>
-                                        <br/>
+
                                         <strong>
                                             ${{(item.Daily / 100).toFixed(2)}}
                                         </strong>
                                     </td>
 
                                     <td ng-repeat="iitem in item.PeriodData">
-                                        <strike>
-                                            ${{(iitem.Old / 100).toFixed(2)}}
+                                        <strike >
+                                            ${{(iitem.Old / 100).toFixed(2)}}<br/>
                                         </strike>
-                                        <br/>
+
                                         <strong>
                                             ${{(iitem.Price / 100).toFixed(2)}}
                                         </strong>
@@ -163,7 +163,7 @@
 
                             </table>
                         </div>
-                        <table class="table table-striped  fleet-rates-table">
+                        <table class="table  fleet-rates-table">
                             <tr>
                                 <td style="text-align:center;">
                                     Late Charges : $10.00 for every 15 min or part

@@ -76,7 +76,7 @@
                             <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/editprofile">Edit Profile</a>
                             <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/topup">Top Up</a>
                             <a ng-if="appContext.userMsg.UserStatus!='Fail'" class="btn btn-success" role="button" href="#/sidemenu/wallet">View History</a>
-                            <a ng-if="appContext.userMsg.UserStatus=='Fail'" class="btn btn-success" role="button" href="#/signup_f">Sign Up Again</a>
+                            <a ng-if="appContext.userMsg.UserStatus=='Fail'" class="btn btn-success" role="button" ng-click="goToSignin_second()">Sign Up Again</a>
                         </div>
                     </div>
 

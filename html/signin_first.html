@@ -84,7 +84,7 @@
                     <form class=" signin-first-form form-horizontal row">
 
                         <!--Email-->
-                        <div ng-show="appContext.userMsg.UserStatus!='Fail'"class="row">
+                        <div ng-show="appContext.userMsg.UserStatus!='Fail'" class="row">
                             <div class="form-group">
                                 <label for="Email" class="col-md-3 control-label">Email</label>
                                 <div class="col-md-6">
@@ -153,6 +153,18 @@
                             </div>
                         </div>
                         <!--Handphone end-->
+                        <!--Handphone-->
+                        <div ng-show="appContext.userMsg.UserStatus!='Fail'" class="row">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="ReferralCode">Referral Code</label>
+                                <div class="col-md-6">
+                                    <input ng-model="signin_f.ReferralCode" type="text" class="form-control" id="ReferralCode"
+                                           placeholder="Referral code if have">
+                                </div>
+                                <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.ReferralCodeSpan}}">&nbsp;{{errorMsg.ReferralCodeMsg}}</span>
+                            </div>
+                        </div>
+                        <!--Handphone end-->
                         <div class="row">
                             <div class="">
                                 <button type="submit" ng-click="signIn()"  class="btn btn-yellow col-md-offset-3 col-md-6 col-xs-12" style="font-weight: bold">Next</button>
@@ -164,10 +176,9 @@
             </div>
         </div>
 
-    </din>
+    </div>
 
 
 
 </div>
-
-<!--注册第一步结尾-->
+<!-- 注册第一步结尾-->

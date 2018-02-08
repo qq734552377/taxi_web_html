@@ -481,6 +481,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
     .controller('signinCtr', function ($scope, $http, $state,$stateParams, allUrl, appContext) {
 
         $scope.signin_f = appContext.getAll().signinMsg;
+        $scope.signin_f.ReferralCode = $stateParams.id;
         $scope.errorMsg = {
             emailMsg: '',
             emailSpan: '',
@@ -491,7 +492,9 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
             NRICMsg: '',
             NRICSpan: '',
             PhoneMsg: '',
-            PhoneSpan: ''
+            PhoneSpan: '',
+            ReferralCodeMsg: '',
+            ReferralCodeSpan: ''
         };
 
         $scope.$watch('signin_f.Email', function (newValue, oldValue, scope) {
@@ -612,6 +615,45 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 }
             }
         });
+
+        $scope.$watch('signin_f.ReferralCode', function (newValue, oldValue, scope){
+            if (newValue == undefined || newValue.length == 0) {
+                scope.errorMsg.ReferralCodeSpan = '';
+                scope.errorMsg.ReferralCodeMsg = '';
+                return;
+            }
+            if (newValue.length != 8) {
+                scope.errorMsg.ReferralCodeSpan = 'error-span';
+                scope.errorMsg.ReferralCodeMsg = 'Unavailable';
+                return;
+            }
+            $http({
+                method: "POST",
+                url: allUrl.getReferralCodeCanUseUrl,
+                data: {
+                    ReferralCode: scope.signin_f.ReferralCode
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).success(function (data) {
+                console.log(data)
+                if (data.MsgType == 'Success') {
+                    //Nric可用
+                    scope.errorMsg.ReferralCodeSpan = 'success-span';
+                    scope.errorMsg.ReferralCodeMsg = 'Available';
+                } else {
+                    //Nric不可用
+                    scope.errorMsg.ReferralCodeSpan = 'error-span';
+                    scope.errorMsg.ReferralCodeMsg = "Inexistent";
+                }
+            }).error(function () {
+                scope.errorMsg.ReferralCodeSpan = 'error-span';
+                scope.errorMsg.ReferralCodeMsg = 'available?';
+            });
+
+        } );
+
         $scope.signIn = function () {
 
             if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '' ||
@@ -628,18 +670,18 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 return;
             }
 
-            if ($scope.errorMsg.emailSpan != 'success-span' || $scope.errorMsg.NRICSpan != 'success-span' || $scope.errorMsg.PhoneSpan != 'success-span') {
+            if ($scope.errorMsg.emailSpan != 'success-span' || $scope.errorMsg.NRICSpan != 'success-span' || $scope.errorMsg.PhoneSpan != 'success-span' || $scope.errorMsg.ReferralCodeSpan == 'error-span') {
                 return;
             }
             $scope.signin_f.firstSignUpCompete = true;
             $state.go('signin_second',{
-                id : $stateParams.id
+                id : $scope.signin_f.ReferralCode
             });
         }
 
 
     })
-    .controller('signin_secondCtr', function ($scope, $http, $state,$stateParams, appContext, allUrl) {
+    .controller('signin_secondCtr', function ($scope, $http, $state,$stateParams, appContext, allUrl,scrollToTop) {
         console.log(appContext.getAll().signinMsg)
         if (!appContext.getAll().signinMsg.firstSignUpCompete) {
             $state.go('signin_first');
@@ -649,20 +691,22 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
 
         $scope.msgAboutPic = 'NRIC, Driving License, TDVL',
         $scope.picSrc = 'img/tpdv.jpg';
+        $scope.isConfirmSub = false;
 
         $scope.errorState = false;
         $scope.errorMsg = '';
 
         $scope.signin_s = appContext.getAll().signinMsg;
-        $scope.signin_s.PromotionCode = $stateParams.id;
+        $scope.signin_s.ReferralCode = $stateParams.id;
 
-        $scope.sub = function () {
-             if (//$scope.signin_s.BlockNo == undefined || $scope.signin_s.BlockNo == '' ||
+        $scope.isConfirmToSubmit = function () {
+
+            if (//$scope.signin_s.BlockNo == undefined || $scope.signin_s.BlockNo == '' ||
             //     $scope.signin_s.Storey == undefined || $scope.signin_s.Storey == '' ||
             //     $scope.signin_s.UnitNo == undefined || $scope.signin_s.UnitNo == '' ||
             //     $scope.signin_s.StreetName == undefined || $scope.signin_s.StreetName == '' ||
-                $scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
-                $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
+            $scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
+            $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
             ) {
                 return;
             }
@@ -703,6 +747,70 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 return;
             }
 
+            if (!appContext.getAll().isAgreeMe) {
+                $scope.motaiBox.title = 'Accept Terms and Conditions';
+                $scope.motaiBox.msg = 'To proceed booking the vehicle, you need to read and accept the Terms and Conditions.';
+                $('#moTaiTishiBox').modal('show');
+                return;
+            }
+
+            $scope.isConfirmSub = $scope.isConfirmSub ? false : true;
+            scrollToTop.go();
+
+        };
+
+        $scope.sub = function () {
+            if (//$scope.signin_s.BlockNo == undefined || $scope.signin_s.BlockNo == '' ||
+            //     $scope.signin_s.Storey == undefined || $scope.signin_s.Storey == '' ||
+            //     $scope.signin_s.UnitNo == undefined || $scope.signin_s.UnitNo == '' ||
+            //     $scope.signin_s.StreetName == undefined || $scope.signin_s.StreetName == '' ||
+            $scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
+            $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
+            ) {
+                return;
+            }
+            if ($scope.signin_s.DateOfBirth == undefined || $scope.signin_s.DateOfBirth == '' ||
+                $scope.signin_s.LicenseIssueDate == undefined || $scope.signin_s.LicenseIssueDate == '') {
+                $scope.errorState = true;
+                $scope.errorMsg = 'Please fill out the Date of Birth and Driving License Issue Date,thanks! ';
+                return;
+            } else {
+                $scope.errorState = false;
+            }
+
+
+            if ($scope.signin_s.TVDLIssue == undefined || $scope.signin_s.TVDLIssue == '' ||
+                $scope.signin_s.TVDLExpiry == undefined || $scope.signin_s.TVDLExpiry == '') {
+                $scope.errorState = true;
+                $scope.errorMsg = 'Please fill out the TDVL First Issue Date and TDVL Expiry Date,thanks! ';
+                return;
+            } else {
+                $scope.errorState = false;
+            }
+
+            var pic1 = document.getElementById("signInFileFront").files[0];
+            var pic2 = document.getElementById("signInFileBack").files[0];
+            var pic3 = document.getElementById("signInMugShot").files[0];
+            var pic4 = undefined;
+
+
+            if ($scope.signin_s.LicenseType == 0) {
+                pic4 = document.getElementById("PDVLLetter").files[0];
+                if (pic4 == undefined) {
+                    return;
+                }
+            }
+
+
+            if (pic1 == undefined || pic2 == undefined || pic3 == undefined) {
+                return;
+            }
+            if (!appContext.getAll().isAgreeMe) {
+                $scope.motaiBox.title = 'Accept Terms and Conditions';
+                $scope.motaiBox.msg = 'To proceed booking the vehicle, you need to read and accept the Terms and Conditions.';
+                $('#moTaiTishiBox').modal('show');
+                return;
+            }
             appContext.getAll().isAllWaitting = true;
             // 提交图片
             postMultipart(appContext.getAll().userMsg.UserStatus =='Fail'? allUrl.registAgain : allUrl.signin_sUrl, $scope.signin_s, pic1, pic2, pic3, pic4).success(function (data) {
@@ -738,14 +846,19 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                             TVDLIssue:'',
                             TVDLExpiry:'',
                             PVDLIssue:'',
-                            PVDLExpiry:''
+                            PVDLExpiry:'',
+                            ReferralCode:''
                     };
+                    $scope.isConfirmSub = false;
+                    appContext.getAll().isAgreeMe = false;
                 } else {
+                    $scope.isConfirmSub = false;
                     $scope.errorState = true;
                     $scope.errorMsg = data.Info;
                 }
             }).error(function () {
                 appContext.getAll().isAllWaitting = false;
+                $scope.isConfirmSub = false;
                 $scope.errorState = true;
                 $scope.errorMsg = appContext.getAll().errorMsg.netError;
             });
@@ -2161,15 +2274,16 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         }).success(function (data) {
             console.log(data)
             if (data.MsgType == 'Success') {
-                if (data.MsgType == 'TokenError') {
-                    $scope.tokenErrorHandle();
-                    return;
-                }
+
                 //Nric可用
                 scope.errorMsg.PromoCodeSpan = 'success-span';
                 scope.errorMsg.PromoCodeMsg = 'Available';
                 appContext.getAll().promoData=data.Data;
             } else {
+                if (data.MsgType == 'TokenError') {
+                    $scope.tokenErrorHandle();
+                    return;
+                }
                 //Nric不可用
                 scope.errorMsg.PromoCodeSpan = 'error-span';
                 scope.errorMsg.PromoCodeMsg = data.Info;
@@ -2479,12 +2593,13 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
                 Authorization: "Basic " + appContext.getAll().token
             }
         }).success(function (data) {
-            console.log(data)
+            console.log(data);
             if (data.MsgType == 'Success') {
                 //Nric可用
                 scope.errorMsg.PromoCodeSpan = 'success-span';
                 scope.errorMsg.PromoCodeMsg = 'Available';
                 appContext.getAll().promoData=data.Data;
+                // appContext.getAll().promoData.TotalPreferential=$scope.carPriceList.BookingTotal - (data.Data.BookingTotal -data.Data.TotalPreferential);
             } else {
                 if (data.MsgType == 'TokenError') {
                     appContext.getAll().isAut = false;

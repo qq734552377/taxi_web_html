@@ -61,10 +61,19 @@
                                         <table class="table table-no-border">
                                             <tbody>
                                             <tr ng-repeat="item in carPriceList.Report">
-                                                <td class="left">
+                                                <td ng-if="!item.MaxDay && !item.MaxWeek && item.Price>0"class="left">
                                                     <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
                                                     ${{(item.Price/item.TotalHour/100).toFixed(2)}} * {{item.TotalHour >1 ?
                                                     (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
+                                                </td>
+
+                                                <td ng-if="item.MaxDay && !item.MaxWeek && item.Price>0"class="left">
+                                                    <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
+                                                    {{appContext.maxDayOrWeekMsg.maxDay}}
+                                                </td>
+                                                <td ng-if="!item.MaxDay && item.MaxWeek && item.Price>0"class="left">
+                                                    <strong>Rental Fee</strong> ({{item.DayRentalFee}})<br/>
+                                                    {{appContext.maxDayOrWeekMsg.maxWeek}}
                                                 </td>
                                                 <td class="right text-right">
                                                     <br>
@@ -239,11 +248,9 @@
                             <div class="col-md-6 col-xs-12">
                                 <form>
                                     <div class="form-group">
-                                        <label for="form_issue_type">Extend Duration (hrs)</label>
+                                        <label for="form_issue_type">Extend Duration</label>
                                         <select ng-model="extensionTimes" id="form_issue_type"  class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option ng-repeat="item in appContext.ExtendDurations" value="{{item.ID}}">{{item.Duration}}</option>
                                         </select>
                                     </div>
                                     <button ng-click="extend()" ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal/100)) > 0" class="btn btn-success">Extend</button>

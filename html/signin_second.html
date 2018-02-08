@@ -9,7 +9,7 @@
                         <div class="col-xs-4">
                             <div class="media active">
                                 <div class="media-left">
-                                    <a href="#/signup_f/">
+                                    <a href="#/signup_f/{{signin_s.ReferralCode}}">
                                         <img class="media-object" src="img/1_red.png" alt="1">
                                     </a>
                                 </div>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="container">
-            <div class="row">
+            <div ng-show="!isConfirmSub" class="row">
                 <div class="col-md-4">
                     <div class="sign-first-big-title"><h2>Personal Particular</h2></div>
                 </div>
@@ -94,10 +94,7 @@
                                             <div class="form-group">
                                                 <label for="Salutation" class="sign-in-label">Salutation</label>
                                                 <select ng-model="signin_s.Salutation" id="Salutation" class="form-control">
-                                                    <option value="1">Mr</option>
-                                                    <option value="2">Mrs</option>
-                                                    <option value="3">Ms</option>
-                                                    <option value="4">Miss</option>
+                                                    <option ng-repeat="item in appContext.Salutations" value="{{item.ID}}">{{item.Salutation}}</option>
                                                 </select>
                                             </div>
                                             <!--Salutation end-->
@@ -111,8 +108,7 @@
                                             <div class="form-group">
                                                 <label for="Gender" class="sign-in-label">Gender</label>
                                                 <select ng-model="signin_s.Gender" id="Gender" class="form-control">
-                                                    <option value="1">Male</option>
-                                                    <option value="2">Female</option>
+                                                    <option ng-repeat="item in appContext.Genders" value="{{item.ID}}">{{item.Gender}}</option>
                                                 </select>
                                             </div>
                                             <!--Gender end-->
@@ -145,10 +141,7 @@
                                             <div class="form-group">
                                                 <label for="MaritalStatus" class="sign-in-label">Marital Status</label>
                                                 <select ng-model="signin_s.MaritalStatus" id="MaritalStatus" class="form-control">
-                                                    <option value="1">Single</option>
-                                                    <option value="2">Married</option>
-                                                    <option value="3">Divorce</option>
-                                                    <option value="4">Widow</option>
+                                                    <option ng-repeat="item in appContext.MaritalStatus" value="{{item.ID}}">{{item.MaritalStatus}}</option>
                                                 </select>
                                             </div>
                                             <!--Marital status end-->
@@ -255,7 +248,7 @@
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                                     <input ng-model="signin_s.LicenseIssueDate" type="text" class="form-control datepicker" id="LicenseIssueDate"
-                                                           required readonly>
+                                                           required placeholder="example:1990-01-01">
                                                 </div>
 
                                             </div>
@@ -273,7 +266,7 @@
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                                     <input ng-model="signin_s.TVDLIssue" type="text" class="form-control datepicker" id="TVDLIssue"
-                                                           readonly>
+                                                           placeholder="example:1990-01-01">
                                                 </div>
 
                                             </div>
@@ -291,7 +284,7 @@
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                                     <input ng-model="signin_s.TVDLExpiry" type="text" class="form-control datepicker" id="TVDLExpiry"
-                                                           readonly>
+                                                           placeholder="example:1990-01-01">
                                                 </div>
 
                                             </div>
@@ -394,9 +387,19 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
+                                            <div class="form-group">
+                                                <div class="agreeMe">
+                                                    <label>
+                                                        <input ng-model="appContext.isAgreeMe" type="checkbox">
+                                                        I agree to the <a href="#/terms" target="_blank">terms and
+                                                        conditions</a>
+                                                        as stated in the website.
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <!--Submit-->
                                             <div class="form-group" style="margin-top: 20px">
-                                                <button type="submit" ng-click="sub()" class="btn btn-yellow btn-block" id="signInSubmit" style="font-weight: bold">
+                                                <button type="submit" ng-click="isConfirmToSubmit()" class="btn btn-yellow btn-block" id="signInSubmit" style="font-weight: bold">
                                                     Register
                                                 </button>
                                             </div>
@@ -417,6 +420,246 @@
 
 
                 </div>
+            </div>
+
+
+            <div ng-show="isConfirmSub" class="row">
+                <div class="col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0">
+                    <div class="my-box my-box-top-border margin-top-20 margin-bottom-20">
+                        <div class="box-header">
+                            <div class="box-corner">
+                                <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
+                                        aria-expanded="true">
+                                    <i class="glyphicon"></i>
+                                </button>
+                            </div>
+                            <h4 class="box-header-title"><i class="glyphicon"></i>&nbsp;Personal Information Confirmation</h4>
+                        </div>
+                        <div class="box-body collapse in my-box-boundary" id="isme">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table table-no-border profile-ps" style="margin-bottom: 0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Email</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.Email}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Name</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.Name}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>NRIC</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.NRIC}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Handphone</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.Phone}}
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="signin_s.ReferralCode != ''">
+                                            <td class="left">
+                                                <strong>Referral Code</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.ReferralCode}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Registering For</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.LicenseTypes[signin_s.LicenseType].CertificateTypeName}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Gender</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.Genders[signin_s.Gender - 1].Gender}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Race</strong>
+                                            </td>
+                                            <td class="right">
+                                                 {{appContext.Races[signin_s.Race - 1].Race}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Education Level</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.EducationLevel[signin_s.EducationLevel - 1].EducationLevel}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-no-border profile-ps" style="margin-bottom: 0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Postal Code</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.PostalCode}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Salutation</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.Salutations[signin_s.Salutation - 1].Salutation}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Nationality</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.Nationalities[signin_s.Nationality - 1].Nationality}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Marital Status</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{appContext.MaritalStatus[signin_s.MaritalStatus -1].MaritalStatus}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Address</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.Address}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Date of Birth</strong>
+                                            </td>
+                                            <td class="right">
+                                               {{signin_s.DateOfBirth}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Driving License Issue Date</strong>
+                                            </td>
+                                            <td class="right">
+                                                 {{signin_s.LicenseIssueDate}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>TDVL First Issue Date</strong>
+                                            </td>
+                                            <td class="right">
+                                                {{signin_s.TVDLIssue}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>TDVL Expiry Date</strong>
+                                            </td>
+                                            <td class="right">
+                                               {{signin_s.TVDLExpiry}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <table class="table table-no-border profile-ps" style="margin-bottom: 0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>{{msgAboutPic}} (Front)</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="right">
+                                                <img height="140px" name="signInFileFront" class="margin-top-10" style="display: none"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>{{msgAboutPic}} (Back)</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="right">
+                                                <img height="140px" name="signInFileBack" class="margin-top-10" style="display: none"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-no-border profile-ps" style="margin-bottom: 0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="left">
+                                                <strong>Frontal View</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="right">
+                                                <img height="140px" name="signInMugShot" class="margin-top-10" style="display: none"/>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="signin_s.LicenseType==0">
+                                            <td class="left">
+                                                <strong>PDVL Letter</strong>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="signin_s.LicenseType==0">
+                                            <td class="right">
+                                                <img height="140px" name="PDVLLetter" class="margin-top-10" style="display: none"/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="my-box-boundary text-right" style="padding: 15px 0">
+                                <a class="btn btn-yellow" role="button" ng-click="isConfirmToSubmit()"><b>BACK</b></a>
+                                <a class="btn btn-yellow" role="button" ng-click="sub()"><b>SUBMIT</b></a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
 
@@ -480,14 +723,18 @@
             var file=$("#"+name).get(0).files[0];
             if(!file){
                 $('#' + name + 'Img').css('display', 'none');
+                $("img[name='" + name +"']").css('display', 'none');
                 return;
             }
             var url=getObjectURL(file);
             if(url != null){
                 $('#'+name+'Img').attr('src',url);
                 $('#'+name+'Img').css('display','block');
+                $("img[name='" + name +"']").attr('src',url);
+                $("img[name='" + name +"']").css('display', 'block');
             }else{
                 $('#'+name+'Img').css('display','none');
+                $("img[name='" + name +"']").css('display', 'none');
             }
         });
     }

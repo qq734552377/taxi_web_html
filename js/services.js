@@ -115,6 +115,7 @@ serviceModule.factory('allUrl',function () {
         getPasswordBackUrl:host + '/api/ResetPassword',
         getPromotionCodeUrl:host + '/api/ReturnPromotionCodeAndMoney',
         getPromoCodeCanUseUrl:host + '/api/IsCheckPromo',
+        getReferralCodeCanUseUrl:host + '/api/ValidationReferralCode',
         getInsuranceDetialUrl:host + '/Insurance/GetInsurance',
         getInsuranceDetialByLeaseNumberUrl:host + '/Insurance/GetInsuranceByLeaseNumber',
         getThreeCarsUrl:host + '/api/VehicleRecommend',
@@ -137,6 +138,8 @@ serviceModule.factory('allUrl',function () {
             username:'Personal',
             isEnoughBalance:false,
             userAccountMoney:0,
+            userCredit:0,
+            userTrueWalletMoney:0,
             userTopupMsg:{},
             isAgreeMe:false,
             bookingState:['Apply','Start','Cancel','Finish'],
@@ -173,6 +176,7 @@ serviceModule.factory('allUrl',function () {
                     {ID:'14',Duration:'14 hrs'},
                     {ID:'15',Duration:'15 hrs'},
                     {ID:'16',Duration:'16 hrs'},
+                    {ID:'17',Duration:'17 hrs'},
                     {ID:'18',Duration:'18 hrs'},
                     {ID:'19',Duration:'19 hrs'},
                     {ID:'20',Duration:'20 hrs'},
@@ -201,9 +205,48 @@ serviceModule.factory('allUrl',function () {
                     {ID:'336',Duration:'2 weeks'},
                     {ID:'504',Duration:'3 weeks'},
                     {ID:'672',Duration:'4 weeks'},
+                    {ID:'720',Duration:'30 days'},
                 ],
                 vehicleNumbers:[]
             },
+            ExtendDurations:[
+                {ID:'1',Duration:'1 hr'},
+                {ID:'2',Duration:'2 hrs'},
+                {ID:'3',Duration:'3 hrs'},
+                {ID:'4',Duration:'4 hrs'},
+                {ID:'5',Duration:'5 hrs'},
+                {ID:'6',Duration:'6 hrs'},
+                {ID:'7',Duration:'7 hrs'},
+                {ID:'8',Duration:'8 hrs'},
+                {ID:'9',Duration:'9 hrs'},
+                {ID:'10',Duration:'10 hrs'},
+                {ID:'11',Duration:'11 hrs'},
+                {ID:'12',Duration:'12 hrs'},
+                {ID:'13',Duration:'13 hrs'},
+                {ID:'14',Duration:'14 hrs'},
+                {ID:'15',Duration:'15 hrs'},
+                {ID:'16',Duration:'16 hrs'},
+                {ID:'17',Duration:'17 hrs'},
+                {ID:'18',Duration:'18 hrs'},
+                {ID:'19',Duration:'19 hrs'},
+                {ID:'20',Duration:'20 hrs'},
+                {ID:'21',Duration:'21 hrs'},
+                {ID:'22',Duration:'22 hrs'},
+                {ID:'23',Duration:'23 hrs'},
+                {ID:'24',Duration:'24 hrs'},
+                {ID:'25',Duration:'25 hrs'},
+                {ID:'26',Duration:'26 hrs'},
+                {ID:'27',Duration:'27 hrs'},
+                {ID:'28',Duration:'28 hrs'},
+                {ID:'29',Duration:'29 hrs'},
+                {ID:'30',Duration:'30 hrs'},
+                {ID:'31',Duration:'31 hrs'},
+                {ID:'32',Duration:'32 hrs'},
+                {ID:'33',Duration:'33 hrs'},
+                {ID:'34',Duration:'34 hrs'},
+                {ID:'35',Duration:'35 hrs'},
+                {ID:'36',Duration:'36 hrs'},
+            ],
             rateSearch:{
                 startDate: '',
                 startTime: '0',
@@ -213,6 +256,22 @@ serviceModule.factory('allUrl',function () {
             Nationalities:[],
             Races:[],
             EducationLevel:[],
+            MaritalStatus:[
+                {ID:'1',MaritalStatus:'Single'},
+                {ID:'2',MaritalStatus:'Married'},
+                {ID:'3',MaritalStatus:'Divorce'},
+                {ID:'4',MaritalStatus:'Widow'},
+            ],
+            Genders:[
+                {ID:'1',Gender:'Male'},
+                {ID:'2',Gender:'Female'}
+            ],
+            Salutations:[
+                {ID:'1',Salutation:'Mr'},
+                {ID:'2',Salutation:'Mrs'},
+                {ID:'3',Salutation:'Ms'},
+                {ID:'4',Salutation:'Miss'},
+            ],
             CancelReasons:[],
             ReportIssueReasons:[],
             ReportIssueSubTitles:[],
@@ -243,7 +302,8 @@ serviceModule.factory('allUrl',function () {
                 TVDLIssue:'',
                 TVDLExpiry:'',
                 PVDLIssue:'',
-                PVDLExpiry:''
+                PVDLExpiry:'',
+                ReferralCode:''
             },
             allCurrentSearchCarMsgs:{
 
@@ -651,7 +711,10 @@ serviceModule.factory('allUrl',function () {
                 }).success(function (data) {
                     console.log(data)
                     if (data.MsgType == 'Success') {
-                        appContext.getAll().userAccountMoney=(data.Info/100).toFixed(2);
+
+                        appContext.getAll().userAccountMoney=((data.Data.Balance + data.Data.Credit)/100).toFixed(2);
+                        appContext.getAll().userTrueWalletMoney=((data.Data.Balance)/100).toFixed(2);
+                        appContext.getAll().userCredit=(( data.Data.Credit)/100).toFixed(2);
                     }else {
                         appContext.getAll().isEnoughBalance=false;
                         appContext.getAll().userAccountMoney=0;

@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 CACHE:
-components/jquery/jquery-3.1.1.min.js
+components/jquery/jquery-3.1.1.js
 components/bootstrap-3.3.7-dist/css/bootstrap.min.css
 components/offcancas/bootstrap.offcanvas.css
 components/datetimepicker/bootstrap-datetimepicker.css

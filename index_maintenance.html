@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" manifest="" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>SMRT TaxiSharing</title>
+
+    <meta name="keywords" content="SMRT, taxi, taxi share, taxi sharing, hourly rental, Singapore, cabs"/>
+    <meta name="description" content="Rent a taxi with flexible hourly rates, earn extra income at your convenience"/>
+    <script src="components/jquery/jquery-3.1.1.min.js"></script>
+    <script src="components/datetimepicker/bootstrap-datetimepicker.js"></script>
+    <!-- Bootstrap -->
+    <link href="components/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="components/offcancas/bootstrap.offcanvas.css"/>
+    <link href="components/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link href="components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="components/animation/animation.css" rel="stylesheet">
+    <link href="less/app.css" rel="stylesheet">
+
+    <link rel="bookmark" type="image/x-icon" href="img/favicon.ico"/>
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="icon" href="img/favicon.ico">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+</head>
+<body class="bg-info"  ng-controller="appCtr"  >
+
+<div  id="notification" class="container-fluid" style="background-color: #898989;color:#fff;text-align: center;">
+
+</div>
+
+<myheader id="bodyHeader"></myheader>
+
+<div style="height: 600px;line-height: 600px;background-color: #ffff;margin-top: -20px;" class="text-center">
+    <div class="container" style="font-size: 32px">
+        <div class="row">
+            <div class="col-md-12">
+                System maintenance!
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="move-to-top" id="movetoTop">
+    <a ng-click="scrollToTop()">
+        <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+<myfooter></myfooter>
+
+<!--提示模态框-->
+<div class="example-modal">
+    <div class="modal modal-default fade" id="moTaiTishiBox" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="update_title" ng-bind="motaiBox.title"></h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <p ng-bind="motaiBox.msg"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--提示模态框结尾-->
+
+<!--遮罩等待图像-->
+<div ng-if="appContext.isAllWaitting" class="all-waitting">
+    <div ng-if="appContext.isAllWaitting" class="pic-center-wrap col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top: 100px">
+        <img src="img/waiting.gif">
+    </div>
+</div>
+
+<!--遮罩等待图像结尾-->
+
+<script src="components/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="components/angular/angular.js"></script>
+<script src="components/animation/jquery.waypoints.min.js"></script>
+<script src="components/jquery/jquery.easing.min.js"></script>
+<script src="components/angular/angular-ui-router.min.js"></script>
+<script src="js/md5.min.js"></script>
+
+<script src="js/controllers.min.js"></script>
+<script src="js/services.min.js"></script>
+<script src="js/app.min.js"></script>
+<!--<script src="js/all.js"></script>-->
+
+<script>
+
+    // if(navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+    //     alert(" ios 端 window.webit  不为空 可以调用")
+    //     window.webkit.messageHandlers.getUserMsg.postMessage({Token: 'give your msg'});
+    // }else{
+    //     alert("window.webit  为空")
+    // }
+</script>
+</body>
+</html>

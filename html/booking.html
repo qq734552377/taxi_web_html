@@ -474,7 +474,7 @@
                                                                                 <b>TOTAL TO BE PAID</b>
                                                                             </td>
                                                                             <td class="right text-right" id="totalFees" style="font-size:36px;font-weight: bold">
-                                                                                ${{((totalFees/100) - (appContext.promoData.TotalPreferential?(appContext.promoData.TotalPreferential/100):0)).toFixed(2)}}
+                                                                                ${{((totalFees  - (appContext.promoData.TotalPreferential ? appContext.promoData.TotalPreferential : 0) )/100).toFixed(2)}}
                                                                             </td>
                                                                         </tr>
 

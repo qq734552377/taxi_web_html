@@ -88,13 +88,21 @@
 
     </div>
 
-    <div hidden class="row margin-top-25">
-        <div class="col-md-12" ng-if="tishiBox.isShow">
+    <div class="row margin-top-25">
+        <div class="col-md-12" ng-if="appContext.topUpAwardMsg.Old">
             <div class="alert {{tishiBox.color}} alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h4 style="font-size: 18px" ng-bind="tishiBox.title"></h4>
-                <p style="font-size: 16px" ng-bind="tishiBox.msg">
+                <div class="topup-ul">
+                    <ul>
+                        <li class="topup-li" ng-repeat="item in appContext.topUpAwardMsg.Old">
+                            Top up ${{item.RechargeMin/100}} will get ${{item.Amount/100}} free credits at a time!
+                        </li>
+                    </ul>
+                </div>
+
+                <p style="font-size: 16px" >
 
                 </p>
             </div>

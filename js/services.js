@@ -122,6 +122,8 @@ serviceModule.factory('allUrl',function () {
         queryIssueStatusUrl:host + '/ReportIssue/FrontEndDetailsByBooking',
         queryAllTimePriceUrl:host + '/ExcelImportPrice/FrontEndPriceTableDetails',
         registAgain:host + '/api/AgainRegister',
+        referCodeAwardUrl:host + '/ActivityRecharge/ReferralsReward',
+        topUpAwardUrl:host + '/ActivityRecharge/ActivityRechargeInfo',
 
     }
 })
@@ -363,7 +365,9 @@ serviceModule.factory('allUrl',function () {
             maxDayOrWeekMsg:{
                 maxDay:'Maximum price rate for the day',
                 maxWeek:'Maximum price rate for the week'
-            }
+            },
+            referCodeAwardMsg:{},
+            topUpAwardMsg:{}
         };
 
 
@@ -742,6 +746,48 @@ serviceModule.factory('allUrl',function () {
             go: function () {
                 $("html, body").animate({
                         scrollTop: $("#notification").offset().top }, {duration: 750,easing: "easeInBack"});
+
+            }
+        }
+    })
+    .factory('getReferAwaed',function ($http,appContext,allUrl) {
+        return {
+            get: function () {
+                $http({
+                    method: "POST",
+                    url: allUrl.referCodeAwardUrl,
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    console.log(data);
+                    if (data.MsgType == 'Success') {
+                        appContext.getAll().referCodeAwardMsg = data.Data;
+                    } else {
+
+                    }
+                }).error(function () {
+
+                });
+
+            }
+        }
+    })
+    .factory('getTopUpAwaed',function ($http,appContext,allUrl) {
+        return {
+            get: function () {
+                $http({
+                    method: "POST",
+                    url: allUrl.topUpAwardUrl,
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data) {
+                    console.log(data);
+                    if (data.MsgType == 'Success') {
+                        appContext.getAll().topUpAwardMsg = data.Data;
+                    } else {
+
+                    }
+                }).error(function () {
+
+                });
 
             }
         }

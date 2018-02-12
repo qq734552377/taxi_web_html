@@ -1492,16 +1492,16 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
 
     })
-    .controller('topupCtr', function ($scope, $http,$stateParams, allUrl, appContext) {
+    .controller('topupCtr', function ($scope, $http,$stateParams, allUrl, appContext,getTopUpAwaed) {
         $scope.$emit('curPath', 'Top Up');
         $scope.tishiBox = {
             isShow: true,
             color:'alert-info',
-            title: 'Promotion:',
-            msg: 'Top up $50 and enjoy a 10% off for your next booking. Take advantage now.'
+            title: 'Promotion:'
         };
         // alert($stateParams.href);
         querryUserTopupMsg();
+        getTopUpAwaed.get();
 
         function querryUserTopupMsg() {
             appContext.getAll().isAllWaitting = true;
@@ -1695,7 +1695,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         }
 
     })
-    .controller('referCtr', function ($scope, $http, allUrl, appContext) {
+    .controller('referCtr', function ($scope, $http, allUrl, appContext,getReferAwaed) {
         $scope.$emit('curPath', 'Refer a Friend');
         $scope.baseUrl=allUrl.referHost+'/taxisharing/%23/signup_f/';
         $scope.promoCode='';
@@ -1704,6 +1704,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         $scope.promoPrice='49';
 
         getPromotionCode();
+        getReferAwaed.get();
 
         function getPromotionCode() {
             appContext.getAll().isAllWaitting = true;
@@ -2580,13 +2581,14 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             method: "POST",
             url: allUrl.getPromoCodeCanUseUrl,
             data: {
-                ID: $scope.carMsg.ID,
+                ID: scope.carMsg.ID,
                 StartTime: startDateTime,
-                Duration: $scope.carMsg.Duration,
-                VehiceType: $scope.carMsg.VehicleType,
-                LeaseType: $scope.carMsg.LeaseType,
-                VehicleModel: $scope.carMsg.VehicleModel,
-                PromoCode: $scope.carMsg.PromoCode
+                Duration: scope.carMsg.Duration,
+                VehiceType: scope.carMsg.VehicleType,
+                LeaseType: scope.carMsg.LeaseType,
+                VehicleModel: scope.carMsg.VehicleModel,
+                PromoCode: scope.carMsg.PromoCode,
+                OriginalPrice:scope.carPriceList.BookingTotal
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -3043,7 +3045,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             window.location='#/search';
         }
     })
-    .controller('main1Ctr', function ($scope,$http,appContext,allUrl,allCarsMsg) {
+    .controller('main1Ctr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(!appContext.getAll().isAut){
             window.location.replace('#/main2')
@@ -3098,6 +3100,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         });
 
         getThreeCars();
+        getReferAwaed.get();
 
         function getThreeCars() {
             $scope.isWaitting = true;

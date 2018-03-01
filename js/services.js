@@ -318,7 +318,7 @@ serviceModule.factory('allUrl',function () {
             },
             smartEmail:'taxishare-enquiry@smrt.com.sg',
             stridesEmail:'www.strides.com.sg',
-            hostName:'http://192.168.0.132/taxi',
+            hostName:allUrl.referHost,
             errorMsg:{
                 netError:'The network just lost a moment,try again! ',
                 uncompleteError:'Please fill in the complete information!',

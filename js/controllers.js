@@ -986,6 +986,8 @@ appControllers.controller('searchCtr', function ($scope, $http, appContext, allC
                 if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
                     $scope.isOtherLocationCarViews = true;
                 }
+                localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
+                localStorage.setItem('duration',$scope.searchMsg.duration);
 
             } else {
                 $scope.isNoCar = true;
@@ -2486,6 +2488,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     }
     })
     .controller('bookingCtr', function ($scope, $http, $stateParams, $timeout, appContext, allUrl, allCarsMsg, getWallet) {
+
     $scope.timeTable = {
         times: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
         bgcolors: [{bgcClass: 'can-booking-bgc'},
@@ -2516,6 +2519,32 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     };
     var id = $stateParams.id;
     $scope.carMsg = allCarsMsg.getCarById(id);
+    if (!$scope.carMsg){
+        var localDate = getDateByString(localStorage.getItem('startTime'));
+        if(new Date().getTime() - localDate.getTime() > 0){
+            var formatDate = getFormatTime(addByhours(new Date(),1));
+            localStorage.setItem('startTime',formatDate.Date + ' ' + formatDate.Time + ":00" );
+        }
+        $.ajax({
+            url: allUrl.searchUrl,
+            async:false,
+            type : "POST",
+            dataType : "json",
+            data: {
+                StartTime: localStorage.getItem('startTime'),
+                Duration: localStorage.getItem('duration'),
+                LeaseType: '0',
+                VehiceType: '0',
+                Address: '0',
+                PlateID: '0'
+            },
+            success: function(data){
+                allCarsMsg.setAllCars(data.Data);
+                $scope.carMsg = allCarsMsg.getCarById(id);
+            }
+        });
+    }
+
     $scope.searchMsg = appContext.getAll().searchMsg;
     $scope.isGetCarStateWaitting = true;
     $scope.carPriceList = {};
@@ -2538,7 +2567,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
 
     console.log($scope.carMsg);
 
-    if (!$scope.carMsg || !$scope.carMsg.ID || !$scope.searchMsg.startTime) {
+    if (!$scope.carMsg || !$scope.carMsg.ID ) {
         window.location.replace("#/search");
         return;
     }
@@ -2549,7 +2578,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     $scope.currentDay = 0;
 
 
-    var startDateTime = ($scope.searchMsg.startDate+ ' ' + $scope.searchMsg.startTime + ':00');
+    var startDateTime = localStorage.getItem('startTime');
     $scope.currentDate = $scope.searchMsg.startDate;
 
     $scope.goToLogin = function () {

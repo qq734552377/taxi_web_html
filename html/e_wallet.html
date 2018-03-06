@@ -1,0 +1,145 @@
+<div class="some-thing-to-show main-content" style="">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="e-wallet-header">
+                <div class="content-level-nav">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="">
+        <div class="row margin-top-20 margin-bottom-20">
+            <div class="rwo">
+                <div class="col-md-4">
+                    <div class="img-show" style="text-align: center">
+                        <img src="img/e-wallet_banner.png" style="height: 200px">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12 margin-top-20">
+                            <div style="margin-left: 15px;font-size: 20px">
+                                <i class="fa fa-money" aria-hidden="true"></i>&nbsp;&nbsp;
+                                <b style="color: #e81e06">
+                                    Your Balance
+                                </b>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 40px">
+                            <div style="padding: 10px 10px;border: 1px solid #aaa">
+                                <table class="table table-no-border " style="margin-bottom: 0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="left" style="font-size: 22px">
+                                            <b>
+                                                $ {{appContext.userTrueWalletMoney}}
+                                            </b>
+                                        </td>
+                                        <td class="right text-right" style="font-size: 22px">
+                                            <a href="#/sidemenu/topup" class="btn btn-dark"><b>TOP UP</b></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 margin-top-20">
+                    <div style="margin-left: 30px;font-size: 20px">
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;&nbsp;
+                        <b style="color: #e81e06">
+                            E-Wallet History
+                        </b>
+                    </div>
+                </div>
+            </div>
+            <div class="mytable my-box margin-top-20">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="select-count">
+                                Show
+                                <select ng-model='avg' class="input-sm">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                entries
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6 text-right">
+                            <button class="btn btn-success" ng-click="querry()">
+                                <i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 margin-top-25">
+                            <table class="responsive table table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Amount($)</th>
+                                    <th>Entered By</th>
+                                    <th>Booking Reference</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in currentPageBookings">
+                                    <td class="date" ng-bind="item.SaveTime"></td>
+                                    <td class="type" ng-bind="item.TrardetypeName"></td>
+                                    <td class="amount"  ng-bind="'$ '+(item.TransactionAmount/100).toFixed(2)"></td>
+                                    <td class="enteredBy"  ng-bind="item.WalletStatusName"></td>
+                                    <td class="enteredBy"  ng-bind="item.Trardeno"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="show-counts">
+                                Showing {{currentIndex==0?0:(currentIndex-1)*avg+1}} to {{currentIndex==0?0:(currentIndex-1)*avg+currentPageBookings.length}} of {{sourceBookings.length}} entries
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="page-table">
+                                <ul class="pagination">
+                                    <li ng-class="{disabled:currentIndex==1||currentIndex==0}"   ng-click="jumpPage(currentIndex-1)">
+                                    <span  aria-label="Previous" >
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </span>
+                                    </li>
+                                    <li ng-repeat="item in allPageBookings" ng-class="{active:currentIndex==item.index}" ng-if="item.index < 7"  ng-click="jumpPage(item.index)"><span  ng-bind="item.index"></span></li>
+                                    <li ng-if="allPageBookings.length >= 7"  ><span >...</span></li>
+
+                                    <li ng-class="{disabled:currentIndex==pageCount}"  ng-click="jumpPage(currentIndex+1)">
+                                    <span aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </span>
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

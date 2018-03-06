@@ -234,7 +234,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
         url: allUrl.loginUrl,
         email: '',
         password: '',
-        loginSucessUrl: '#/main1'
+        loginSucessUrl: '#/booking_search'
     };
 
     function initLoginMsg() {
@@ -2199,6 +2199,8 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     $scope.searchMsg = appContext.getAll().searchMsg;
     $scope.isGetCarStateWaitting = true;
 
+
+
     $scope.carPriceList = {};
     $scope.insuranceList = {};
     $scope.insuranceMsg={
@@ -2224,11 +2226,84 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         return;
     }
 
+
+
     //地图的url
     $scope.mapUrl='https://www.google.com/maps/embed/v1/place?key='+appContext.getAll().key+'&q='+$scope.carMsg.Latitude+','+$scope.carMsg.Longitude+'&zoom='+appContext.getAll().zoom;
     $('#mapFrame').attr('src',$scope.mapUrl);
     $scope.currentDay = 0;
 
+
+    $scope.isFavouriteCarById = function (id) {
+        var favouriteCarIDS = appContext.getAll().favouriteCarID;
+        for (var i = 0;i < favouriteCarIDS.length;i++){
+            if (favouriteCarIDS[i] == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    $scope.getIsFavouriteCarById = function (id) {
+        $scope.isFavouriteCar = false;
+        $http({
+            method: 'POST',
+            url: allUrl.getIsFavouriteCar,
+            data: {
+                VehicleID: id,
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Basic " + appContext.getAll().token
+            }
+        }).success(function (data) {
+            console.log(data);
+            if (data.MsgType == 'Success') {
+                $scope.isFavouriteCar = data.Data.Collect;
+            } else {
+                appContext.getAll().isAllWaitting = false;
+            }
+
+        }).error(function () {
+            appContext.getAll().isAllWaitting = false;
+        });
+    }
+    $scope.getIsFavouriteCarById(id);
+
+    $scope.setFavouriteCar = function () {
+        appContext.getAll().isAllWaitting = true;
+        $http({
+            method: 'POST',
+            url: allUrl.setFavouriteCar,
+            data: {
+                VehicleID: id,
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: "Basic " + appContext.getAll().token
+            }
+        }).success(function (data) {
+            console.log(data);
+            appContext.getAll().isAllWaitting = false;
+            if (data.MsgType == 'Success') {
+                if(data.Info == 'Collect Success'){
+                    $scope.isFavouriteCar = true;
+                }else{
+                    $scope.isFavouriteCar = false;
+                }
+            } else {
+                if (data.MsgType == 'TokenError') {
+                    $scope.tokenErrorHandle();
+                    return;
+                }
+                $scope.dataInfoErrorHandle(data);
+            }
+
+        }).error(function () {
+            $scope.netErrorHandle();
+        });
+
+    }
 
     var startDateTime = ($scope.searchMsg.startDate+ ' ' + $scope.searchMsg.startTime + ':00');
     $scope.currentDate = $scope.searchMsg.startDate;
@@ -3059,7 +3134,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     .controller('mainCtr', function ($scope,appContext) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(appContext.getAll().isAut){
-            window.location.replace('#/main1')
+            window.location.replace('#/booking_search')
         }
 
         $scope.goToSearchWithCarType=function (rentFor) {
@@ -3074,11 +3149,38 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             window.location='#/search';
         }
     })
-    .controller('main1Ctr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed) {
+    .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(!appContext.getAll().isAut){
             window.location.replace('#/main2')
         }
+
+        //分页
+        $scope.sourceBookings = [];
+        $scope.avg = '10';
+
+        $scope.currentIndex = 1;
+        $scope.pageCount = Math.ceil($scope.sourceBookings.length / $scope.avg);
+        $scope.allPageBookings = [];
+        $scope.currentPageBookings = [];
+        initPage($scope);
+        $scope.jumpPage = function (index) {
+            if (index < 1) {
+                return
+            }
+            if (index > $scope.pageCount) {
+                return
+            }
+            $scope.currentIndex = index;
+            $scope.currentPageBookings = $scope.allPageBookings[index - 1].pageItems;
+        };
+
+
+        //////////////////////////分页//////////////////////////////////
+        
+        $scope.isNoCar = false;
+        $scope.isOtherLocationCarViews = false;
+
 
         $scope.goToSearchWithCarType=function (rentFor) {
             $scope.searchMsg.rentFor=rentFor;
@@ -3128,49 +3230,118 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
         });
 
-        getThreeCars();
+        $scope.search = getThreeRecommendedCars;
+        $scope.search();
         getReferAwaed.get();
 
-        function getThreeCars() {
+        function getThreeRecommendedCars() {
             $scope.isWaitting = true;
             $scope.isNoCar = false;
             $scope.isOtherLocationCarViews = false;
-            $scope.allCarsMsgs = allCarsMsg.clear();
+            $scope.recommendedCarList = {};
+            allCarsMsg.clear();
 
-            //请求所有的车辆信息
-            $http({
-                method: "POST",
+
+            $.ajax({
                 url: allUrl.getThreeCarsUrl,
+                async:false,
+                type : "POST",
+                dataType : "json",
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
                     Duration: $scope.searchMsg.duration
                 },
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: "Basic " + appContext.getAll().token
+                },
+                success: function(data){
+                    console.log(data);
+                    $scope.isWaitting = false;
+                    if (data.MsgType == 'Success') {
+                        allCarsMsg.addCars(data.Data)
+                        $scope.recommendedCarList = data.Data;
+                    } else {
+                        if (data.MsgType == 'TokenError') {
+                            $scope.tokenErrorHandle();
+                            return;
+                        }
+                    }
+                },
+                error:function () {
+                    $scope.isWaitting = false;
                 }
-            }).success(function (data) {
-                console.log(data);
-                $scope.isWaitting = false;
-                if (data.MsgType == 'Success') {
-                    $scope.isNoCar = false;
-                    $scope.allCarsMsgs = allCarsMsg.setAllCars(data.Data);
-
-                    if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
-                        $scope.isOtherLocationCarViews = true;
+            });
+            $scope.pastCarList = {};
+            $.ajax({
+                url: allUrl.getThreeCarsUrl,
+                async:false,
+                type : "POST",
+                dataType : "json",
+                data: {
+                    StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+                    Duration: $scope.searchMsg.duration
+                },
+                headers: {
+                    Authorization: "Basic " + appContext.getAll().token
+                },
+                success: function(data){
+                    console.log(data);
+                    $scope.isWaitting = false;
+                    if (data.MsgType == 'Success') {
+                        allCarsMsg.addCars(data.Data)
+                        $scope.pastCarList = data.Data;
+                    } else {
+                        if (data.MsgType == 'TokenError') {
+                            $scope.tokenErrorHandle();
+                            return;
+                        }
                     }
+                },
+                error:function () {
+                    $scope.isWaitting = false;
+                }
+            });
 
-                } else {
-                    if (data.MsgType == 'TokenError') {
-                        $scope.tokenErrorHandle();
-                        return;
+            $scope.allCarsMsgs = {};
+            $.ajax({
+                url: allUrl.searchUrl,
+                async:false,
+                type : "POST",
+                dataType : "json",
+                data: {
+                    StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+                    Duration: $scope.searchMsg.duration,
+                    LeaseType: $scope.searchMsg.rentFor,
+                    VehiceType: $scope.searchMsg.category,
+                    Address: $scope.searchMsg.location,
+                    PlateID: $scope.searchMsg.vehicleNumber
+                },
+                headers: {
+                    Authorization: "Basic " + appContext.getAll().token
+                },
+                success: function(data){
+                    console.log(data);
+                    $scope.isWaitting = false;
+                    if (data.MsgType == 'Success') {
+                        $scope.isNoCar = false;
+                        allCarsMsg.addCars(data.Data);
+                        $scope.allCarsMsgs = data.Data;
+                        $scope.sourceBookings = data.Data;
+                        initPage($scope);
+                        if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
+                            $scope.isOtherLocationCarViews = true;
+                        }
+                        localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
+                        localStorage.setItem('duration',$scope.searchMsg.duration);
+
+                    } else {
+                        $scope.isNoCar = true;
                     }
+                },
+                error:function () {
+                    $scope.isWaitting = false;
                     $scope.isNoCar = true;
                 }
-
-            }).error(function () {
-                $scope.isWaitting = false;
-                $scope.isNoCar = true;
             });
         }
 
@@ -3185,7 +3356,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     .controller('main2Ctr', function ($scope,$http,appContext,allUrl) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(appContext.getAll().isAut){
-            window.location.replace('#/main1')
+            window.location.replace('#/booking_search')
         }
         $scope.rateSearch= appContext.getAll().rateSearch;
         initsearchTime($scope.rateSearch);
@@ -3226,11 +3397,8 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     .controller('promotionsCtr', function ($scope,$http,appContext,allUrl) {
 
     })
-    .controller('my_profileCtr', function ($scope,$http,appContext,allUrl) {
-
+    .controller('my_profileCtr', function ($scope,$http,appContext,allUrl,appContext) {
         getUserDetailMsg();
-
-
         function getUserDetailMsg() {
             $http({
                 method: 'POST',
@@ -3264,6 +3432,137 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                     }
                 }
             }).error(function () {
+            });
+        }
+    })
+    .controller('my_bookingsCtr', function ($scope,$http,appContext,allUrl,appContext) {
+        $scope.sourceBookings = [];
+        $scope.avg = '10';
+
+        $scope.currentIndex = 1;
+        $scope.pageCount = Math.ceil($scope.sourceBookings.length / $scope.avg);
+        $scope.allPageBookings = [];
+        $scope.currentPageBookings = [];
+
+        initPage($scope);
+
+        $scope.$watch('avg', function (newValue, oldValue, scope) {
+            if (newValue != oldValue) {
+                initPage(scope);
+            }
+        });
+        $scope.jumpPage = function (index) {
+            if (index < 1) {
+                return
+            }
+            if (index > $scope.pageCount) {
+                return
+            }
+            $scope.currentIndex = index;
+            $scope.currentPageBookings = $scope.allPageBookings[index - 1].pageItems;
+            $scope.scrollToTop();
+        };
+
+
+        $scope.querry = queryAllBookings;
+
+        $scope.querry();
+
+        function queryAllBookings() {
+            appContext.getAll().isAllWaitting=true;
+            $scope.sourceBookings.splice(0, $scope.sourceBookings.length);
+            initPage($scope);
+            $http({
+                method: 'POST',
+                url: allUrl.getAllMyBookingMsgsUrl,
+                data: {},
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: "Basic " + appContext.getAll().token
+                }
+            }).success(function (data) {
+                appContext.getAll().isAllWaitting=false;
+                console.log(data)
+                if (data.MsgType == 'Success') {
+                    $scope.sourceBookings = data.Data.Data;
+                    initPage($scope);
+                } else {
+                    if (data.MsgType == 'TokenError') {
+                        $scope.tokenErrorHandle();
+                        return;
+                    }
+                    $scope.dataInfoErrorHandle(data);
+                }
+
+            }).error(function () {
+                $scope.netErrorHandle();
+            });
+        }
+    })
+    .controller('e_walletCtr', function ($scope,$http,appContext,allUrl,appContext,getWallet) {
+
+        getWallet.init();
+        $scope.sourceBookings = [];
+        $scope.avg = '10';
+
+        $scope.currentIndex = 1;
+        $scope.pageCount = Math.ceil($scope.sourceBookings.length / $scope.avg);
+        $scope.allPageBookings = [];
+        $scope.currentPageBookings = [];
+
+        initPage($scope);
+
+
+        $scope.$watch('avg', function (newValue, oldValue, scope) {
+            if (newValue != oldValue) {
+                initPage(scope);
+            }
+        });
+        $scope.jumpPage = function (index) {
+            if (index < 1) {
+                return
+            }
+            if (index > $scope.pageCount) {
+                return
+            }
+            $scope.currentIndex = index;
+            $scope.currentPageBookings = $scope.allPageBookings[index - 1].pageItems;
+            $scope.scrollToTop();
+        };
+
+        $scope.querry = querryAllWalletMsgs;
+
+        $scope.querry();
+
+
+        function querryAllWalletMsgs() {
+            appContext.getAll().isAllWaitting=true;
+            $scope.sourceBookings.splice(0, $scope.sourceBookings.length);
+            initPage($scope);
+            $http({
+                method: 'POST',
+                url: allUrl.getAllWalletMsgsUrl,
+                data: {},
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: "Basic " + appContext.getAll().token
+                }
+            }).success(function (data) {
+                console.log(data);
+                appContext.getAll().isAllWaitting=false;
+                if (data.MsgType == 'Success') {
+                    $scope.sourceBookings = data.Data;
+                    initPage($scope);
+                } else {
+                    if (data.MsgType == 'TokenError') {
+                        $scope.tokenErrorHandle();
+                        return;
+                    }
+
+                }
+
+            }).error(function () {
+                $scope.netErrorHandle();
             });
         }
     });

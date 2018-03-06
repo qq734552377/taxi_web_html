@@ -367,7 +367,16 @@
                                                     BOOK CAR
                                                 </a>
                                             </div>
+                                            <div ng-show="appContext.isAut" class="col-xs-12 text-center">
+                                                <a ng-click="setFavouriteCar()" class="margin-top-10" style="font-size: 16px;display: block;color: black">
+                                                       <span style="color: gold">
+                                                        <i class="fa {{isFavouriteCar?'fa-star':'fa-star-o'}}" aria-hidden="true" style="font-size: 22px"></i>
+                                                        Save as favourite
+                                                     </span>
+                                                    for your next quick book
+                                                </a>
 
+                                            </div>
 
                                             <div class="col-xs-12 text-right margin-top-20">
                                                 <a href="#/search" style="color: #787878">

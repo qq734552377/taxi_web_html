@@ -529,10 +529,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         onExit: function(app){
         }
     })
-    .state('main1',{
-        url:'/main1',
-        templateUrl:'html/main1.html',
-        controller:'main1Ctr',
+    .state('booking_search',{
+        url:'/booking_search',
+        templateUrl:'html/booking_search.html',
+        controller:'booking_searchCtr',
         //注入'isSide'服务
         resolve: {
             app:'appContext',
@@ -646,10 +646,50 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
+            app.getAll().userTitle = 'My Profile';
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
+            app.getAll().userTitle = 'My Account';
+        }
+    })
+    .state('my_bookings',{
+        url:'/my_bookings',
+        templateUrl:'html/my_bookings.html',
+        controller:'my_bookingsCtr',
+        //注入'isSide'服务
+        resolve: {
+            app:'appContext',
+            goTop:'scrollToTop'
+        },
+        // myIsSide 是解决依赖项注入控制器
+        onEnter: function(app,goTop){
+            app.getAll().userTitle = 'My Bookings';
+            goTop.go();
+        },
+        // myIsSide 是解决依赖项注入控制器
+        onExit: function(app){
+            app.getAll().userTitle = 'My Account';
+        }
+    })
+    .state('e_wallet',{
+        url:'/e_wallet',
+        templateUrl:'html/e_wallet.html',
+        controller:'e_walletCtr',
+        //注入'isSide'服务
+        resolve: {
+            app:'appContext',
+            goTop:'scrollToTop'
+        },
+        // myIsSide 是解决依赖项注入控制器
+        onEnter: function(app,goTop){
+            app.getAll().userTitle = 'E-Wallet';
+            goTop.go();
+        },
+        // myIsSide 是解决依赖项注入控制器
+        onExit: function(app){
+            app.getAll().userTitle = 'My Account';
         }
     });
 

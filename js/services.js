@@ -124,7 +124,9 @@ serviceModule.factory('allUrl',function () {
         registAgain:host + '/api/AgainRegister',
         referCodeAwardUrl:host + '/ActivityRecharge/ReferralsReward',
         topUpAwardUrl:host + '/ActivityRecharge/ActivityRechargeInfo',
-
+        getAllFavouriteCars:host + '/api/QueryCollectList',
+        setFavouriteCar:host + '/api/CollectOrCancelCollect',
+        getIsFavouriteCar:host + '/api/IsCollect',
     }
 })
     .factory('appContext',function (allUrl) {
@@ -367,7 +369,9 @@ serviceModule.factory('allUrl',function () {
                 maxWeek:'Maximum price rate for the week'
             },
             referCodeAwardMsg:{},
-            topUpAwardMsg:{}
+            topUpAwardMsg:{},
+            favouriteCarID:[],
+            userTitle:'My Account'
         };
 
 
@@ -651,6 +655,12 @@ serviceModule.factory('allUrl',function () {
                 allCars=data;
                 return allCars;
             },
+            addCars:function (data) {
+               for(var j = 0; j< data.length; j++){
+                    allCars.push(data[j]);
+               }
+                return allCars;
+            },
             clear:function () {
                 allCars=[];
                 return allCars;
@@ -787,6 +797,35 @@ serviceModule.factory('allUrl',function () {
                     }
                 }).error(function () {
 
+                });
+
+            }
+        }
+    })
+    .factory('getAllFavouriteCars',function ($http,appContext,allUrl) {
+        return {
+            get: function () {
+                appContext.getAll().isAllWaitting = true;
+                $.ajax({
+                    url: allUrl.getAllFavouriteCars,
+                    async:false,
+                    type : "POST",
+                    dataType : "json",
+                    data: {
+                    },
+                    headers: {
+                        Authorization: "Basic " + appContext.getAll().token
+                    },
+                    success: function(data){
+                        console.log(data);
+                        appContext.getAll().isAllWaitting = false;
+                        if (data.MsgType == 'Success') {
+
+                        }
+                    },
+                    error:function () {
+                        appContext.getAll().isAllWaitting = false;
+                    }
                 });
 
             }

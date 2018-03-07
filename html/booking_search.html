@@ -740,14 +740,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mytable">
             <div class="col-md-5">
                 <div class="show-counts margin-top-25" >
                     Showing {{currentIndex==0?0:(currentIndex-1)*avg+1}} to {{currentIndex==0?0:(currentIndex-1)*avg+currentPageBookings.length}} of {{sourceBookings.length}} entries
                 </div>
             </div>
             <div class="col-md-7">
-                <div class="page-table text-right">
+                <div class="page-table">
                     <ul class="pagination">
                         <li ng-class="{disabled:currentIndex==1||currentIndex==0}"   ng-click="jumpPage(currentIndex-1)">
                                     <span  aria-label="Previous" >

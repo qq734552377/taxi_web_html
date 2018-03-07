@@ -119,6 +119,7 @@ serviceModule.factory('allUrl',function () {
         getInsuranceDetialUrl:host + '/Insurance/GetInsurance',
         getInsuranceDetialByLeaseNumberUrl:host + '/Insurance/GetInsuranceByLeaseNumber',
         getThreeCarsUrl:host + '/api/VehicleRecommend',
+        getThreePastOrFavouriteUrl:host + '/api/QueryCollectList',
         queryIssueStatusUrl:host + '/ReportIssue/FrontEndDetailsByBooking',
         queryAllTimePriceUrl:host + '/ExcelImportPrice/FrontEndPriceTableDetails',
         registAgain:host + '/api/AgainRegister',
@@ -371,7 +372,7 @@ serviceModule.factory('allUrl',function () {
             referCodeAwardMsg:{},
             topUpAwardMsg:{},
             favouriteCarID:[],
-            userTitle:'My Account'
+            userTitle:'MENU'
         };
 
 

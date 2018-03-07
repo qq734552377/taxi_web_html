@@ -164,9 +164,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
             // myIsSide 是解决依赖项注入控制器
             onEnter: function(app,goTop){
                 goTop.go();
+                app.getAll().userTitle = 'My Account';
             },
             // myIsSide 是解决依赖项注入控制器
             onExit: function(app){
+                app.getAll().userTitle = 'MENU';
             }
         })
         .state("sidemenu.editprofile",{
@@ -540,11 +542,13 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
+            app.getAll().userTitle = 'Booking Search';
             app.getAll().isNotificationShow = true;
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
+            app.getAll().userTitle = 'MENU';
             app.getAll().isNotificationShow = false;
         }
     })
@@ -651,7 +655,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
-            app.getAll().userTitle = 'My Account';
+            app.getAll().userTitle = 'MENU';
         }
     })
     .state('my_bookings',{
@@ -670,7 +674,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
-            app.getAll().userTitle = 'My Account';
+            app.getAll().userTitle = 'MENU';
         }
     })
     .state('e_wallet',{
@@ -689,7 +693,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){
-            app.getAll().userTitle = 'My Account';
+            app.getAll().userTitle = 'MENU';
         }
     });
 

@@ -3240,7 +3240,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             $scope.isOtherLocationCarViews = false;
             $scope.recommendedCarList = {};
             allCarsMsg.clear();
-
+            appContext.getAll().isAllWaitting = true;
 
             $.ajax({
                 url: allUrl.getThreeCarsUrl,
@@ -3273,7 +3273,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             });
             $scope.pastCarList = {};
             $.ajax({
-                url: allUrl.getThreeCarsUrl,
+                url: allUrl.getThreePastOrFavouriteUrl,
                 async:false,
                 type : "POST",
                 dataType : "json",
@@ -3322,6 +3322,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 success: function(data){
                     console.log(data);
                     $scope.isWaitting = false;
+                    appContext.getAll().isAllWaitting = false;
                     if (data.MsgType == 'Success') {
                         $scope.isNoCar = false;
                         allCarsMsg.addCars(data.Data);
@@ -3339,6 +3340,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                     }
                 },
                 error:function () {
+                    appContext.getAll().isAllWaitting = false;
                     $scope.isWaitting = false;
                     $scope.isNoCar = true;
                 }

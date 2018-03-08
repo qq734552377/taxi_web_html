@@ -740,7 +740,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mytable">
+        <div ng-if="currentPageBookings.length > 0" class="row mytable">
             <div class="col-md-5">
                 <div class="show-counts margin-top-25" >
                     Showing {{currentIndex==0?0:(currentIndex-1)*avg+1}} to {{currentIndex==0?0:(currentIndex-1)*avg+currentPageBookings.length}} of {{sourceBookings.length}} entries

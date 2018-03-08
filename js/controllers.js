@@ -3238,76 +3238,61 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             $scope.isWaitting = true;
             $scope.isNoCar = false;
             $scope.isOtherLocationCarViews = false;
-            $scope.recommendedCarList = {};
             allCarsMsg.clear();
-            appContext.getAll().isAllWaitting = true;
-
-            $.ajax({
-                url: allUrl.getThreeCarsUrl,
-                async:false,
-                type : "POST",
-                dataType : "json",
-                data: {
-                    StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration
-                },
-                headers: {
-                    Authorization: "Basic " + appContext.getAll().token
-                },
-                success: function(data){
-                    console.log(data);
-                    $scope.isWaitting = false;
-                    if (data.MsgType == 'Success') {
-                        allCarsMsg.addCars(data.Data)
-                        $scope.recommendedCarList = data.Data;
-                    } else {
-                        if (data.MsgType == 'TokenError') {
-                            $scope.tokenErrorHandle();
-                            return;
-                        }
-                    }
-                },
-                error:function () {
-                    $scope.isWaitting = false;
-                }
-            });
+            $scope.recommendedCarList = {};
             $scope.pastCarList = {};
-            $.ajax({
-                url: allUrl.getThreePastOrFavouriteUrl,
-                async:false,
-                type : "POST",
-                dataType : "json",
+            $scope.allCarsMsgs = {};
+
+            //获取推荐的三辆车
+           $http({
+                method: "POST",
+                url: allUrl.getThreeCarsUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
                     Duration: $scope.searchMsg.duration
                 },
                 headers: {
+                    'Content-Type': 'application/json',
                     Authorization: "Basic " + appContext.getAll().token
-                },
-                success: function(data){
-                    console.log(data);
-                    $scope.isWaitting = false;
-                    if (data.MsgType == 'Success') {
-                        allCarsMsg.addCars(data.Data)
-                        $scope.pastCarList = data.Data;
-                    } else {
-                        if (data.MsgType == 'TokenError') {
-                            $scope.tokenErrorHandle();
-                            return;
-                        }
-                    }
-                },
-                error:function () {
-                    $scope.isWaitting = false;
                 }
+            }).success(function (data) {
+                console.log(data);
+                $scope.isWaitting = false;
+                if (data.MsgType == 'Success') {
+                    allCarsMsg.addCars(data.Data)
+                    $scope.recommendedCarList = data.Data;
+                }
+            }).error(function () {
+                $scope.isWaitting = false;
             });
 
-            $scope.allCarsMsgs = {};
-            $.ajax({
+            //获取收藏或定过的三辆车
+           $http({
+                method: "POST",
+                url: allUrl.getThreePastOrFavouriteUrl,
+                data: {
+                    StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+                    Duration: $scope.searchMsg.duration
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: "Basic " + appContext.getAll().token
+                }
+            }).success(function (data) {
+                console.log(data);
+                $scope.isWaitting = false;
+                if (data.MsgType == 'Success') {
+                    allCarsMsg.addCars(data.Data)
+                    $scope.pastCarList = data.Data;
+                }
+            }).error(function () {
+                $scope.isWaitting = false;
+            });
+
+            //获取所有可用的车辆
+            $http({
+                method: "POST",
                 url: allUrl.searchUrl,
-                async:false,
-                type : "POST",
-                dataType : "json",
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
                     Duration: $scope.searchMsg.duration,
@@ -3315,36 +3300,123 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                     VehiceType: $scope.searchMsg.category,
                     Address: $scope.searchMsg.location,
                     PlateID: $scope.searchMsg.vehicleNumber
-                },
-                headers: {
-                    Authorization: "Basic " + appContext.getAll().token
-                },
-                success: function(data){
-                    console.log(data);
-                    $scope.isWaitting = false;
-                    appContext.getAll().isAllWaitting = false;
-                    if (data.MsgType == 'Success') {
-                        $scope.isNoCar = false;
-                        allCarsMsg.addCars(data.Data);
-                        $scope.allCarsMsgs = data.Data;
-                        $scope.sourceBookings = data.Data;
-                        initPage($scope);
-                        if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
-                            $scope.isOtherLocationCarViews = true;
-                        }
-                        localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
-                        localStorage.setItem('duration',$scope.searchMsg.duration);
-
-                    } else {
-                        $scope.isNoCar = true;
+                }
+            }).success(function (data) {
+                console.log(data);
+                $scope.isWaitting = false;
+                if (data.MsgType == 'Success') {
+                    $scope.isNoCar = false;
+                    allCarsMsg.addCars(data.Data);
+                    $scope.allCarsMsgs = data.Data;
+                    $scope.sourceBookings = data.Data;
+                    initPage($scope);
+                    if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
+                        $scope.isOtherLocationCarViews = true;
                     }
-                },
-                error:function () {
-                    appContext.getAll().isAllWaitting = false;
-                    $scope.isWaitting = false;
+                    localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
+                    localStorage.setItem('duration',$scope.searchMsg.duration);
+
+                } else {
                     $scope.isNoCar = true;
                 }
+            }).error(function () {
+                $scope.isWaitting = false;
+                $scope.isNoCar = true;
             });
+
+
+
+            // $.ajax({
+            //     url: allUrl.getThreeCarsUrl,
+            //     async:true,
+            //     type : "POST",
+            //     dataType : "json",
+            //     data: {
+            //         StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+            //         Duration: $scope.searchMsg.duration
+            //     },
+            //     headers: {
+            //         Authorization: "Basic " + appContext.getAll().token
+            //     },
+            //     success: function(data){
+            //         console.log(data);
+            //         $scope.isWaitting = false;
+            //         if (data.MsgType == 'Success') {
+            //             allCarsMsg.addCars(data.Data)
+            //             $scope.recommendedCarList = data.Data;
+            //         }
+            //     },
+            //     error:function () {
+            //         $scope.isWaitting = false;
+            //     }
+            // });
+
+            // $.ajax({
+            //     url: allUrl.getThreePastOrFavouriteUrl,
+            //     async:true,
+            //     type : "POST",
+            //     dataType : "json",
+            //     data: {
+            //         StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+            //         Duration: $scope.searchMsg.duration
+            //     },
+            //     headers: {
+            //         Authorization: "Basic " + appContext.getAll().token
+            //     },
+            //     success: function(data){
+            //         console.log(data);
+            //         $scope.isWaitting = false;
+            //         if (data.MsgType == 'Success') {
+            //             allCarsMsg.addCars(data.Data)
+            //             $scope.pastCarList = data.Data;
+            //         }
+            //     },
+            //     error:function () {
+            //         $scope.isWaitting = false;
+            //     }
+            // });
+
+
+            // $.ajax({
+            //     url: allUrl.searchUrl,
+            //     async:true,
+            //     type : "POST",
+            //     dataType : "json",
+            //     data: {
+            //         StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+            //         Duration: $scope.searchMsg.duration,
+            //         LeaseType: $scope.searchMsg.rentFor,
+            //         VehiceType: $scope.searchMsg.category,
+            //         Address: $scope.searchMsg.location,
+            //         PlateID: $scope.searchMsg.vehicleNumber
+            //     },
+            //     headers: {
+            //         Authorization: "Basic " + appContext.getAll().token
+            //     },
+            //     success: function(data){
+            //         console.log(data);
+            //         $scope.isWaitting = false;
+            //         if (data.MsgType == 'Success') {
+            //             $scope.isNoCar = false;
+            //             allCarsMsg.addCars(data.Data);
+            //             $scope.allCarsMsgs = data.Data;
+            //             $scope.sourceBookings = data.Data;
+            //             initPage($scope);
+            //             if($scope.allCarsMsgs[0].AddressID != $scope.searchMsg.location){
+            //                 $scope.isOtherLocationCarViews = true;
+            //             }
+            //             localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
+            //             localStorage.setItem('duration',$scope.searchMsg.duration);
+            //
+            //         } else {
+            //             $scope.isNoCar = true;
+            //         }
+            //     },
+            //     error:function () {
+            //         $scope.isWaitting = false;
+            //         $scope.isNoCar = true;
+            //     }
+            // });
         }
 
         $scope.mainsearch = function () {

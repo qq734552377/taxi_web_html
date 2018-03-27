@@ -115,7 +115,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
             }
         })
         .state("search",{
-            url:'/search',
+            url:'/search/:id',
             templateUrl:'html/search.html',
             controller:'searchCtr',
             //注入'isSide'服务

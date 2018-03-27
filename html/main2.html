@@ -1,3 +1,15 @@
+<style>
+    #locSearch{
+        width: 60%;
+        max-width: 300px;
+        border-radius:5px;
+        margin: 15px auto;
+    }
+
+    #locSearch:focus{
+        border-color: #e81e06;
+    }
+</style>
 <div class="some-thing-to-show main-content" style="">
     <div class="row">
         <div class="col-xs-12">
@@ -21,7 +33,7 @@
                                 TAXI OR CAR
                             </h2>
                             <p>With Flexible Hourly Rates</p>
-                            <a href="#/search" class="btn btn-yellow ">FIND OUT MORE</a>
+                            <a href="#/search/" class="btn btn-yellow ">FIND OUT MORE</a>
                         </div>
                     </div>
                     <div class="item">
@@ -37,7 +49,7 @@
                                     their career and financia goals.
                                 </small>
                             </p>
-                            <a href="#/search" class="btn btn-yellow ">FIND OUT MORE</a>
+                            <a href="#/search/" class="btn btn-yellow ">FIND OUT MORE</a>
                         </div>
                     </div>
                     <div class="item">
@@ -50,7 +62,7 @@
                             <p>
                                 Hassle-Free and Reliable
                             </p>
-                            <a href="#/search" class="btn btn-yellow ">FIND OUT MORE</a>
+                            <a href="#/search/" class="btn btn-yellow ">FIND OUT MORE</a>
                         </div>
                     </div>
                     <div class="item">
@@ -75,7 +87,7 @@
                             <p>
                                 Free Medical Consultation
                             </p>
-                            <a href="#/search" class="btn btn-yellow ">FIND OUT MORE</a>
+                            <a href="#/search/" class="btn btn-yellow ">FIND OUT MORE</a>
                         </div>
                     </div>
                 </div>
@@ -179,7 +191,7 @@
 
                                     <img src="img/watch_video_img.jpg" style="">
 
-                                    <a href="https://www.youtube.com/embed/N7D5U1lT3iA" target="_blank" class="btn btn-warning ">WATCH VIDEO</a>
+                                    <a href="https://www.youtube.com/embed/sQWfhnl__q8" target="_blank" class="btn btn-warning ">WATCH VIDEO</a>
                                 </div>
                             </div>
                         </div>
@@ -349,14 +361,123 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div style="height: 450px"></div>
+                    <div class="col-md-12" style="position: relative">
+                        <input id="locSearch" class="form-control" type="text" placeholder="Search your location">
+                        <div id="map" style="height: 450px;width:100%;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+
+    <script>
+        function initMap() {
+            var uluru = {lat: 1.3601603, lng: 103.8118753};
+
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                scrollwheel: false,
+                center: uluru,
+                zoom: 11,
+                disableDefaultUI: true,
+                // mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+
+            $.ajax({
+                url: 'http://58.246.122.118:12305/Select/FrontQueryParkingSpace',
+                async:true,
+                type : "POST",
+                dataType : "json",
+                success: function(data){
+                    var allInfoWindow = [];
+                    $.each(data.Data,function(i,item){
+                        var pickupLT = new google.maps.LatLng(item.Latitude, item.Longitude);
+                        var infowindow;
+                        var browseLink = '#/search/' + item.ID;
+                        var contentString = addlocationinfo(item.Address,item.Address, browseLink);
+                        infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+                        allInfoWindow.push(infowindow);
+
+                        var pickupMarker_109 = new google.maps.Marker({
+                            icon: "https://maps.google.com/mapfiles/kml/pal4/icon15.png",
+                            position: pickupLT,
+                            title:item.Address,
+                            map: map});
+                        google.maps.event.addListener(pickupMarker_109, 'click', function(){
+                            $.each(allInfoWindow,function (i,item) {
+                                item.close();
+                            });
+                            infowindow.open(map, pickupMarker_109);
+                        });
+
+
+                    });
+                }
+            });
+
+            var input = document.getElementById('locSearch');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+            map.addListener('bounds_changed', function() {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            searchBox.addListener('places_changed', function() {
+                var places = searchBox.getPlaces();
+                console.log('开始初始化places');
+                console.log(places);
+
+                if (places.length == 0) return;
+
+                // Clear out the old markers.
+                markers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function(place) {
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        title: place.name,
+                        position: place.geometry.location,
+                    }));
+
+                    if (place.geometry.viewport) {
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+
+                map.fitBounds(bounds);
+                var zoom = map.getZoom();
+                map.setZoom(zoom > 13 ? 13 : zoom);
+            });
+            function addlocationinfo(loc_name, loc_address, browse_link){
+                var contentString =
+                    '<div id="content" class="text-left info-mapbox">'+
+                    '<h3 id="firstHeading" class="info-mapheader">'+ loc_name + '</h3>'+
+                    '<div id="bodyContent" class="info-mapcontent">'+
+                    '<p>'+ loc_address +'</p>'+
+                    '<a class="btn btn-dark" href="' + browse_link + '">View</a>' +
+                    '</div>'+
+                    '</div>';
+                return contentString;
+            }
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOG4cVPDLrOhF6EfwPUcDmnvJGT46qIcQ&libraries=places&callback=initMap">
+    </script>
 
     <div class="row">
         <div class="col-md-12 text-center">
@@ -368,7 +489,11 @@
             </a>
         </div>
     </div>
+
+
+
 </div>
+
 
 
 <script>
@@ -387,3 +512,6 @@
         startDate: new Date()
     });
 </script>
+
+
+

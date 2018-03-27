@@ -906,9 +906,14 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
         };
     });
 
-appControllers.controller('searchCtr', function ($scope, $http, appContext, allCarsMsg, allUrl) {
+appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,appContext, allCarsMsg, allUrl) {
 
     $scope.searchMsg = appContext.getAll().searchMsg;
+
+
+    if ($stateParams.id){
+        $scope.searchMsg.location = $stateParams.id + '';
+    }
 
     $scope.isWaitting = true;
     $scope.isNoCar = false;
@@ -1014,7 +1019,7 @@ appControllers.controller('searchCtr', function ($scope, $http, appContext, allC
                 $scope.errorMsgHandle("Pelease select a location,thanks!");
                 return;
             }
-            window.location.href = '#/search';
+            window.location.href = '#/search/';
         }
 
         $scope.$watch('searchMsg.location', function (newValue, oldValue, scope) {
@@ -2222,7 +2227,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     console.log($scope.carMsg);
 
     if (!$scope.carMsg || !$scope.carMsg.ID || !$scope.searchMsg.startTime) {
-        window.location.replace("#/search");
+        window.location.replace("#/search/");
         return;
     }
 
@@ -2395,7 +2400,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             $scope.isWaitting = false;
             if(data.MsgType == 'Error'){
                 if (data.Info == 'Start time less than current time'){
-                    window.location.replace('#/search');
+                    window.location.replace('#/search/');
                     $scope.dataInfoErrorHandle(data);
                     return;
                 }
@@ -2643,7 +2648,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     console.log($scope.carMsg);
 
     if (!$scope.carMsg || !$scope.carMsg.ID ) {
-        window.location.replace("#/search");
+        window.location.replace("#/search/");
         return;
     }
 
@@ -2745,7 +2750,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             $scope.isWaitting = false;
             if(data.MsgType == 'Error'){
                 if (data.Info == 'Start time less than current time'){
-                    window.location.replace('#/search');
+                    window.location.replace('#/search/');
                     $scope.dataInfoErrorHandle(data);
                     return;
                 }
@@ -2952,7 +2957,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             msg: 'Congratulations, your booking has been reserved.You may proceed to unlock the taxi in your account at the pickup time .'
         };
         if (!appContext.getAll().fromBookingPage.isFromBooking) {
-            window.location.replace('#/search');
+            window.location.replace('#/search/');
             return;
         }
 
@@ -3140,13 +3145,13 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         $scope.goToSearchWithCarType=function (rentFor) {
             $scope.searchMsg.rentFor=rentFor;
             // $scope.searchMsg.rentFor=id;
-            window.location='#/search';
+            window.location='#/search/';
         }
         $scope.goToSearchWithLocation=function (location) {
             $scope.searchMsg.location=location;
             $scope.searchMsg.rentFor='0';
             // $scope.searchMsg.rentFor=id;
-            window.location='#/search';
+            window.location='#/search/';
         }
     })
     .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed) {
@@ -3185,13 +3190,13 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         $scope.goToSearchWithCarType=function (rentFor) {
             $scope.searchMsg.rentFor=rentFor;
             // $scope.searchMsg.rentFor=id;
-            window.location='#/search';
+            window.location='#/search/';
         }
         $scope.goToSearchWithLocation=function (location) {
             $scope.searchMsg.location=location;
             $scope.searchMsg.rentFor='0';
             // $scope.searchMsg.rentFor=id;
-            window.location='#/search';
+            window.location='#/search/';
         }
 
         if ($scope.searchMsg.startTime == '' || compareTimeWithCurrentTime($scope.searchMsg.startDate + " " + $scope.searchMsg.startTime)) {
@@ -3239,10 +3244,10 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             $scope.isNoCar = false;
             $scope.isOtherLocationCarViews = false;
             allCarsMsg.clear();
-            $scope.recommendedCarList = {};
-            $scope.pastCarList = {};
-            $scope.allCarsMsgs = {};
-
+            $scope.recommendedCarList = [];
+            $scope.pastCarList = [];
+            $scope.allCarsMsgs = [];
+            $scope.sourceBookings = [];
             //获取推荐的三辆车
            $http({
                 method: "POST",
@@ -3424,7 +3429,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 $scope.errorMsgHandle("Pelease select a location,thanks!");
                 return;
             }
-            window.location.replace('#/search');
+            window.location.replace('#/search/');
         }
     })
     .controller('main2Ctr', function ($scope,$http,appContext,allUrl) {
@@ -3434,6 +3439,13 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         }
         $scope.rateSearch= appContext.getAll().rateSearch;
         initsearchTime($scope.rateSearch);
+
+        $scope.goToSearchWithLocation=function (location) {
+            $scope.searchMsg.location=location + '';
+            $scope.searchMsg.rentFor='0';
+            // $scope.searchMsg.rentFor=id;
+            window.location='#/search/';
+        }
     })
     .controller('contact_usCtr', function ($scope,$http,appContext,allUrl) {
 

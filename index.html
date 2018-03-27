@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>SMRT TaxiSharing</title>
 
     <meta name="keywords" content="SMRT, taxi, taxi share, taxi sharing, hourly rental, Singapore, cabs"/>
@@ -49,7 +48,6 @@
 
 <myfooter></myfooter>
 
-<!--提示模态框-->
 <div class="example-modal">
     <div class="modal modal-default fade" id="moTaiTishiBox" role="dialog">
         <div class="modal-dialog">
@@ -70,36 +68,29 @@
         </div>
     </div>
 </div>
-<!--提示模态框结尾-->
 
-<!--遮罩等待图像-->
+
 <div ng-if="appContext.isAllWaitting" class="all-waitting">
     <div ng-if="appContext.isAllWaitting" class="pic-center-wrap col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top: 100px">
         <img src="img/waiting.gif">
     </div>
 </div>
 
-<!--遮罩等待图像结尾-->
+
 
 <script src="components/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="components/angular/angular.js"></script>
+<script src="components/angular/angular.min.js"></script>
 <script src="components/animation/jquery.waypoints.min.js"></script>
 <script src="components/jquery/jquery.easing.min.js"></script>
 <script src="components/angular/angular-ui-router.min.js"></script>
 
-<script src="js/controllers.js"></script>
+<script src="js/controllers.min.js"></script>
 <script src="js/services.min.js"></script>
 <script src="js/app.min.js"></script>
-<!--<script src="js/all.js"></script>-->
+
 
 <script>
 
-    // if(navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-    //     alert(" ios 端 window.webit  不为空 可以调用")
-    //     window.webkit.messageHandlers.getUserMsg.postMessage({Token: 'give your msg'});
-    // }else{
-    //     alert("window.webit  为空")
-    // }
 </script>
 </body>
 </html>

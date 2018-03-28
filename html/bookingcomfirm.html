@@ -119,216 +119,6 @@
     <!--信息提示结尾-->
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="my-box my-box-top-border margin-top-20">
-                    <div class="box-header">
-                        <h4 class="box-header-title text-center">Reservation No:{{lastBookingMsg.list.LeaseNumber}}</h4>
-                        <h4 class="box-header-title text-center">Vehical:{{bookingMsg.list.VehicleModels +'('+lastBookingMsg.list.VehicleName+')'}}</h4>
-                    </div>
-                    <div class="box-body  my-box-boundary">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-xs-12 box-body-thumb-wrap">
-                                <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
-                            </div>
-                            <div class="col-md-12 ">
-                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">Pickup Details</h5>
-
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                                        <p>
-                                            <i class="glyphicon glyphicon-map-marker"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a ng-click="scrollToMap()">
-                                            {{lastBookingMsg.list.Location}}
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                                        <p>
-                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseStartTime)"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <p>
-                                            {{lastBookingMsg.list.LeaseStartTime}}
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop off
-                                    Details</h5>
-
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                                        <p>
-                                            <i class="glyphicon glyphicon-map-marker"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <a ng-click="scrollToMap()">
-                                            {{lastBookingMsg.list.Location}}
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
-                                        <p>
-                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseEndTime)"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-10">
-                                        <p>
-                                            {{lastBookingMsg.list.LeaseEndTime}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-xs-6  ">
-                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Duration</h5>
-
-                                        <div class="row">
-                                            <div class="col-xs-3 text-center" >
-                                                <p>
-                                                    <i class="glyphicon glyphicon-time"></i>
-                                                </p>
-                                            </div>
-                                            <div class=" col-xs-9">
-                                                <p>
-                                                    {{lastBookingMsg.duration}} hrs
-                                                </p>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-xs-6  ">
-                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Extension</h5>
-
-                                        <div class="row">
-                                            <div class="col-xs-3 text-center">
-                                                <p>
-                                                    <i class="glyphicon glyphicon-time"></i>
-                                                </p>
-                                            </div>
-                                            <div class=" col-xs-9">
-                                                <p>
-                                                    {{lastBookingMsg.list.RenewalDuration}} {{lastBookingMsg.list.RenewalDuration > 1 ? 'hrs' : 'hr'}}
-                                                </p>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="payPrice">
-
-                                <!--个人账户-->
-                                <div class="col-md-12 myAccount">
-                                    <div class="wrap">
-                                        <div class="my-account-header">
-                                            <b>
-                                                Charges
-                                            </b>
-                                        </div>
-                                        <div class="my-account-body">
-                                            <table class="table table-no-border">
-                                                <tbody>
-                                                <tr>
-                                                    <td class="left">
-                                                        <b>Available</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                        ${{((lastBookingMsg.list.LastAmount + lastBookingMsg.list.LeaseMount + lastBookingMsg.list.Credit)/100).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-                                               <!-- 租赁费用-->
-                                                <tr>
-                                                    <td class="left">
-                                                        <b>Rental Total</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                        $-{{((lastBookingMsg.list.LeaseMount + lastBookingMsg.fees.TotalPreferential - lastBookingMsg.list.TotalPremium )/100).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-                                                <!-- 保险费用-->
-                                                <tr ng-if="lastBookingMsg.list.TotalPremium > 0">
-                                                    <td class="left">
-                                                        <b>{{appContext.AERStringAD}}</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                         $-{{((lastBookingMsg.list.TotalPremium/100)).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-                                                <!-- 清洁费用-->
-                                                <tr hidden ng-if="lastBookingMsg.list.CleaningFee > 0">
-                                                    <td class="left">
-                                                        <b>Cleaning Fee</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                        $-{{((lastBookingMsg.list.CleaningFee/100)).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-
-                                                <!--优惠码价格-->
-                                                <tr ng-if="lastBookingMsg.fees.TotalPreferential > 0">
-                                                    <td class="left">
-                                                        <b>Discount</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                         $+{{(lastBookingMsg.fees.TotalPreferential/100).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="balance" ng-class="{'red-font':(lastBookingMsg.list.LastAmount/100) <= 0}">
-                                                    <td class="left ">
-                                                        <b>Balance</b>
-                                                    </td>
-                                                    <td class="right text-right ">
-                                                        ${{((lastBookingMsg.list.LastAmount + lastBookingMsg.list.Credit)/100).toFixed(2)}}
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--个人账户End-->
-                            </div>
-
-                            <div class="col-md-6 col-xs-6 col-sm-6 text-left "
-                                 style="margin-top: 20px ;">
-                                <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/account">
-                                    To Account
-                                </a>
-                            </div>
-
-                            <div class="col-md-6 col-xs-6 col-sm-6 text-right "
-                                 style="margin-top: 20px ;">
-                                <a style="font-size: 16px;font-weight: bold;" href="#/search/">
-                                    New Booking
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
             <div class="col-md-8">
                 <div class="my-box my-box-top-border margin-top-20" id="adressMap">
                     <div class="box-header">
@@ -409,7 +199,221 @@
 
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="my-box my-box-top-border margin-top-20">
+                    <div class="box-header">
+                        <h4 class="box-header-title text-center">Reservation No:{{lastBookingMsg.list.LeaseNumber}}</h4>
+                        <h4 class="box-header-title text-center">Vehical:{{bookingMsg.list.VehicleModels +'('+lastBookingMsg.list.VehicleName+')'}}</h4>
+                    </div>
+                    <div class="box-body  my-box-boundary">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">Pickup Details</h5>
 
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{lastBookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseStartTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{getFormatDateWithEnglishAppare(lastBookingMsg.list.LeaseStartTime)}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop off
+                                    Details</h5>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="glyphicon glyphicon-map-marker"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <a ng-click="scrollToMap()">
+                                            {{lastBookingMsg.list.Location}}
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(lastBookingMsg.list.LeaseEndTime)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{getFormatDateWithEnglishAppare(lastBookingMsg.list.LeaseEndTime)}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-xs-6  ">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Duration</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center" >
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{lastBookingMsg.duration}} hrs
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-xs-6  ">
+                                        <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Extension</h5>
+
+                                        <div class="row">
+                                            <div class="col-xs-3 text-center">
+                                                <p>
+                                                    <i class="glyphicon glyphicon-time"></i>
+                                                </p>
+                                            </div>
+                                            <div class=" col-xs-9">
+                                                <p>
+                                                    {{lastBookingMsg.list.RenewalDuration}} {{lastBookingMsg.list.RenewalDuration > 1 ? 'hrs' : 'hr'}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="payPrice">
+
+                                <!--个人账户-->
+                                <div class="col-md-12 myAccount">
+                                    <div class="wrap">
+                                        <div class="my-account-header">
+                                            <b>
+                                                Charges
+                                            </b>
+                                        </div>
+                                        <div class="my-account-body">
+                                            <table class="table table-no-border">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Available</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        ${{((lastBookingMsg.list.LastAmount + lastBookingMsg.list.LeaseMount + lastBookingMsg.list.Credit)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 租赁费用-->
+                                                <tr hidden>
+                                                    <td class="left">
+                                                        <b>Rental Total</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.LeaseMount + lastBookingMsg.fees.TotalPreferential - lastBookingMsg.list.TotalPremium )/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 租赁费用-->
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Total Fees</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.LeaseMount + lastBookingMsg.fees.TotalPreferential )/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 保险费用-->
+                                                <tr hidden ng-if="lastBookingMsg.list.TotalPremium > 0">
+                                                    <td class="left">
+                                                        <b>{{appContext.AERStringAD}}</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.TotalPremium/100)).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                <!-- 清洁费用-->
+                                                <tr hidden ng-if="lastBookingMsg.list.CleaningFee > 0">
+                                                    <td class="left">
+                                                        <b>Cleaning Fee</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((lastBookingMsg.list.CleaningFee/100)).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+
+                                                <!--优惠码价格-->
+                                                <tr ng-if="lastBookingMsg.fees.TotalPreferential > 0">
+                                                    <td class="left">
+                                                        <b>Discount</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $+{{(lastBookingMsg.fees.TotalPreferential/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="balance" ng-class="{'red-font':(lastBookingMsg.list.LastAmount/100) <= 0}">
+                                                    <td class="left ">
+                                                        <b>Balance</b>
+                                                    </td>
+                                                    <td class="right text-right ">
+                                                        ${{((lastBookingMsg.list.LastAmount + lastBookingMsg.list.Credit)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--个人账户End-->
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-left "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/account">
+                                    To Account
+                                </a>
+                            </div>
+
+                            <div class="col-md-6 col-xs-6 col-sm-6 text-right "
+                                 style="margin-top: 20px ;">
+                                <a style="font-size: 16px;font-weight: bold;" href="#/search/">
+                                    New Booking
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 

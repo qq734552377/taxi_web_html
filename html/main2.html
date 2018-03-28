@@ -397,7 +397,7 @@
                         var pickupLT = new google.maps.LatLng(item.Latitude, item.Longitude);
                         var infowindow;
                         var browseLink = '#/search/' + item.ID;
-                        var contentString = addlocationinfo(item.Address,item.Address, browseLink);
+                        var contentString = addlocationinfo(item.Address,item.Address + '  '+ item.PostalCode, browseLink);
                         infowindow = new google.maps.InfoWindow({
                             content: contentString
                         });

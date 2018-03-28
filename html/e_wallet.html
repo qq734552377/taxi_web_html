@@ -94,7 +94,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="item in currentPageBookings">
-                                    <td class="date" ng-bind="item.SaveTime"></td>
+                                    <td class="date" ng-bind="getFormatDateWithEnglishAppare(item.SaveTime)"></td>
                                     <td class="type" ng-bind="item.TrardetypeName"></td>
                                     <td class="amount"  ng-bind="'$ '+(item.TransactionAmount/100).toFixed(2)"></td>
                                     <td class="enteredBy"  ng-bind="item.WalletStatusName"></td>

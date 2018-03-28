@@ -29,6 +29,109 @@
 
     <div ng-if="!tishiBox.isShow" class="container">
         <div class="row">
+            <div class="col-md-8">
+                <div class="my-box my-box-top-border margin-top-20" id="adressMap">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Map</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme">
+                        <div class="map-area" style="height: 300px;">
+                            <iframe id="mapFrame"
+                                    width="100%" height="300" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-box my-box-top-border margin-top-20 ">
+                    <div class="box-header">
+                        <div class="box-corner">
+                            <button class="btn" data-toggle="collapse" data-target="#isme2" aria-controls="isme2"
+                                    aria-expanded="true">
+                                <i class="glyphicon"></i>
+                            </button>
+                        </div>
+                        <h4 class="box-header-title">Address, Directions to vehicle</h4>
+                    </div>
+                    <div class="box-body collapse in my-box-boundary" id="isme2">
+                        <div class="map-area" style="">
+                            <div class="map-area" style="">
+                                <p>{{bookingMsg.list.Location}}</p>
+                                <p>
+                                    {{bookingMsg.list.Remarks}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div hidden class="timeTable margin-top-25">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
+                                    <button class="btn btn-block btn-success">
+                                        START TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0 || bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
+                                    <button class="btn btn-block btn-warning">
+                                        END TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
+                                    <button class="btn btn-block btn-warning">
+                                        EXTEND TRIP
+                                    </button>
+                                </div>
+                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20 " ng-if="bookingMsg.list.LeaseStatus!=3">
+                                    <div class=" btn-group btn-group-justified">
+                                        <div class=" btn-group ">
+                                            <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                NEED HELP ? &nbsp;&nbsp;<span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Report issue</a></li>
+                                                <li><a href="#">Break down</a></li>
+                                                <li><a href="#">Accident</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
+                                    <button class="btn btn-block btn-danger">
+                                        CANCEL
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 col-sm-6 text-left "
+                             style="margin-top: 20px ;">
+                            <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/mybookings">
+                                Back to Bookings
+                            </a>
+                        </div>
+
+                        <div class="col-md-6 col-xs-6 col-sm-6 text-right "
+                             style="margin-top: 20px ;">
+                            <a style="font-size: 16px;font-weight: bold;" href="#/search/">
+                                Start a new booking
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="my-box my-box-top-border margin-top-20">
                     <div class="box-header">
@@ -64,7 +167,7 @@
                                     </div>
                                     <div class="col-md-10 col-sm-10 col-xs-10">
                                         <p>
-                                            {{bookingMsg.list.LeaseStartTime}}
+                                            {{getFormatDateWithEnglishAppare(bookingMsg.list.LeaseStartTime)}}
                                         </p>
                                     </div>
                                 </div>
@@ -95,7 +198,7 @@
                                     </div>
                                     <div class="col-md-10 col-sm-10 col-xs-10">
                                         <p>
-                                            {{bookingMsg.list.LeaseEndTime}}
+                                            {{getFormatDateWithEnglishAppare(bookingMsg.list.LeaseEndTime)}}
                                         </p>
                                     </div>
                                 </div>
@@ -212,7 +315,7 @@
                                                     </td>
                                                 </tr>
                                                 <!--订单费用-->
-                                                <tr>
+                                                <tr hidden>
                                                     <td class="left">
                                                         <b>Rental Total</b>
                                                     </td>
@@ -220,8 +323,18 @@
                                                         $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential - bookingMsg.list.TotalPremium)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
+
+                                                <!--订单总费用-->
+                                                <tr>
+                                                    <td class="left">
+                                                        <b>Total Fees</b>
+                                                    </td>
+                                                    <td class="right text-right">
+                                                        $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential)/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
                                                 <!--保险费用-->
-                                                <tr ng-if="bookingMsg.list.TotalPremium > 0 ">
+                                                <tr hidden ng-if="bookingMsg.list.TotalPremium > 0 ">
                                                     <td class="left">
                                                         <b>{{appContext.AERStringAD}}</b>
                                                     </td>
@@ -271,7 +384,7 @@
                                                         <b>Cancel Return</b>
                                                     </td>
                                                     <td class="right text-right">
-                                                         $+{{((bookingMsg.fees.BookingTotal + bookingMsg.list.RenewalMount - bookingMsg.leaseCancelView.LeaseCancelMount)/100).toFixed(2)}}
+                                                        $+{{((bookingMsg.fees.BookingTotal + bookingMsg.list.RenewalMount - bookingMsg.leaseCancelView.LeaseCancelMount)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -300,110 +413,6 @@
 
                 </div>
 
-            </div>
-
-            <div class="col-md-8">
-                <div class="my-box my-box-top-border margin-top-20" id="adressMap">
-                    <div class="box-header">
-                        <div class="box-corner">
-                            <button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"
-                                    aria-expanded="true">
-                                <i class="glyphicon"></i>
-                            </button>
-                        </div>
-                        <h4 class="box-header-title">Map</h4>
-                    </div>
-                    <div class="box-body collapse in my-box-boundary" id="isme">
-                        <div class="map-area" style="height: 300px;">
-                            <iframe id="mapFrame"
-                                    width="100%" height="300" frameborder="0" style="border:0;margin: 0;padding: 0" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="my-box my-box-top-border margin-top-20 ">
-                    <div class="box-header">
-                        <div class="box-corner">
-                            <button class="btn" data-toggle="collapse" data-target="#isme2" aria-controls="isme2"
-                                    aria-expanded="true">
-                                <i class="glyphicon"></i>
-                            </button>
-                        </div>
-                        <h4 class="box-header-title">Address, Directions to vehicle</h4>
-                    </div>
-                    <div class="box-body collapse in my-box-boundary" id="isme2">
-                        <div class="map-area" style="">
-                            <div class="map-area" style="">
-                                <p>{{bookingMsg.list.Location}}</p>
-                                <p>
-                                    {{bookingMsg.list.Remarks}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div hidden class="timeTable margin-top-25">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
-                                    <button class="btn btn-block btn-success">
-                                        START TRIP
-                                    </button>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0 || bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
-                                    <button class="btn btn-block btn-warning">
-                                        END TRIP
-                                    </button>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==1 || bookingMsg.list.LeaseStatus==2">
-                                    <button class="btn btn-block btn-warning">
-                                        EXTEND TRIP
-                                    </button>
-                                </div>
-                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20 " ng-if="bookingMsg.list.LeaseStatus!=3">
-                                    <div class=" btn-group btn-group-justified">
-                                        <div class=" btn-group ">
-                                            <button type="button" class="btn btn-primary btn-block dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                NEED HELP ? &nbsp;&nbsp;<span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#">Report issue</a></li>
-                                                <li><a href="#">Break down</a></li>
-                                                <li><a href="#">Accident</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3  col-sm-3 col-xs-6 margin-top-20" ng-if="bookingMsg.list.LeaseStatus==0">
-                                    <button class="btn btn-block btn-danger">
-                                        CANCEL
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 col-xs-6 col-sm-6 text-left "
-                             style="margin-top: 20px ;">
-                            <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/mybookings">
-                                Back to Bookings
-                            </a>
-                        </div>
-
-                        <div class="col-md-6 col-xs-6 col-sm-6 text-right "
-                             style="margin-top: 20px ;">
-                            <a style="font-size: 16px;font-weight: bold;" href="#/search/">
-                                Start a new booking
-                            </a>
-                        </div>
-                    </div>
-
-
-                </div>
             </div>
         </div>
     </div>

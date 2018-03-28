@@ -364,7 +364,7 @@ serviceModule.factory('allUrl',function () {
             notification:'Taxi Share Promotion! Chinese New Year rate and daily rate as low as $85/day T&C applies*',
             AERString:'Accident Excess Reduction ( AER )',
             AERStringAD:' A E R ',
-            englishMonth:["Jan.","Feb.","Mar.","Apr.","May.","June.","July.","Aug.","Sept.","Oct","Nov.","Dec."],
+            englishMonth:["Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"],
             maxDayOrWeekMsg:{
                 maxDay:'Maximum price rate for the day',
                 maxWeek:'Maximum price rate for the week'

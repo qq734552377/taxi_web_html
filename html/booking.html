@@ -362,7 +362,7 @@
                                                                         <tr ng-repeat="item in carPriceList.Report">
                                                                             <td ng-if="!item.MaxDay && !item.MaxWeek && item.Price>0"class="left">
                                                                                 <strong>Rental Fee</strong> ({{item.RentalFee}})<br/>
-                                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} * {{item.TotalHour >1 ?
+                                                                                ${{(item.Price/item.TotalHour/100).toFixed(2)}} x {{item.TotalHour >1 ?
                                                                                 (item.TotalHour+' hrs'):(item.TotalHour+' hr')}}
                                                                             </td>
 
@@ -383,7 +383,7 @@
                                                                         <tr ng-if="carPriceList.CleaningFee > 0">
                                                                             <td class="left">
                                                                                 <strong>Cleaning Fee</strong><br>
-                                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} *
+                                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
                                                                                 {{carMsg.Duration >1 ?
                                                                                 (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}
                                                                             </td>
@@ -600,8 +600,6 @@
                             </div>
 
                         </div>
-
-
                     </div>
                 </div>
             </div>

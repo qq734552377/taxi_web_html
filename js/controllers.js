@@ -97,6 +97,10 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
 
     }
 
+    $scope.getFormatDateWithEnglishAppare = function (dateString) {
+        return $scope.getEnglishYearAppare(dateString) + ' '+ $scope.getHour(dateString) + ':00';
+    }
+
     $scope.islevelSelect = function(item){
       var url = window.location.href;
       if (url.indexOf(item) >= 0) {

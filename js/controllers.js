@@ -2328,63 +2328,8 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         appContext.getAll().fromBookingPage.id = id;
         window.location.replace('#/sidemenu/topup');
     }
-
-
-    $scope.$watch('carMsg.PromoCode', function (newValue, oldValue, scope) {
-        appContext.getAll().promoData={};
-        if (newValue == undefined || newValue.length == 0) {
-            scope.errorMsg.PromoCodeSpan = '';
-            scope.errorMsg.PromoCodeMsg = '';
-            return;
-        }
-        if (newValue.length != 6) {
-            scope.errorMsg.PromoCodeSpan = 'error-span';
-            scope.errorMsg.PromoCodeMsg = 'Unavailable';
-            return;
-        }
-        $http({
-            method: "POST",
-            url: allUrl.getPromoCodeCanUseUrl,
-            data: {
-                ID: $scope.carMsg.ID,
-                StartTime: startDateTime,
-                Duration: $scope.carMsg.Duration,
-                VehiceType: $scope.carMsg.VehicleType,
-                LeaseType: $scope.carMsg.LeaseType,
-                VehicleModel: $scope.carMsg.VehicleModel,
-                PromoCode: $scope.carMsg.PromoCode
-            },
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: "Basic " + appContext.getAll().token
-            }
-        }).success(function (data) {
-            console.log(data)
-            if (data.MsgType == 'Success') {
-
-                //Nric可用
-                scope.errorMsg.PromoCodeSpan = 'success-span';
-                scope.errorMsg.PromoCodeMsg = 'Available';
-                appContext.getAll().promoData=data.Data;
-            } else {
-                if (data.MsgType == 'TokenError') {
-                    $scope.tokenErrorHandle();
-                    return;
-                }
-                //Nric不可用
-                scope.errorMsg.PromoCodeSpan = 'error-span';
-                scope.errorMsg.PromoCodeMsg = data.Info;
-            }
-        }).error(function () {
-            scope.errorMsg.PromoCodeSpan = 'error-span';
-            scope.errorMsg.PromoCodeMsg = 'available?';
-        });
-    });
-
     $scope.getPriceList = getPriceList;
-
     $scope.getPriceList();
-
     function getPriceList() {
         $scope.isWaitting = true;
         $scope.carPriceList = {};
@@ -2419,63 +2364,8 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         }
 
     }
-
-
     $scope.jumpDayCarState = getCarAvailableStateWithDays;
-
     $scope.jumpDayCarState(0);
-
-    $scope.bookingTheCar = function () {
-        if (!appContext.getAll().isAgreeMe) {
-            $scope.motaiBox.title = 'Accept Terms and Conditions';
-            $scope.motaiBox.msg = 'To proceed booking the vehicle, you need to read and accept the Terms and Conditions.';
-            $('#moTaiTishiBox').modal('show');
-            return;
-        }
-        if($scope.errorMsg.PromoCodeSpan == 'error-span'){
-            $scope.errorMsgHandle('Your promo code is not correct, please re-enter or empty!');
-            return;
-        }
-
-        appContext.getAll().isAllWaitting = true;
-        $http({
-            method: 'POST',
-            url: allUrl.bookingTheCarUrl,
-            data: {
-                ID: $scope.carMsg.ID,
-                StartTime: startDateTime,
-                Duration: $scope.carMsg.Duration,
-                VehiceType: $scope.carMsg.VehicleType,
-                LeaseType: $scope.carMsg.LeaseType,
-                VehicleModel: $scope.carMsg.VehicleModel,
-                PromoCode: $scope.carMsg.PromoCode,
-                Insurance:getInsuranceSendString($scope.insuranceList)
-            },
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: "Basic " + appContext.getAll().token
-            }
-        }).success(function (data) {
-            console.log(data);
-            appContext.getAll().isAllWaitting = false;
-            if (data.MsgType == 'Success') {
-                var bookingId = data.Info;
-                appContext.getAll().fromBookingPage.isFromBooking = true;
-                window.location.replace('#/bookingcomfirm/' + bookingId);
-            } else {
-                if (data.MsgType == 'TokenError') {
-                    $scope.tokenErrorHandle();
-                    return;
-                }
-                $scope.dataInfoErrorHandle(data);
-            }
-
-        }).error(function () {
-            $scope.netErrorHandle();
-        });
-
-
-    }
 
     function getCarAvailableStateWithDays(days) {
         if (days < 0 || days > 28) {
@@ -2513,62 +2403,6 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         }).error(function () {
             $scope.isGetCarStateWaitting = false;
         });
-    }
-    getInsurance();
-    function getInsurance() {
-        $scope.isWaitting = true;
-        $scope.carPriceList = {};
-        $http({
-            method: 'POST',
-            url: allUrl.getInsuranceDetialUrl,
-            data: {
-
-            }
-        }).success(function (data) {
-            console.log(data)
-            $scope.isWaitting = false;
-            if(data.MsgType == 'Success'){
-                $scope.insuranceList=data.Data;
-            }
-        }).error(function () {
-
-        });
-    }
-
-
-    $scope.$watch('insuranceList', function (newValue, oldValue, scope) {
-        $timeout(function () {
-            checkBoxJianTing(newValue)
-        },1000);
-    });
-
-
-    //监听checkBox
-    function checkBoxJianTing(insuranceList) {
-        if(insuranceList.length <= 0){
-            return;
-        }
-        for(var total=0;total < insuranceList.length;total++){
-            $scope.insuranceMsg.totalPrice +=insuranceList[total].Premium;
-            $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal;
-            $("#insuranceCheck"+insuranceList[total].ID).change(function(){
-                if($(this).get(0).checked){
-                    $scope.insuranceMsg.totalPrice += getPriceByID($(this).val());
-                }else{
-                    $scope.insuranceMsg.totalPrice -= getPriceByID($(this).val());
-                }
-                $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal;
-                $scope.$apply();
-            });
-        }
-        $scope.$apply();
-    }
-    function getPriceByID(id) {
-        for (var start=0;start < $scope.insuranceList.length;start++){
-            if($scope.insuranceList[start].ID == id){
-                return $scope.insuranceList[start].Premium;
-            }
-        }
     }
     })
     .controller('bookingCtr', function ($scope, $http, $stateParams, $timeout, appContext, allUrl, allCarsMsg, getWallet) {
@@ -2633,6 +2467,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     $scope.isGetCarStateWaitting = true;
     $scope.carPriceList = {};
     $scope.insuranceList = {};
+    $scope.isKnowAER = false;
     $scope.insuranceMsg={
         totalPrice:0,
         sendValue:''
@@ -2789,6 +2624,27 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             return;
         }
 
+        if($scope.insuranceMsg.totalPrice > 0){
+            $('#AERIssueDialog').modal('show');
+            $scope.isKnowAER = false;
+            return;
+        }
+
+        bookCarByHttp();
+    }
+    
+    $scope.bookCarInModal = function () {
+        $('#AERIssueDialog').modal('hide');
+        $scope.isKnowAER = true;
+    }
+
+    $('#AERIssueDialog').on('hidden.bs.modal', function (e) {
+        if(!$scope.isKnowAER)
+            return;
+        bookCarByHttp();
+    });
+
+    function bookCarByHttp() {
         appContext.getAll().isAllWaitting = true;
         $http({
             method: 'POST',
@@ -2825,8 +2681,6 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         }).error(function () {
             $scope.netErrorHandle();
         });
-
-
     }
 
     function getCarAvailableStateWithDays(days) {

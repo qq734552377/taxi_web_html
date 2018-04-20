@@ -48,6 +48,35 @@
     </div>
     <!--wallet end-->
 </div>
+<div class="example-modal">
+    <div class="modal modal-default fade" id="connectKeFu" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="update_title" >Message Alert:</h4>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <p>Please contact  customer service and call
+                        <a href="tel:6563688866">
+                            <b>
+                                +65 6368 8866
+                            </b>
+                        </a> !
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
 
     bindImgShow('IssuePhoto1');
@@ -70,11 +99,8 @@
         });
     }
 
-
-    //建立一個可存取到該file的url
     function getObjectURL(file) {
         var url = null;
-        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
         if (window.createObjectURL != undefined) { // basic
             url = window.createObjectURL(file);
         } else if (window.URL != undefined) { // mozilla(firefox)

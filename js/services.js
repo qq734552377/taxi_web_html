@@ -62,7 +62,7 @@ serviceModule.factory('allUrl',function () {
     // var host='http://192.168.0.103:12907';
     // var host='http://192.168.0.56:12907';
     // var host='http://192.168.0.112:12907';
-    // var host='http://192.168.0.113:12907';
+    // var host='http://192.168.0.146:12907';
     return {
         host:host,
         referHost:'http://www.ucastcomputer.com:8800',
@@ -128,6 +128,7 @@ serviceModule.factory('allUrl',function () {
         getAllFavouriteCars:host + '/api/QueryCollectList',
         setFavouriteCar:host + '/api/CollectOrCancelCollect',
         getIsFavouriteCar:host + '/api/IsCollect',
+        getADVUrlr:host + '/Advertisement/GetFrontEndAdvertisementDetail',
     }
 })
     .factory('appContext',function (allUrl) {
@@ -166,17 +167,82 @@ serviceModule.factory('allUrl',function () {
                 locations:[],
                 categorys:[],
                 rentFors:[],
+                pickTime:[
+                    {Value:'00:00',Time:'00:00'},
+                    {Value:'00:30',Time:'00:30'},
+                    {Value:'01:00',Time:'01:00'},
+                    {Value:'01:30',Time:'01:30'},
+                    {Value:'02:00',Time:'02:00'},
+                    {Value:'02:30',Time:'02:30'},
+                    {Value:'03:00',Time:'03:00'},
+                    {Value:'03:30',Time:'03:30'},
+                    {Value:'04:00',Time:'04:00'},
+                    {Value:'04:30',Time:'04:30'},
+                    {Value:'05:00',Time:'05:00'},
+                    {Value:'05:30',Time:'05:30'},
+                    {Value:'06:00',Time:'06:00'},
+                    {Value:'06:30',Time:'06:30'},
+                    {Value:'07:00',Time:'07:00'},
+                    {Value:'07:30',Time:'07:30'},
+                    {Value:'08:00',Time:'08:00'},
+                    {Value:'08:30',Time:'08:30'},
+                    {Value:'09:00',Time:'09:00'},
+                    {Value:'09:30',Time:'09:30'},
+                    {Value:'10:00',Time:'10:00'},
+                    {Value:'10:30',Time:'10:30'},
+                    {Value:'11:00',Time:'11:00'},
+                    {Value:'11:30',Time:'11:30'},
+                    {Value:'12:00',Time:'12:00'},
+                    {Value:'12:30',Time:'12:30'},
+                    {Value:'13:00',Time:'13:00'},
+                    {Value:'13:30',Time:'13:30'},
+                    {Value:'14:00',Time:'14:00'},
+                    {Value:'14:30',Time:'14:30'},
+                    {Value:'15:00',Time:'15:00'},
+                    {Value:'15:30',Time:'15:30'},
+                    {Value:'16:00',Time:'16:00'},
+                    {Value:'16:30',Time:'16:30'},
+                    {Value:'17:00',Time:'17:00'},
+                    {Value:'17:30',Time:'17:30'},
+                    {Value:'18:00',Time:'18:00'},
+                    {Value:'18:30',Time:'18:30'},
+                    {Value:'19:00',Time:'19:00'},
+                    {Value:'19:30',Time:'19:30'},
+                    {Value:'20:00',Time:'20:00'},
+                    {Value:'20:30',Time:'20:30'},
+                    {Value:'21:00',Time:'21:00'},
+                    {Value:'21:30',Time:'21:30'},
+                    {Value:'22:00',Time:'22:00'},
+                    {Value:'22:30',Time:'22:30'},
+                    {Value:'23:00',Time:'23:00'},
+                    {Value:'23:30',Time:'23:30'}
+                ],
                 durations:[
+                    {ID:'0.5',Duration:'0.5 hr'},
+                    {ID:'1',Duration:'1 hr'},
+                    {ID:'1.5',Duration:'1.5hrs'},
+                    {ID:'2',Duration:'2 hrs'},
+                    {ID:'2.5',Duration:'2.5hrs'},
                     {ID:'3',Duration:'3 hrs'},
+                    {ID:'3.5',Duration:'3.5hrs'},
                     {ID:'4',Duration:'4 hrs'},
+                    {ID:'4.5',Duration:'4.5 hrs'},
                     {ID:'5',Duration:'5 hrs'},
+                    {ID:'5.5',Duration:'5.5 hrs'},
                     {ID:'6',Duration:'6 hrs'},
+                    {ID:'6.5',Duration:'6.5 hrs'},
                     {ID:'7',Duration:'7 hrs'},
+                    {ID:'7.5',Duration:'7.5 hrs'},
                     {ID:'8',Duration:'8 hrs'},
+                    {ID:'8.5',Duration:'8.5 hrs'},
                     {ID:'9',Duration:'9 hrs'},
+                    {ID:'9.5',Duration:'9.5 hrs'},
                     {ID:'10',Duration:'10 hrs'},
+                    {ID:'10.5',Duration:'10.5 hrs'},
                     {ID:'11',Duration:'11 hrs'},
+                    {ID:'11.5',Duration:'11.5 hrs'},
                     {ID:'12',Duration:'12 hrs'},
+                    {ID:'12.5',Duration:'12.5 hrs'},
                     {ID:'13',Duration:'13 hrs'},
                     {ID:'14',Duration:'14 hrs'},
                     {ID:'15',Duration:'15 hrs'},
@@ -210,23 +276,35 @@ serviceModule.factory('allUrl',function () {
                     {ID:'336',Duration:'2 weeks'},
                     {ID:'504',Duration:'3 weeks'},
                     {ID:'672',Duration:'4 weeks'},
-                    {ID:'720',Duration:'30 days'},
+                    {ID:'720',Duration:'30 days'}
                 ],
                 vehicleNumbers:[]
             },
             ExtendDurations:[
                 {ID:'1',Duration:'1 hr'},
+                {ID:'1.5',Duration:'1.5 hrs'},
                 {ID:'2',Duration:'2 hrs'},
+                {ID:'2.5',Duration:'2.5 hrs'},
                 {ID:'3',Duration:'3 hrs'},
+                {ID:'3.5',Duration:'3.5hrs'},
                 {ID:'4',Duration:'4 hrs'},
+                {ID:'4.5',Duration:'4.5 hrs'},
                 {ID:'5',Duration:'5 hrs'},
+                {ID:'5.5',Duration:'5.5 hrs'},
                 {ID:'6',Duration:'6 hrs'},
+                {ID:'6.5',Duration:'6.5 hrs'},
                 {ID:'7',Duration:'7 hrs'},
+                {ID:'7.5',Duration:'7.5 hrs'},
                 {ID:'8',Duration:'8 hrs'},
+                {ID:'8.5',Duration:'8.5 hrs'},
                 {ID:'9',Duration:'9 hrs'},
+                {ID:'9.5',Duration:'9.5 hrs'},
                 {ID:'10',Duration:'10 hrs'},
+                {ID:'10.5',Duration:'10.5 hrs'},
                 {ID:'11',Duration:'11 hrs'},
+                {ID:'11.5',Duration:'11.5 hrs'},
                 {ID:'12',Duration:'12 hrs'},
+                {ID:'12.5',Duration:'12.5 hrs'},
                 {ID:'13',Duration:'13 hrs'},
                 {ID:'14',Duration:'14 hrs'},
                 {ID:'15',Duration:'15 hrs'},
@@ -250,7 +328,7 @@ serviceModule.factory('allUrl',function () {
                 {ID:'33',Duration:'33 hrs'},
                 {ID:'34',Duration:'34 hrs'},
                 {ID:'35',Duration:'35 hrs'},
-                {ID:'36',Duration:'36 hrs'},
+                {ID:'36',Duration:'36 hrs'}
             ],
             rateSearch:{
                 startDate: '',
@@ -347,6 +425,7 @@ serviceModule.factory('allUrl',function () {
             },
             endTrip:{
                 isDesignLocation:true,
+                Remark:'',
                 LeaseCancelReason:'0',
                 Memo:'',
                 endtripSure1:false,
@@ -479,7 +558,27 @@ serviceModule.factory('allUrl',function () {
             }).error(function () {
 
             });
-        };
+
+
+
+            //所有租赁类型
+            $http({
+                method: "POST",
+                url: allUrl.getRentForUrl,
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data) {
+                console.log(data);
+                if (data.MsgType == 'Success') {
+                    appContext.getAll().searchMsg.rentFors = data.Data;
+                } else {
+
+                }
+            }).error(function () {
+
+            });
+        }
+
+
 
         //所有车型
         // $http({
@@ -496,24 +595,6 @@ serviceModule.factory('allUrl',function () {
         // }).error(function () {
         //
         // });
-
-
-
-        //所有租赁类型
-        $http({
-            method: "POST",
-            url: allUrl.getRentForUrl,
-            headers: {'Content-Type': 'application/json'}
-        }).success(function (data) {
-            console.log(data);
-            if (data.MsgType == 'Success') {
-                appContext.getAll().searchMsg.rentFors = data.Data;
-            } else {
-
-            }
-        }).error(function () {
-
-        });
 
         return   {
             initSometing:initLocations
@@ -738,13 +819,13 @@ serviceModule.factory('allUrl',function () {
                             window.location.replace("#/login");
                             return;
                         }
-                        appContext.getAll().motaiTishiBox.title='Promotion:';
+                        appContext.getAll().motaiTishiBox.title='Message Alert:';
                         appContext.getAll().motaiTishiBox.msg= data.Info;
                         $('#moTaiTishiBox').modal('show');
                     }
 
                 }).error(function () {
-                    appContext.getAll().motaiTishiBox.title='Promotion:';
+                    appContext.getAll().motaiTishiBox.title='Message Alert:';
                     appContext.getAll().motaiTishiBox.msg=  appContext.getAll().errorMsg.netError;
                     $('#moTaiTishiBox').modal('show');
                 });
@@ -774,6 +855,29 @@ serviceModule.factory('allUrl',function () {
                         appContext.getAll().referCodeAwardMsg = data.Data;
                     } else {
 
+                    }
+                }).error(function () {
+
+                });
+
+            }
+        }
+    })
+    .factory('getADV',function ($http,appContext,allUrl) {
+        return {
+            get: function () {
+
+                $http({
+                    method: "POST",
+                    url: allUrl.getADVUrlr,
+                    headers: {'Content-Type': 'application/json'},
+                    data:{
+                    }
+                }).success(function (data) {
+                    console.log(data);
+                    if (data.MsgType == 'Success') {
+                        appContext.getAll().notification = data.Data.AdvertisementDetail;
+                    } else {
                     }
                 }).error(function () {
 

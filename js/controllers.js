@@ -66,6 +66,11 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
             id: id+''
         });
     };
+    $scope.goToFleet_ratesWithId=function (id) {
+        $state.go('fleet_rates', {
+            id: id+''
+        });
+    };
 
     $scope.goToTopupWithHref =function () {
         $state.go('sidemenu.topup', {
@@ -81,9 +86,42 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
     });
 
 
+    $scope.goToReportIssue = function () {
+        appContext.getAll().fromBookingPage.goToReportIssue = true;
+        $state.go('sidemenu.reportIssue', {
+            id: appContext.getAll().lastBooking.list.LeaseNumber,
+            url:allUrl.reportIssueUrl,
+            title:'Report Issue',
+            getReasonsUrl:allUrl.reportMainIssueReasonsUrl
+        });
+    };
+    $scope.goToReportIssueWithLeaseNumber = function (LeaseNumber) {
+        appContext.getAll().fromBookingPage.goToReportIssue = true;
+        $state.go('sidemenu.reportIssue', {
+            id:LeaseNumber,
+            url:allUrl.reportIssueUrl,
+            title:'Report Issue',
+            getReasonsUrl:allUrl.reportMainIssueReasonsUrl
+        });
+    };
+
+    $scope.goToReportIssueWithTitle=function (title) {
+        appContext.getAll().fromBookingPage.goToReportIssue = true;
+        $state.go('sidemenu.reportIssue', {
+            id: appContext.getAll().lastBooking.list.LeaseNumber,
+            url:allUrl.breakDownUrl,
+            title:title,
+            getReasonsUrl:allUrl.reportMainIssueReasonsUrl
+        });
+    }
+
     $scope.getHour = function (dateString) {
         var d = getDateByString(dateString);
         return d.getHours() > 9 ? d.getHours() : "0" + d.getHours();
+    };
+    $scope.getMinutes = function (dateString) {
+        var d = getDateByString(dateString);
+        return d.getMinutes()> 9 ? d.getMinutes() : "0" + d.getMinutes();
     };
     
     
@@ -98,7 +136,7 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
     }
 
     $scope.getFormatDateWithEnglishAppare = function (dateString) {
-        return $scope.getEnglishYearAppare(dateString) + ' '+ $scope.getHour(dateString) + ':00';
+        return $scope.getEnglishYearAppare(dateString) + ' '+ $scope.getHour(dateString) + ":"+$scope.getMinutes(dateString);
     }
 
     $scope.islevelSelect = function(item){
@@ -142,24 +180,6 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
 
     };
 
-    $scope.goToReportIssue = function () {
-        appContext.getAll().fromBookingPage.goToReportIssue = true;
-        $state.go('sidemenu.reportIssue', {
-            id: appContext.getAll().lastBooking.list.LeaseNumber,
-            url:allUrl.reportIssueUrl,
-            title:'Report Issue',
-            getReasonsUrl:allUrl.reportMainIssueReasonsUrl
-        });
-    };
-    $scope.goToReportIssueWithLeaseNumber = function (LeaseNumber) {
-        appContext.getAll().fromBookingPage.goToReportIssue = true;
-        $state.go('sidemenu.reportIssue', {
-            id:LeaseNumber,
-            url:allUrl.reportIssueUrl,
-            title:'Report Issue',
-            getReasonsUrl:allUrl.reportMainIssueReasonsUrl
-        });
-    };
 
     $scope.tokenErrorHandle = function () {
         appContext.getAll().isAut = false;
@@ -167,19 +187,19 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
     };
     $scope.netErrorHandle = function () {
         appContext.getAll().isAllWaitting = false;
-        $scope.motaiBox.title = 'Promotion:';
+        $scope.motaiBox.title = 'Message Alert:';
         $scope.motaiBox.msg = appContext.getAll().errorMsg.netError;
         $('#moTaiTishiBox').modal('show');
     };
     $scope.dataInfoErrorHandle = function (data) {
         appContext.getAll().isAllWaitting = false;
-        appContext.getAll().motaiTishiBox.title = 'Promotion:';
+        appContext.getAll().motaiTishiBox.title = 'Message Alert:';
         appContext.getAll().motaiTishiBox.msg = data.Info;
         $('#moTaiTishiBox').modal('show');
     };
     $scope.errorMsgHandle = function (errorMsg) {
         appContext.getAll().isAllWaitting = false;
-        appContext.getAll().motaiTishiBox.title = 'Promotion:';
+        appContext.getAll().motaiTishiBox.title = 'Message Alert:';
         appContext.getAll().motaiTishiBox.msg = errorMsg;
         $('#moTaiTishiBox').modal('show');
     };
@@ -929,7 +949,7 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     }
 
     $scope.$watch('searchMsg.location', function (newValue, oldValue, scope) {
-
+        $scope.search();
         scope.searchMsg.vehicleNumbers = [];
 
         if (newValue == 0) {
@@ -959,6 +979,23 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
         });
 
     });
+
+    $scope.$watch('searchMsg.startDate', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+    $scope.$watch('searchMsg.startTime', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+    $scope.$watch('searchMsg.duration', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+    $scope.$watch('searchMsg.rentFor', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+    $scope.$watch('searchMsg.vehicleNumber', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+
 
     $scope.search = function () {
         $scope.isWaitting = true;
@@ -1010,7 +1047,6 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     }
 
 
-    $scope.search();
 })
     .controller('mainsearchCtr', function ($scope, $http, appContext, allUrl) {
         $scope.searchMsg = appContext.getAll().searchMsg;
@@ -1076,7 +1112,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
         $scope.tishiBox = {
             isShow: true,
-            title: 'Promotion:',
+            title: 'Message Alert:',
             msg: ' You will not be able to start any trip or make any bookings until you do a top up.'
         };
 
@@ -1130,15 +1166,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         getWallet.init();
 
 
-        $scope.goToBreakDown=function (title) {
-            appContext.getAll().fromBookingPage.goToReportIssue = true;
-            $state.go('sidemenu.reportIssue', {
-                id: appContext.getAll().lastBooking.list.LeaseNumber,
-                url:allUrl.breakDownUrl,
-                title:title,
-                getReasonsUrl:allUrl.reportMainIssueReasonsUrl
-            });
-        }
+
 
         $scope.goToEndtrip = function () {
             $('#issuerEndTrip').modal('hide');
@@ -1194,7 +1222,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                     if(data.Data.UserStatus != 'Success'){
                         $scope.tishiBox = {
                             isShow: true,
-                            title: 'Promotion:',
+                            title: 'Message Alert:',
                             msg: data.Info
                         };
                         if(data.Data.UserStatus == 'Fail'){
@@ -1217,7 +1245,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                     }
                     $scope.tishiBox = {
                         isShow: true,
-                        title: 'Promotion:',
+                        title: 'Message Alert:',
                         msg: data.Info
                     };
                 }
@@ -1225,7 +1253,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             }).error(function () {
                 $scope.tishiBox = {
                     isShow: true,
-                    title: 'Promotion:',
+                    title: 'Message Alert:',
                     msg: appContext.getAll().errorMsg.netError
                 };
             });
@@ -1508,7 +1536,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         $scope.tishiBox = {
             isShow: true,
             color:'alert-info',
-            title: 'Promotion:'
+            title: 'Message Alert:'
         };
         // alert($stateParams.href);
         querryUserTopupMsg();
@@ -1775,15 +1803,6 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             }
             window.location.replace('#/sidemenu/account');
         };
-        $scope.goToReportIssue = function () {
-            appContext.getAll().fromBookingPage.goToReportIssue = true;
-            $state.go('sidemenu.reportIssue', {
-                id: appContext.getAll().lastBooking.list.LeaseNumber,
-                url:allUrl.reportIssueUrl,
-                title:'Report Issue',
-                getReasonsUrl:allUrl.reportMainIssueReasonsUrl
-            });
-        };
         $scope.unlockCar = function () {
             startTrip();
         };
@@ -1827,7 +1846,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 }
             }).error(function () {
                 $scope.waitObj.isShowWaitImg = false;
-                $scope.waitObj.title = 'Promotion:'
+                $scope.waitObj.title = 'Message Alert:'
                 $scope.waitObj.msg = appContext.getAll().errorMsg.netError;
             });
         }
@@ -1887,6 +1906,20 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         });
 
         $scope.reportIssue = function () {
+
+           var selectID = $scope.reportIssueObj.IssueTypeId;
+           var cancelbooking = false;
+           for ( var i = 0 ; i < appContext.getAll().ReportIssueSubTitles.length;i++){
+               var one = appContext.getAll().ReportIssueSubTitles[i];
+                if(selectID == one.ID){
+                    cancelbooking = appContext.getAll().ReportIssueSubTitles[i].CancelBookings;
+                    break;
+                }
+           }
+            if(cancelbooking){
+                $('#connectKeFu').modal('show');
+               return;
+            }
 
             var pic1 = document.getElementById("IssuePhoto1").files[0];
 
@@ -1993,15 +2026,6 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             msg: 'Please wait while we ending your trip. Do not press the BACK button.'
         };
 
-        $scope.goToReportIssue = function () {
-            appContext.getAll().fromBookingPage.goToReportIssue = true;
-            $state.go('sidemenu.reportIssue', {
-                id: appContext.getAll().lastBooking.list.LeaseNumber,
-                url:allUrl.reportIssueUrl,
-                title:'Report Issue',
-                getReasonsUrl:allUrl.reportMainIssueReasonsUrl
-            });
-        };
 
         $scope.lockCar = lockCarById;
 
@@ -2028,6 +2052,8 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                     NoThingLeave: appContext.getAll().endTrip.endtripSure3,
                     TakePhotoWithCarCondition: appContext.getAll().endTrip.endtripSure4,
                     SwitchOffMDT: appContext.getAll().endTrip.endtripSure5,
+                    NotDesignPosition: !appContext.getAll().endTrip.isDesignLocation,
+                    Remark: appContext.getAll().endTrip.Remark,
                     LeaseNumber: appContext.getAll().lastBooking.list.LeaseNumber
                 },
                 headers: {
@@ -2053,7 +2079,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 }
             }).error(function () {
                 $scope.waitObj.isShowWaitImg = false;
-                $scope.waitObj.title = 'Promotion:';
+                $scope.waitObj.title = 'Message Alert:';
                 $scope.waitObj.msg = appContext.getAll().errorMsg.netError;
             });
         }
@@ -2066,7 +2092,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         // $scope.motaiBox=appContext.getAll().motaiTishiBox;
         $scope.tishiBox = {
             isShow: true,
-            msg: 'Comfirm 3 booking per week and get 50% off the 4th booking o!'
+            msg: 'Confirm 3 booking per week and get 50% off the 4th booking o!'
         };
         $scope.carPriceList = {};
         $scope.extensionTimes = '1';
@@ -2225,7 +2251,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     $scope.isWaitting = true;
     $scope.tishiBox = {
         isShow: true,
-        msg: 'Comfirm 3 booking per week and get 50% off the 4th booking!'
+        msg: 'Confirm 3 booking per week and get 50% off the 4th booking!'
     };
 
     console.log($scope.carMsg);
@@ -2481,7 +2507,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
     $scope.isWaitting = true;
     $scope.tishiBox = {
         isShow: true,
-        msg: 'Comfirm 3 booking per week and get 50% off the 4th booking!'
+        msg: 'Confirm 3 booking per week and get 50% off the 4th booking!'
     };
 
     console.log($scope.carMsg);
@@ -2618,7 +2644,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             return;
         }
         if($scope.errorMsg.PromoCodeSpan == 'error-span'){
-            $scope.motaiBox.title = 'Promotion';
+            $scope.motaiBox.title = 'Message Alert:';
             $scope.motaiBox.msg = 'Your promo code is not correct, please re-enter or empty!';
             $('#moTaiTishiBox').modal('show');
             return;
@@ -2669,7 +2695,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             if (data.MsgType == 'Success') {
                 var bookingId = data.Info;
                 appContext.getAll().fromBookingPage.isFromBooking = true;
-                window.location.replace('#/bookingcomfirm/' + bookingId);
+                window.location.replace('#/bookingconfirm/' + bookingId);
             } else {
                 if (data.MsgType == 'TokenError') {
                     $scope.tokenErrorHandle();
@@ -2779,7 +2805,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
 
 
 })
-    .controller('bookingcomfirmCtr', function ($scope, $http, $stateParams, appContext, allUrl) {
+    .controller('bookingconfirmCtr', function ($scope, $http, $stateParams, appContext, allUrl) {
         $scope.timeTable = {
             times: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
             bgcolors: [{bgcClass: 'can-booking-bgc'},
@@ -2866,7 +2892,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         $scope.isWaitting = true;
         $scope.tishiBox = {
             isShow: true,
-            msg: 'Comfirm 3 booking  !'
+            msg: 'Confirm 3 booking  !'
         };
         initCancelReason.init();
 
@@ -2973,19 +2999,10 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     }
 
 
-    function scrollAndOpen(id) {
-        if ($("#" + id)) {
-            $("#" + id).addClass("in");
-            $("html, body").animate({
-                scrollTop: $("#" + id).offset().top
-            }, {duration: 1000, easing: "easeOutBounce"});
-        }
-    }
+
 })
     .controller('ourratesCtr', function ($scope, $http, $stateParams, appContext, allUrl) {
         $scope.rateSearch= appContext.getAll().rateSearch;
-
-
         initsearchTime($scope.rateSearch);
     })
     .controller('privacypolicyCtr', function ($scope) {
@@ -3296,7 +3313,9 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             window.location.replace('#/booking_search')
         }
         $scope.rateSearch= appContext.getAll().rateSearch;
-        initsearchTime($scope.rateSearch);
+        if ($scope.rateSearch.startDate == '') {
+            initsearchTime($scope.rateSearch);
+        }
 
         $scope.goToSearchWithLocation=function (location) {
             $scope.searchMsg.location=location + '';
@@ -3308,31 +3327,71 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     .controller('contact_usCtr', function ($scope,$http,appContext,allUrl) {
 
     })
-    .controller('fleet_ratesCtr', function ($scope,$http,appContext,allUrl) {
-      querryAllTimePrice();
+    .controller('fleet_ratesCtr', function ($scope,$http,appContext,allUrl,$stateParams,scrollToTop) {
+        $scope.rateSearch= appContext.getAll().rateSearch;
+        if ($scope.rateSearch.startDate == '') {
+            initsearchTime($scope.rateSearch);
+        }
+        $scope.curRates = [];
 
-      function querryAllTimePrice() {
+        $scope.querryRatesByTime = querryRatesByTime;
 
-          appContext.getAll().isAllWaitting = true;
-          $http({
-              method: "POST",
-              url: allUrl.queryAllTimePriceUrl,
-              data: {
+        querryAllTimePrice();
+        querryRatesByTime();
 
-              }
-          }).success(function (data) {
-              console.log(data);
-              appContext.getAll().isAllWaitting = false;
-              if (data.MsgType == 'Success') {
-                  appContext.getAll().allPriceMsg = data.Data;
-              } else {
-              }
+        function querryAllTimePrice() {
+              appContext.getAll().isAllWaitting = true;
+              $http({
+                  method: "POST",
+                  url: allUrl.queryAllTimePriceUrl,
+                  data: {
+                  }
+              }).success(function (data) {
+                  console.log(data);
+                  appContext.getAll().isAllWaitting = false;
+                  if (data.MsgType == 'Success') {
+                      appContext.getAll().allPriceMsg = data.Data;
+                  } else {
+                  }
+                  if($stateParams.id){
+                      scrollAndOpen($stateParams.id);
+                  }else{
+                      scrollToTop.go();
+                  }
 
-          }).error(function () {
-              appContext.getAll().isAllWaitting = false;
-          });
+              }).error(function () {
+                  appContext.getAll().isAllWaitting = false;
+                  if($stateParams.id){
+                      scrollAndOpen($stateParams.id);
+                  }else{
+                      scrollToTop.go();
+                  }
+              });
 
-      }
+          }
+          function querryRatesByTime() {
+              $scope.curRates = [];
+              appContext.getAll().isAllWaitting = true;
+              $http({
+                  method: "POST",
+                  url: allUrl.getRatesByTime,
+                  data: {
+                      StartTime: ($scope.rateSearch.startDate + ' ' + $scope.rateSearch.startTime + ':00'),
+                      Duration: $scope.rateSearch.duration
+                  }
+              }).success(function (data) {
+                  console.log(data);
+                  appContext.getAll().isAllWaitting = false;
+                  if (data.MsgType == 'Success') {
+                      $scope.curRates = data.Data;
+                  } else {
+                  }
+
+              }).error(function () {
+                  appContext.getAll().isAllWaitting = false;
+              });
+
+          }
 
     })
     .controller('our_servicesCtr', function ($scope,$http,appContext,allUrl) {
@@ -3515,6 +3574,16 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+function scrollAndOpen(id) {
+    if ($("#" + id)) {
+        $("#" + id).addClass("in");
+        $("html, body").animate({
+            scrollTop: $("#" + id).offset().top
+        }, {duration: 1000, easing: "easeOutBounce"});
+    }
+}
+
+
 //获取保险的checkbox的值并用-拼接
 function getInsuranceSendString(insuranceList) {
     if(insuranceList.length <= 0){
@@ -3562,7 +3631,7 @@ function paging(allItems, space) {
 }
 
 function initsearchTime(searchObj) {
-    var startDateTime = addHours(1);
+    var startDateTime = addHours(0.5);
     var endDateTime = addHours(4);
 
     var startDate = startDateTime.getFullYear() + '-' + ((startDateTime.getMonth() + 1) > 9 ? (startDateTime.getMonth() + 1) : ('0' + (startDateTime.getMonth() + 1))) + '-' + (startDateTime.getDate() > 9 ? (startDateTime.getDate()) : ('0' + startDateTime.getDate()));
@@ -3571,9 +3640,12 @@ function initsearchTime(searchObj) {
     var endHour = endDateTime.getHours() > 9 ? (endDateTime.getHours() + ":00") : ("0" + endDateTime.getHours() + ":00");
 
     searchObj.startDate = startDate;
-    searchObj.startTime = startHour;
+    startTimeMinus = startDateTime.getMinutes() < 30 ? "00" : "30";
+    startTimeHour = startDateTime.getHours();
+    searchObj.startTime = (startTimeHour > 9 ? (startTimeHour) : ("0" + startTimeHour)) + ":" +startTimeMinus;
     searchObj.endDate = endDate;
     searchObj.endTime = endHour;
+    searchObj.endTimeMinus = endHour;
 }
 
 function getFormatTime(date) {

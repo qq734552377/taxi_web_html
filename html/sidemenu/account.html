@@ -616,7 +616,6 @@
 </div>
 
 
-<!--提示模态框-->
 <div class="example-modal">
     <div class="modal modal-default fade" id="issuerEndTrip" role="dialog">
         <div class="modal-dialog">
@@ -644,8 +643,8 @@
                             </label>
                         </div>
 
-                        <div class="form-group" ng-if="!appContext.endTrip.isDesignLocation">
-                            <textarea id="form_description" required="required"
+                        <div class="form-group" ng-show="!appContext.endTrip.isDesignLocation">
+                            <textarea id="form_description" required="required" ng-model="appContext.endTrip.Remark"
                                       placeholder="Please indicate where you parked. (e.g: Deck {{appContext.lastBooking.list.Number}})"
                                       class="form-control" rows="2"></textarea>
                         </div>
@@ -658,10 +657,8 @@
         </div>
     </div>
 </div>
-<!--提示模态框结尾-->
 
 
-<!--位置提示模态框-->
 <div class="example-modal">
     <div class="modal modal-default fade" id="mapModal" role="dialog">
         <div class="modal-dialog">
@@ -709,4 +706,3 @@
         </div>
     </div>
 </div>
-<!--位置提示模态框结尾-->

@@ -102,7 +102,7 @@
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <h4 style="font-size: 18px">Message Alert:</h4>
                     <p style="font-size: 16px" ng-bind="tishiBox.msg">
                     </p>
                 </div>
@@ -275,7 +275,7 @@
                                         <div class="col-xs-6">
                                             <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">PICKUP</h5>
                                             <p  style="font-size: 16px;font-weight: bold">
-                                                {{getHour(carPriceList.StartTimeHour)}} :00
+                                                {{getHour(carPriceList.StartTimeHour)}} : {{getMinutes(carPriceList.StartTimeHour)}}
                                             </p>
                                             <p style="font-size: 18px">
                                                 {{getEnglishYearAppare(carPriceList.StartTimeHour)}}
@@ -285,7 +285,7 @@
                                         <div class="col-xs-6">
                                             <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">RETURN</h5>
                                             <p style="font-size: 16px;font-weight: bold">
-                                                {{getHour(carPriceList.EndTimeHour)}} :00
+                                                {{getHour(carPriceList.EndTimeHour)}} : {{getMinutes(carPriceList.EndTimeHour)}}
                                             </p>
                                             <p style="font-size: 18px">
                                               {{getEnglishYearAppare(carPriceList.EndTimeHour)}}

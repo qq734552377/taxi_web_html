@@ -102,7 +102,7 @@
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 style="font-size: 18px">Promotion:</h4>
+                    <h4 style="font-size: 18px">Message Alert:</h4>
                     <p style="font-size: 16px" ng-bind="tishiBox.msg">
                     </p>
                 </div>
@@ -189,7 +189,7 @@
                                                             &nbsp;PICKUP
                                                         </h5>
                                                         <p  style="font-size: 16px;font-weight: bold">
-                                                                {{getHour(carPriceList.StartTimeHour)}} :00
+                                                                {{getHour(carPriceList.StartTimeHour)}} : {{getMinutes(carPriceList.StartTimeHour)}}
                                                         </p>
                                                         <p style="font-size: 18px">
                                                            {{getEnglishYearAppare(carPriceList.StartTimeHour)}}
@@ -207,7 +207,7 @@
                                                             RETURN
                                                         </h5>
                                                         <p style="font-size: 16px;font-weight: bold">
-                                                            {{getHour(carPriceList.EndTimeHour)}} :00
+                                                            {{getHour(carPriceList.EndTimeHour)}} : {{getMinutes(carPriceList.EndTimeHour)}}
 
                                                         </p>
                                                         <p style="font-size: 18px">
@@ -617,16 +617,16 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title">Promotion</h4>
+                        <h4 class="modal-title">Message Alert:</h4>
                     </div>
                     <div class="modal-body" style="">
                         <p style="font-size: 16px">
-                            You have chosen AER. Are you sure how it work already?
+                            You have selected Accident Excess Redution ( AER ) and will  enjoy a 50% deduction of accident access in case of an accident.
                         </p>
 
                     </div>
                     <div class="modal-footer">
-                        <a type="button" class="btn btn-success" ng-click="bookCarInModal()">COMFIRM</a>
+                        <a type="button" class="btn btn-success" ng-click="bookCarInModal()">CONFIRM</a>
                         <a type="button" class="btn btn-success" data-dismiss="modal">NO</a>
                     </div>
                 </div>

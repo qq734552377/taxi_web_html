@@ -118,10 +118,9 @@
                                     <th>Period</th>
                                     <th ng-if="firstItem.FontEndPriceTable[0].OldWeekly && firstItem.FontEndPriceTable[0].OldWeekly > 0">Weekly</th>
                                     <th ng-if="firstItem.FontEndPriceTable[0].OldDaily && firstItem.FontEndPriceTable[0].OldDaily > 0">Daily</th>
-                                    <th>{{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[0].start)}}:00 – {{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[0].end)}}:59</th>
-                                    <th>{{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[1].start)}}:00 – {{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[1].end)}}:59</th>
-                                    <th>{{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[2].start)}}:00 – {{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[2].end)}}:59</th>
-                                    <th>{{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[3].start)}}:00 – {{getGoodNumberShow(firstItem.FontEndPriceTable[0].PeriodData[3].end)}}:59</th>
+                                    <th ng-repeat="item in firstItem.FontEndPriceTable[0].PeriodData">
+                                        {{getGoodNumberShow(item.start)}}:00 – {{getGoodNumberShow(item.end)}}:59
+                                    </th>
                                 </tr>
                                 <tr ng-repeat="item in firstItem.FontEndPriceTable">
                                     <td class="middle-cell">
@@ -195,5 +194,105 @@
             </div>
         </div>
 
+
+        <div id="ratesCalculator" class="my-box my-box-top-border margin-top-20  margin-bottom-20">
+            <div class="box-header">
+                <h4 class="box-header-title">Rates Calculator</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="searchCarForm" class="searchbar" style="background:none;">
+                            <form id="searchPriceForm">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <div class="input-group controls input-append date form_date"
+                                                 data-date=""
+                                                 data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input ng-model="rateSearch.startDate" type="text"
+                                                       class="form-control datepicker" id="rateStartDate" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select id="startTime" name="startTime" class="form-control"
+                                                    ng-model="rateSearch.startTime">
+                                                <option value="0">Pickup Time</option>
+                                                <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                    {{item.Time}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select id="duration" name="duration" class="form-control"
+                                                    ng-model="rateSearch.duration">
+                                                <option value="0">Duration(hrs)</option>
+                                                <option ng-repeat="item in appContext.searchMsg.durations"
+                                                        value="{{item.ID}}">
+                                                    {{item.Duration}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button  class="btn btn-block btn-orange" ng-click="querryRatesByTime()"><b>Get Rates</b></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-body my-box-boundary row " style="margin-left: 0px ;margin-right: 0px;">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Category</th>
+                            <th>Price ($)</th>
+                        </tr>
+                        <tr>
+                            <td>Petrol Hybrid</td>
+                            <td>20.40</td>
+                        </tr>
+                        <tr>
+                            <td>Diesel</td>
+                            <td>20.40</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12">
+                    <p style="font-size:14px; text-align:center;">
+                        <b>Note.:</b>
+                        Indicative charges are estimates based on the information provided by user, without Accident
+                        Excess Reduction (AER) and Singapore usage only.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+<script>
+    $('.form_date').datetimepicker({
+        language: 'en',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        startDate: new Date()
+    });
+</script>

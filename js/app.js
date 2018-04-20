@@ -394,10 +394,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         onExit: function(app){
         }
     })
-    .state('bookingcomfirm',{
-        url:'/bookingcomfirm/:id',
-        templateUrl:'html/bookingcomfirm.html',
-        controller:'bookingcomfirmCtr',
+    .state('bookingconfirm',{
+        url:'/bookingconfirm/:id',
+        templateUrl:'html/bookingconfirm.html',
+        controller:'bookingconfirmCtr',
         resolve: {
             isAutGo:'noAutGoLoginPage',
             app:'appContext',
@@ -538,12 +538,14 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         //注入'isSide'服务
         resolve: {
             app:'appContext',
-            goTop:'scrollToTop'
+            goTop:'scrollToTop',
+            getADV:'getADV'
         },
         // myIsSide 是解决依赖项注入控制器
-        onEnter: function(app,goTop){
+        onEnter: function(app,goTop,getADV){
             app.getAll().userTitle = 'Booking Search';
             app.getAll().isNotificationShow = true;
+            getADV.get();
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
@@ -559,11 +561,13 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         //注入'isSide'服务
         resolve: {
             app:'appContext',
-            goTop:'scrollToTop'
+            goTop:'scrollToTop',
+            getADV:'getADV'
         },
         // myIsSide 是解决依赖项注入控制器
-        onEnter: function(app,goTop){
+        onEnter: function(app,goTop,getADV){
             app.getAll().isNotificationShow = true;
+            getADV.get();
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
@@ -592,6 +596,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         url:'/fleet_rates',
         templateUrl:'html/fleet_rates.html',
         controller:'fleet_ratesCtr',
+        params:{
+            id:''
+        },
         //注入'isSide'服务
         resolve: {
             app:'appContext',
@@ -599,7 +606,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
-            goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
         onExit: function(app){

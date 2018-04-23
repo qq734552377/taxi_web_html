@@ -108,7 +108,7 @@ serviceModule.factory('allUrl',function () {
         getUserTopupMsgUrl:host + '/Wallet/QueryWallet',
         editProfileUrl:host + '/api/EditPassword',
         getPriceList:host + '/PlanLeasePriceTable/ShowPlanLeasePriceTable',
-        getRatesByTime:host + '/',
+        getRatesByTime:host + '/api/FontEndFeeCalculator',
         topUpUrl:host + '/Wallet/CrateOnLineTopUp',
         isCanTopUpUrl:host + '/Deposit/ForeVerifyDeposit',
         getVerificationUrl:host + '/api/SendEmail',

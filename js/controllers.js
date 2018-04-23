@@ -3336,9 +3336,17 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
         $scope.querryRatesByTime = querryRatesByTime;
 
-        querryAllTimePrice();
-        querryRatesByTime();
+        $scope.$watch('rateSearch.startDate', function (newValue, oldValue, scope) {
+            querryRatesByTime();
+        });
+        $scope.$watch('rateSearch.startTime', function (newValue, oldValue, scope) {
+            querryRatesByTime();
+        });
+        $scope.$watch('rateSearch.duration', function (newValue, oldValue, scope) {
+            querryRatesByTime();
+        });
 
+        querryAllTimePrice();
         function querryAllTimePrice() {
               appContext.getAll().isAllWaitting = true;
               $http({

@@ -257,13 +257,9 @@
                             <th>Category</th>
                             <th>Price ($)</th>
                         </tr>
-                        <tr>
-                            <td>Petrol Hybrid</td>
-                            <td>20.40</td>
-                        </tr>
-                        <tr>
-                            <td>Diesel</td>
-                            <td>20.40</td>
+                        <tr ng-repeat="item in curRates">
+                            <td >{{item.VehicleModelName}}  ({{ item.LeaseTypeName }})</td>
+                            <td >{{(item.LeaseFee/100).toFixed(2)}}</td>
                         </tr>
                         </tbody>
                     </table>

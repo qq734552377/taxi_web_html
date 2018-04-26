@@ -3,7 +3,7 @@
  */
 var appControllers = angular.module('appControllers', ["allservice"]);
 
-appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path, appContext,allUrl, initSometing, logOut) {
+appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path, appContext,allUrl, initSometing, logOut,getCurLocation) {
     initSometing.initSometing();//初始化下拉菜单选项
     JIANCE.init();//初始化是否已登录和token值
     appContext.getAll().isSidemenu = path.getResult().isSidemenu;//初始化isSidemenu
@@ -208,44 +208,7 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
         return num > 9 ? num : '0' + num;
     }
     
-
-    getLocation();
-    function getLocation()
-    {
-        if (navigator.geolocation)
-        {
-            navigator.geolocation.getCurrentPosition(showPosition,showError);
-        }
-        else{
-            var msg="Geolocation is not supported by this browser.";
-            console.log(msg);
-        }
-    }
-    function showPosition(position)
-    {
-        var ll="Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
-        console.log(ll);
-        // alert(ll)
-    }
-    function showError(error)
-    {
-        console.log(error);
-        switch(error.code)
-        {
-            case error.PERMISSION_DENIED:
-                console.log("User denied the request for Geolocation.")
-                break;
-            case error.POSITION_UNAVAILABLE:
-                console.log("Location information is unavailable.")
-                break;
-            case error.TIMEOUT:
-                console.log("The request to get user location timed out.")
-                break;
-            case error.UNKNOWN_ERROR:
-                console.log("An unknown error occurred.")
-                break;
-        }
-    }
+    getCurLocation.get();
 
 });
 
@@ -3029,7 +2992,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             window.location='#/search/';
         }
     })
-    .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed) {
+    .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed，g ) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(!appContext.getAll().isAut){
             window.location.replace('#/main2')
@@ -3129,7 +3092,9 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 url: allUrl.getThreeCarsUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration
+                    Duration: $scope.searchMsg.duration,
+                    Lat:appContext.getAll().curposition.Lat,
+                    Lon:appContext.getAll().curposition.Lon
                 },
                 headers: {
                     'Content-Type': 'application/json',
@@ -3152,7 +3117,9 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 url: allUrl.getThreePastOrFavouriteUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration
+                    Duration: $scope.searchMsg.duration,
+                    Lat:appContext.getAll().curposition.Lat,
+                    Lon:appContext.getAll().curposition.Lon
                 },
                 headers: {
                     'Content-Type': 'application/json',

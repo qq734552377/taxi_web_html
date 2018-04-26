@@ -451,7 +451,11 @@ serviceModule.factory('allUrl',function () {
             referCodeAwardMsg:{},
             topUpAwardMsg:{},
             favouriteCarID:[],
-            userTitle:'MENU'
+            userTitle:'MENU',
+            curposition:{
+                Lat:'0',
+                Lon:'0'
+            }
         };
 
 
@@ -876,7 +880,8 @@ serviceModule.factory('allUrl',function () {
                 }).success(function (data) {
                     console.log(data);
                     if (data.MsgType == 'Success') {
-                        appContext.getAll().notification = data.Data.AdvertisementDetail;
+                        // appContext.getAll().notification = data.Data.AdvertisementDetail;
+                        $('#notification').html(data.Data.AdvertisementDetail);
                     } else {
                     }
                 }).error(function () {
@@ -934,6 +939,52 @@ serviceModule.factory('allUrl',function () {
                 });
 
             }
+        }
+    })
+    .factory('getCurLocation',function ($http,appContext) {
+
+        function getLocation() {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showPosition,showError);
+            }
+            else{
+                var msg="Geolocation is not supported by this browser.";
+                console.log(msg);
+            }
+        }
+        function showPosition(position) {
+            var ll="Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude;
+            console.log(ll);
+            // alert(ll);
+            appContext.getAll().curposition.Lat = position.coords.latitude;
+            appContext.getAll().curposition.Lon = position.coords.longitude;
+        }
+        function showError(error) {
+            console.log(error);
+            // alert(error);
+            appContext.getAll().curposition.Lat = '0';
+            appContext.getAll().curposition.Lon = '0';
+            switch(error.code)
+            {
+                case error.PERMISSION_DENIED:
+                    console.log("User denied the request for Geolocation.")
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    console.log("Location information is unavailable.")
+                    break;
+                case error.TIMEOUT:
+                    console.log("The request to get user location timed out.")
+                    break;
+                case error.UNKNOWN_ERROR:
+                    console.log("An unknown error occurred.")
+                    break;
+            }
+        }
+
+
+        return {
+            get:getLocation
         }
     })
     .factory('jsToAndroid',function () {

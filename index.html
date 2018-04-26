@@ -31,9 +31,7 @@
 </head>
 <body class="bg-info"  ng-controller="appCtr"  >
 
-<div  id="notification" class="container-fluid" style="background-color: #898989;color:#fff;text-align: center;">
-   <div ng-show="appContext.isNotificationShow" ng-bind="appContext.notification">
-   </div>
+<div  ng-show="appContext.isNotificationShow" id="notification" class="container-fluid" style="background-color: #898989;color:#fff;text-align: center;">
 </div>
 
 <myheader id="bodyHeader"></myheader>

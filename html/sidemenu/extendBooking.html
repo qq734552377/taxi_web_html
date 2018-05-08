@@ -242,7 +242,7 @@
                         <ul style="margin-left: 10px">
                             <li>Please ensure that you have sufficient credits before extending the booking.</li>
                             <li>Select the number of hours you wish to extend, confirm the total fees payable before proceeding.</li>
-                            <li>CDW will be charged automatically if you have selected the option during your inital booking.</li>
+                            <li>Accident Excess Reduction (AER) will be charged automatically if you have selected the option during your inital booking.</li>
                         </ul>
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
@@ -253,7 +253,7 @@
                                             <option ng-repeat="item in appContext.ExtendDurations" value="{{item.ID}}">{{item.Duration}}</option>
                                         </select>
                                     </div>
-                                    <button ng-click="extend()" ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal/100)) > 0" class="btn btn-success">Extend</button>
+                                    <button ng-click="extend()" ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal/100)) > 0" class="btn btn-success">Extend Booking</button>
                                 </form>
                             </div>
                         </div>

@@ -2992,7 +2992,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             window.location='#/search/';
         }
     })
-    .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed，g ) {
+    .controller('booking_searchCtr', function ($scope,$http,appContext,allUrl,allCarsMsg,getReferAwaed ) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(!appContext.getAll().isAut){
             window.location.replace('#/main2')
@@ -3343,8 +3343,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                   }
               });
 
-          }
-          function querryRatesByTime() {
+          }function querryRatesByTime() {
               $scope.curRates = [];
               appContext.getAll().isAllWaitting = true;
               $http({

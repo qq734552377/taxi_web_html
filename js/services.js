@@ -255,30 +255,10 @@ serviceModule.factory('allUrl',function () {
                     {ID:'22',Duration:'22 hrs'},
                     {ID:'23',Duration:'23 hrs'},
                     {ID:'24',Duration:'24 hrs'},
-                    {ID:'25',Duration:'25 hrs'},
-                    {ID:'26',Duration:'26 hrs'},
-                    {ID:'27',Duration:'27 hrs'},
-                    {ID:'28',Duration:'28 hrs'},
-                    {ID:'29',Duration:'29 hrs'},
-                    {ID:'30',Duration:'30 hrs'},
-                    {ID:'31',Duration:'31 hrs'},
-                    {ID:'32',Duration:'32 hrs'},
-                    {ID:'33',Duration:'33 hrs'},
-                    {ID:'34',Duration:'34 hrs'},
-                    {ID:'35',Duration:'35 hrs'},
-                    {ID:'36',Duration:'36 hrs'},
-                    {ID:'48',Duration:'2 days'},
-                    {ID:'72',Duration:'3 days'},
-                    {ID:'96',Duration:'4 days'},
-                    {ID:'120',Duration:'5 days'},
-                    {ID:'144',Duration:'6 days'},
-                    {ID:'168',Duration:'1 week'},
-                    {ID:'336',Duration:'2 weeks'},
-                    {ID:'504',Duration:'3 weeks'},
-                    {ID:'672',Duration:'4 weeks'},
-                    {ID:'720',Duration:'30 days'}
+                    {ID:'25',Duration:'>24 hrs'}
                 ],
-                vehicleNumbers:[]
+                vehicleNumbers:[],
+                durationType: true
             },
             ExtendDurations:[
                 {ID:'1',Duration:'1 hr'},

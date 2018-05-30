@@ -5,6 +5,7 @@
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery-3.1.1.min.js" />
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery.easing.min.js" />
+        <item url="file://$PROJECT_DIR$/components/bootstrap-select/bootstrap-select.min.js" />
         <item url="file://$PROJECT_DIR$/components/jquery/jquery-3.1.1.min.js" />
         <item url="file://$PROJECT_DIR$/components/jquery/jquery-ui.min.js" />
         <item url="file://$PROJECT_DIR$/components/jquery/jquery.easing.min.js" />
@@ -19,6 +20,7 @@
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery-3.1.1.min.js" />
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery.easing.min.js" />
+      <root url="file://$PROJECT_DIR$/components/bootstrap-select/bootstrap-select.min.js" />
       <root url="file://$PROJECT_DIR$/components/jquery/jquery-3.1.1.min.js" />
       <root url="file://$PROJECT_DIR$/components/jquery/jquery-ui.min.js" />
       <root url="file://$PROJECT_DIR$/components/jquery/jquery.easing.min.js" />

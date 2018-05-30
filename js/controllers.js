@@ -910,6 +910,18 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     if ($scope.searchMsg.startTime == '' || compareTimeWithCurrentTime($scope.searchMsg.startDate + " " + $scope.searchMsg.startTime)) {
         initsearchTime($scope.searchMsg);
     }
+    if ($scope.searchMsg.durationType){
+        $('#h').tab('show');
+    }else{
+        $('#d').tab('show');
+    }
+
+    $('#h').on('shown.bs.tab', function (e) {
+        initSearchLocation($scope,true)
+    })
+    $('#d').on('shown.bs.tab', function (e) {
+        initSearchLocation($scope,false)
+    })
 
     $scope.$watch('searchMsg.location', function (newValue, oldValue, scope) {
         $scope.search();
@@ -949,7 +961,17 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     $scope.$watch('searchMsg.startTime', function (newValue, oldValue, scope) {
         $scope.search();
     });
+    $scope.$watch('searchMsg.endDate', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
+    $scope.$watch('searchMsg.endTime', function (newValue, oldValue, scope) {
+        $scope.search();
+    });
     $scope.$watch('searchMsg.duration', function (newValue, oldValue, scope) {
+        if(newValue > 24){
+            $('#d').tab('show');
+            initEndDateAndTime(scope.searchMsg)
+        }
         $scope.search();
     });
     $scope.$watch('searchMsg.rentFor', function (newValue, oldValue, scope) {
@@ -959,6 +981,29 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
         $scope.search();
     });
 
+
+    $scope.$watch('searchMsg.locations', function (newValue, oldValue, scope) {
+        if (newValue.length <= 0)
+            return
+        $("#hourly_location").html("");
+        $("#daily_location").html("");
+        $("#hourly_location").append("<option value='0'>Select Location</option>");
+        $("#daily_location").append("<option value='0'>Select Location</option>");
+        for (var i = 0; i < newValue.length; i++) {
+            $("#hourly_location").append("<option value='" + newValue[i].ID + "'>" + newValue[i].Address + "</option>");
+            $("#daily_location").append("<option value='" + newValue[i].ID + "'>" + newValue[i].Address + "</option>");
+        }
+        $('#hourly_location').selectpicker('refresh');
+        $('#hourly_location').selectpicker('render');
+        $('#daily_location').selectpicker('refresh');
+        $('#daily_location').selectpicker('render');
+        for (var i = 0; i < newValue.length; i++){
+            if (scope.searchMsg.location == newValue[i].ID){
+                $('.filter-option-inner-inner').text(newValue[i].Address)
+                break
+            }
+        }
+    });
 
     $scope.search = function () {
         $scope.isWaitting = true;
@@ -971,6 +1016,10 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
         //     $scope.isNoCar = true;
         //     return;
         // }
+        searchDuration = $scope.searchMsg.duration
+        if(!$scope.searchMsg.durationType){
+            searchDuration = computeWithHours($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00',$scope.searchMsg.endDate + ' ' + $scope.searchMsg.endTime + ':00')
+        }
 
         //请求所有的车辆信息
         $http({
@@ -978,7 +1027,7 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
             url: $scope.searchMsg.searchUrl,
             data: {
                 StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                Duration: $scope.searchMsg.duration,
+                Duration: searchDuration,
                 LeaseType: $scope.searchMsg.rentFor,
                 VehiceType: $scope.searchMsg.category,
                 Address: $scope.searchMsg.location,
@@ -2997,6 +3046,51 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         if(!appContext.getAll().isAut){
             window.location.replace('#/main2')
         }
+        if ($scope.searchMsg.durationType){
+            $('#h').tab('show');
+        }else{
+            $('#d').tab('show');
+        }
+
+        $('#h').on('shown.bs.tab', function (e) {
+            initSearchLocation($scope,true)
+        })
+        $('#d').on('shown.bs.tab', function (e) {
+            initSearchLocation($scope,false)
+        })
+        $scope.$watch('searchMsg.duration', function (newValue, oldValue, scope) {
+            if(newValue > 24){
+                $('#d').tab('show');
+                initEndDateAndTime(scope.searchMsg)
+            }
+        });
+        $scope.$watch('searchMsg.locations', function (newValue, oldValue, scope) {
+            if (newValue.length <= 0)
+                return
+            $("#hourly_location").html("");
+            $("#daily_location").html("");
+            $("#hourly_location").append("<option value='0'>Select Location</option>");
+            $("#daily_location").append("<option value='0'>Select Location</option>");
+            for (var i = 0; i < newValue.length; i++) {
+                $("#hourly_location").append("<option value='" + newValue[i].ID + "'>" + newValue[i].Address + "</option>");
+                $("#daily_location").append("<option value='" + newValue[i].ID + "'>" + newValue[i].Address + "</option>");
+            }
+            $('#hourly_location').selectpicker('refresh');
+            $('#hourly_location').selectpicker('render');
+            $('#daily_location').selectpicker('refresh');
+            $('#daily_location').selectpicker('render');
+            for (var i = 0; i < newValue.length; i++){
+                if (scope.searchMsg.location == newValue[i].ID){
+                    $('.filter-option-inner-inner').text(newValue[i].Address)
+                    break
+                }
+            }
+
+
+        });
+
+
+
 
         //分页
         $scope.sourceBookings = [];
@@ -3086,13 +3180,18 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             $scope.pastCarList = [];
             $scope.allCarsMsgs = [];
             $scope.sourceBookings = [];
+
+            searchDuration = $scope.searchMsg.duration
+            if(!$scope.searchMsg.durationType){
+                searchDuration = computeWithHours($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00',$scope.searchMsg.endDate + ' ' + $scope.searchMsg.endTime + ':00')
+            }
             //获取推荐的三辆车
            $http({
                 method: "POST",
                 url: allUrl.getThreeCarsUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration,
+                    Duration: searchDuration,
                     Lat:appContext.getAll().curposition.Lat,
                     Lon:appContext.getAll().curposition.Lon
                 },
@@ -3604,9 +3703,19 @@ function paging(allItems, space) {
     return pages;
 }
 
+function initSearchLocation(scope,durationType) {
+    scope.searchMsg.durationType = durationType
+    for (var i = 0; i < scope.searchMsg.locations.length; i++){
+        if (scope.searchMsg.location == scope.searchMsg.locations[i].ID){
+            $('.filter-option-inner-inner').text(scope.searchMsg.locations[i].Address)
+            break
+        }
+    }
+}
+
 function initsearchTime(searchObj) {
     var startDateTime = addHours(0.5);
-    var endDateTime = addHours(4);
+    var endDateTime = addByhours(startDateTime,24);
 
     var startDate = startDateTime.getFullYear() + '-' + ((startDateTime.getMonth() + 1) > 9 ? (startDateTime.getMonth() + 1) : ('0' + (startDateTime.getMonth() + 1))) + '-' + (startDateTime.getDate() > 9 ? (startDateTime.getDate()) : ('0' + startDateTime.getDate()));
     var endDate = endDateTime.getFullYear() + '-' + ((endDateTime.getMonth() + 1) > 9 ? (endDateTime.getMonth() + 1) : ('0' + (endDateTime.getMonth() + 1))) + '-' + (endDateTime.getDate() > 9 ? (endDateTime.getDate()) : ('0' + endDateTime.getDate()));
@@ -3618,8 +3727,20 @@ function initsearchTime(searchObj) {
     startTimeHour = startDateTime.getHours();
     searchObj.startTime = (startTimeHour > 9 ? (startTimeHour) : ("0" + startTimeHour)) + ":" +startTimeMinus;
     searchObj.endDate = endDate;
-    searchObj.endTime = endHour;
+    endTimeMinus = endDateTime.getMinutes() < 30 ? "00" : "30";
+    endTimeHour = endDateTime.getHours();
+    searchObj.endTime =  (endTimeHour > 9 ? (endTimeHour) : ("0" + endTimeHour)) + ":" +endTimeMinus;
     searchObj.endTimeMinus = endHour;
+}
+
+function initEndDateAndTime(searchObj) {
+    var endDateTime = addByhours(getDateByString(searchObj.startDate + ' ' + searchObj.startTime + ':00'),24);
+    var endDate = endDateTime.getFullYear() + '-' + ((endDateTime.getMonth() + 1) > 9 ? (endDateTime.getMonth() + 1) : ('0' + (endDateTime.getMonth() + 1))) + '-' + (endDateTime.getDate() > 9 ? (endDateTime.getDate()) : ('0' + endDateTime.getDate()));
+
+    searchObj.endDate = endDate;
+    endTimeMinus = endDateTime.getMinutes() < 30 ? "00" : "30";
+    endTimeHour = endDateTime.getHours();
+    searchObj.endTime =  (endTimeHour > 9 ? (endTimeHour) : ("0" + endTimeHour)) + ":" +endTimeMinus;
 }
 
 function getFormatTime(date) {

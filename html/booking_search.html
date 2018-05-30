@@ -1,3 +1,4 @@
+
 <div class="some-thing-to-show main-content" style="">
     <div class="row">
         <div class="col-xs-12">
@@ -8,132 +9,330 @@
         </div>
     </div>
 
-    <div class="hidden-overflow-x ">
-        <div class="my-box noborder" style="padding: 0;background-color: transparent">
-            <div class="container" style="padding: 0">
-                <div class="box-body collapse in my-box-boundary " id="isme"
-                     style="padding-bottom: 0;padding-top: 0">
 
-                    <div id="searchCarForm" class="row">
-                        <form>
-                            <div class="col-md-12">
-                                <div class="search"  style="">
-                                    <div class="row">
-                                        <div class="col-md-3 col-xs-6 col-sm-3">
-                                            <div class="form-group mainsearch-item">
 
-                                                <div class="input-group controls input-append date form_date" data-date=""
-                                                     data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+    <div class=" ">
+        <div class="container" style="padding: 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs time-select-type" role="tablist" id="#tab1">
+                        <li role="presentation" class="active">
+                            <a id="h" data-target="#hourly" aria-controls="hourly" role="tab" data-toggle="tab">
+                                Hourly
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a id="d"data-target="#daily" aria-controls="daily" role="tab" data-toggle="tab">
+                                Daily
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="hourly">
+                <div class="my-box noborder" style="padding: 0;background-color: transparent">
+                    <div class="container" style="padding: 0">
+                        <!--<div class="box-header" style="background-color: #febb02;margin: 0">-->
+                        <!--<div class="box-corner">-->
+                        <!--<button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"-->
+                        <!--aria-expanded="true" style="outline: 0">-->
+                        <!--<i class="glyphicon" style="color: #111111"></i>-->
+                        <!--</button>-->
+                        <!--</div>-->
+                        <!--<h4 class="box-header-title" style="color: #111111;font-size: 18px;margin-left: 25px">Search</h4>-->
+                        <!--</div>-->
+
+                        <div class="box-body collapse in my-box-boundary " id="isme_duration"
+                             style="padding-bottom: 0;padding-top: 0">
+
+                            <div id="searchCarFormDuration" class="row">
+                                <form>
+                                    <div class="col-md-12">
+                                        <div class="search"  style="">
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+
+                                                        <div class="input-group controls input-append date form_date" data-date=""
+                                                             data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                                                    <label class="control-label" for="pickupStartDate">Start Date</label>
-                                                    <input ng-model="searchMsg.startDate" type="text"
-                                                           class="form-control datepicker" id="pickupStartDate" readonly>
+                                                            <label class="control-label" for="pickupStartDate">Start Date</label>
+                                                            <input ng-model="searchMsg.startDate" type="text"
+                                                                   class="form-control datepicker" id="pickupStartDate" readonly>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6 col-sm-3">
-                                            <div class="form-group mainsearch-item">
-                                                <div class="input-group">
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div class="input-group">
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-time"></i>
                         </span>
-                                                    <label class="control-label" for="pickupStartTime">Pick-up Time</label>
-                                                    <select ng-model="searchMsg.startTime" id="pickupStartTime"
-                                                            class="form-control">
-                                                        <option value="">Pickup Time</option>
-                                                        <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
-                                                            {{item.Time}}
-                                                        </option>
-                                                    </select>
+                                                            <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                                            <select ng-model="searchMsg.startTime" id="pickupStartTime"
+                                                                    class="form-control">
+                                                                <option value="">Pickup Time</option>
+                                                                <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                    {{item.Time}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6 col-sm-3">
-                                            <div class="form-group  mainsearch-item">
-                                                <div style="margin-left: 12px">
-                                                    <label class="control-label" for="duration">Duration</label>
-                                                    <select ng-model="searchMsg.duration" id="duration"
-                                                            class="form-control ">
-                                                        <option ng-repeat="item in searchMsg.durations" value="{{item.ID}}">
-                                                            {{item.Duration}}
-                                                        </option>
-                                                    </select>
-                                                </div>
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group  mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="duration">Duration</label>
+                                                            <select ng-model="searchMsg.duration" id="duration"
+                                                                    class="form-control ">
+                                                                <option ng-repeat="item in appContext.searchMsg.durations" value="{{item.ID}}">
+                                                                    {{item.Duration}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="rentFor">Vehicle Type</label>
+                                                            <select ng-model="searchMsg.rentFor" id="rentFor"
+                                                                    class="form-control ">
+                                                                <option value="0">Any</option>
+                                                                <option ng-repeat="item in searchMsg.rentFors" value="{{item.ID}}">
+                                                                    {{item.LeaseTypeName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6 col-sm-3">
-                                            <div class="form-group mainsearch-item">
-                                                <div style="margin-left: 12px">
-                                                    <label class="control-label" for="rentFor">Vehicle Type</label>
-                                                    <select ng-model="searchMsg.rentFor" id="rentFor"
-                                                            class="form-control ">
-                                                        <option value="0">Any</option>
-                                                        <option ng-repeat="item in searchMsg.rentFors" value="{{item.ID}}">
-                                                            {{item.LeaseTypeName}}
-                                                        </option>
-                                                    </select>
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-6" hidden>
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="pickupCategory">Vehicle Type</label>
+                                                            <select ng-model="searchMsg.category" id="pickupCategory"
+                                                                    class="form-control ">
+                                                                <option value="0">Any Category</option>
+                                                                <option ng-repeat="item in searchMsg.categorys" value="{{item.ID}}">
+                                                                    {{item.VehicleTypeName}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="hourly_location">Location</label>
+                                                            <select ng-model="searchMsg.location" id="hourly_location"
+                                                                    class="form-control form-control" data-live-search="true">
+                                                                <!--<option value="0">Select location</option>-->
+                                                                <!--<option ng-repeat="item in searchMsg.locations" value="{{item.ID}}">-->
+                                                                    <!--{{item.Address}}-->
+                                                                <!--</option>-->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="vehicleNumber">Vehicle Number</label>
+                                                            <select ng-model="searchMsg.vehicleNumber" id="vehicleNumber"
+                                                                    class="form-control ">
+                                                                <option value="0">Any</option>
+                                                                <option ng-repeat="item in searchMsg.vehicleNumbers" value="{{item.ID}}">
+                                                                    {{item.Plate}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6">
+                                                    <div style="margin-left: 12px">
+                                                        <button ng-click="mainsearch()" type="button" class="btn btn-block btn-orange form-control"
+                                                                style="margin-top: 35px;font-weight: bold">SEARCH
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-3 col-xs-6" hidden>
-                                            <div class="form-group mainsearch-item">
-                                                <div style="margin-left: 12px">
-                                                    <label class="control-label" for="pickupCategory">Vehicle Type</label>
-                                                    <select ng-model="searchMsg.category" id="pickupCategory"
-                                                            class="form-control ">
-                                                        <option value="0">Any Category</option>
-                                                        <option ng-repeat="item in searchMsg.categorys" value="{{item.ID}}">
-                                                            {{item.VehicleTypeName}}
-                                                        </option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-xs-12">
-                                            <div class="form-group mainsearch-item">
-                                                <div style="margin-left: 12px">
-                                                    <label class="control-label" for="pickupLocation">Location</label>
-                                                    <select ng-model="searchMsg.location" id="pickupLocation"
-                                                            class="form-control">
-                                                        <option value="0">Select location</option>
-                                                        <option ng-repeat="item in searchMsg.locations" value="{{item.ID}}">
-                                                            {{item.Address}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6">
-                                            <div class="form-group mainsearch-item">
-                                                <div style="margin-left: 12px">
-                                                    <label class="control-label" for="vehicleNumber">Vehicle Number</label>
-                                                    <select ng-model="searchMsg.vehicleNumber" id="vehicleNumber"
-                                                            class="form-control ">
-                                                        <option value="0">Any</option>
-                                                        <option ng-repeat="item in searchMsg.vehicleNumbers" value="{{item.ID}}">
-                                                            {{item.Plate}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-6">
-                                            <div style="margin-left: 12px">
-                                                <button ng-click="mainsearch()" type="button" class="btn btn-block btn-orange form-control"
-                                                        style="margin-top: 35px;font-weight: bold">SEARCH
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="daily">
+                <div class="my-box noborder" style="padding: 0;background-color: transparent">
+                    <div class="container" style="padding: 0">
+                        <!--<div class="box-header" style="background-color: #febb02;margin: 0">-->
+                        <!--<div class="box-corner">-->
+                        <!--<button class="btn" data-toggle="collapse" data-target="#isme" aria-controls="isme"-->
+                        <!--aria-expanded="true" style="outline: 0">-->
+                        <!--<i class="glyphicon" style="color: #111111"></i>-->
+                        <!--</button>-->
+                        <!--</div>-->
+                        <!--<h4 class="box-header-title" style="color: #111111;font-size: 18px;margin-left: 25px">Search</h4>-->
+                        <!--</div>-->
+
+                        <div class="box-body collapse in my-box-boundary " id="isme"
+                             style="padding-bottom: 0;padding-top: 0">
+
+                            <div id="searchCarForm" class="row">
+                                <form>
+                                    <div class="col-md-12">
+                                        <div class="search"  style="">
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+
+                                                        <div class="input-group controls input-append date form_date" data-date=""
+                                                             data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                                                            <label class="control-label" for="pickupStartDate">Start Date</label>
+                                                            <input ng-model="searchMsg.startDate" type="text"
+                                                                   class="form-control datepicker"  readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                                                            <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                                            <select ng-model="searchMsg.startTime"
+                                                                    class="form-control">
+                                                                <option value="">Pickup Time</option>
+                                                                <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                    {{item.Time}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+
+                                                        <div class="input-group controls input-append date form_date" data-date=""
+                                                             data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                                                            <label class="control-label" for="pickupStartDate">End Date</label>
+                                                            <input ng-model="searchMsg.endDate" type="text"
+                                                                   class="form-control datepicker"  readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-xs-6 col-sm-3">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-time"></i>
+                        </span>
+                                                            <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                                            <select ng-model="searchMsg.endTime"
+                                                                    class="form-control">
+                                                                <option value="">Pickup Time</option>
+                                                                <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                    {{item.Time}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-xs-6" hidden>
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="pickupCategory">Vehicle Type</label>
+                                                            <select ng-model="searchMsg.category"
+                                                                    class="form-control ">
+                                                                <option value="0">Any Category</option>
+                                                                <option ng-repeat="item in searchMsg.categorys" value="{{item.ID}}">
+                                                                    {{item.VehicleTypeName}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="rentFor">Vehicle Type</label>
+                                                            <select ng-model="searchMsg.rentFor"
+                                                                    class="form-control ">
+                                                                <option value="0">Any</option>
+                                                                <option ng-repeat="item in searchMsg.rentFors" value="{{item.ID}}">
+                                                                    {{item.LeaseTypeName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-xs-12 ">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="daily_location">Location</label>
+                                                            <select ng-model="searchMsg.location" id="daily_location"
+                                                                    class="form-control form-control" data-live-search="true">
+                                                        <!--        <option value="0">Select location</option>
+                                                                <option ng-repeat="item in searchMsg.locations" value="{{item.ID}}">
+                                                                    {{item.Address}}
+                                                                </option>-->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-6">
+                                                    <div class="form-group mainsearch-item">
+                                                        <div style="margin-left: 12px">
+                                                            <label class="control-label" for="vehicleNumber">Vehicle Number</label>
+                                                            <select ng-model="searchMsg.vehicleNumber"
+                                                                    class="form-control ">
+                                                                <option value="0">Any</option>
+                                                                <option ng-repeat="item in searchMsg.vehicleNumbers" value="{{item.ID}}">
+                                                                    {{item.Plate}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-6">
+                                                    <div style="margin-left: 12px">
+                                                        <button ng-click="mainsearch()" type="button" class="btn btn-block btn-orange form-control"
+                                                                style="margin-top: 35px;font-weight: bold">SEARCH
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>

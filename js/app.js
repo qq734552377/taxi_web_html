@@ -568,6 +568,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         onEnter: function(app,goTop,getADV){
             app.getAll().isNotificationShow = true;
             getADV.get();
+            getADV.getADVPicture();
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器

@@ -61,7 +61,7 @@ serviceModule.factory('allUrl',function () {
     var host='http://58.246.122.118:12305';
     // var host='http://192.168.0.103:12907';
     // var host='http://192.168.0.56:12907';
-    // var host='http://192.168.0.112:12907';
+    // var host='http://192.168.0.111:12300';
     // var host='http://192.168.0.146:12907';
     return {
         host:host,
@@ -129,6 +129,7 @@ serviceModule.factory('allUrl',function () {
         setFavouriteCar:host + '/api/CollectOrCancelCollect',
         getIsFavouriteCar:host + '/api/IsCollect',
         getADVUrlr:host + '/Advertisement/GetFrontEndAdvertisementDetail',
+        getADVPictureUrl:host + '/AdvertisementPicture/GetFrontEndAdvPictureDetail',
     }
 })
     .factory('appContext',function (allUrl) {
@@ -435,7 +436,8 @@ serviceModule.factory('allUrl',function () {
             curposition:{
                 Lat:'0',
                 Lon:'0'
-            }
+            },
+            advPicMsg : {}
         };
 
 
@@ -867,7 +869,23 @@ serviceModule.factory('allUrl',function () {
                 }).error(function () {
 
                 });
+            },
+            getADVPicture:function () {
+                $http({
+                    method: "POST",
+                    url: allUrl.getADVPictureUrl,
+                    headers: {'Content-Type': 'application/json'},
+                    data:{
+                    }
+                }).success(function (data) {
+                    console.log(data);
+                    if (data.MsgType == 'Success') {
+                        appContext.getAll().advPicMsg = data.Data
+                    } else {
+                    }
+                }).error(function () {
 
+                });
             }
         }
     })

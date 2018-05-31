@@ -67,6 +67,24 @@
     </div>
 </div>
 
+<div ng-if="appContext.advPicMsg" class="modal fade" tabindex="-1" role="dialog" id="advPicBox" style="top: 5%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;padding: 0 15px">
+
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <button type="button" class="btn btn-default " data-dismiss="modal" aria-label="Close" style="position: absolute;right: -7px;top: -7px;border-radius: 50%;outline: none">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <a href="{{appContext.advPicMsg.WebUrl}}" >
+                    <img ng-src="{{appContext.advPicMsg.Path}}" style="width: 100%" alt="ADVPicture"/>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div ng-if="appContext.isAllWaitting" class="all-waitting">
     <div ng-if="appContext.isAllWaitting" class="pic-center-wrap col-md-12 col-sm-12 col-xs-12 col-lg-12" style="margin-top: 100px">
@@ -85,7 +103,7 @@
 <link rel="stylesheet" href="components/bootstrap-select/bootstrap-select.min.css">
 <script src="components/bootstrap-select/bootstrap-select.min.js"></script>
 
-<script src="js/controllers.min.js"></script>
+<script src="js/controllers.js"></script>
 <script src="js/services.min.js"></script>
 <script src="js/app.min.js"></script>
 

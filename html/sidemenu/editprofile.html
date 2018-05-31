@@ -39,6 +39,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-md-2 control-label" for="Address">Address</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="Address"
+                                       ng-model="signin_f.Address"
+                                       placeholder="{{appContext.userMsg.Address}}">
+                            </div>
+                            <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.AddressSpan}}">&nbsp;{{errorMsg.AddressMsg}}</span>
+                        </div>
+
+                        <div class="form-group">
                             <label for="oldPassword" class="col-md-2 control-label">Old Password</label>
                             <div class="col-md-6">
                                 <input ng-model="signin_f.oldPassword" type="password" class="form-control" id="oldPassword"

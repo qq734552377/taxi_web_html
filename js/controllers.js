@@ -918,9 +918,11 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
 
     $('#h').on('shown.bs.tab', function (e) {
         initSearchLocation($scope,true)
+        $scope.search();
     })
     $('#d').on('shown.bs.tab', function (e) {
         initSearchLocation($scope,false)
+        $scope.search();
     })
 
     $scope.$watch('searchMsg.location', function (newValue, oldValue, scope) {
@@ -1331,7 +1333,9 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             passwordAgainMsg: '',
             passwordAgainSpan: '',
             PhoneMsg: '',
-            PhoneSpan: ''
+            PhoneSpan: '',
+            AddressMsg: '',
+            AddressSpan: ''
         };
 
         $scope.$watch('signin_f.oldPassword', function (newValue, oldValue, scope) {
@@ -1443,7 +1447,8 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                         Contact : $scope.signin_f.Phone,
                         OldPassword  : $scope.signin_f.oldPassword,
                         Password   : $scope.signin_f.Password,
-                        ConfimPassword    : $scope.signin_f.PasswordAgain
+                        ConfimPassword    : $scope.signin_f.PasswordAgain,
+                        Address    : $scope.signin_f.Address
                     },
                     headers: {
                         'Content-Type': 'application/json',
@@ -3383,6 +3388,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
             initsearchTime($scope.rateSearch);
         }
 
+        $('#advPicBox').modal('show');
         $scope.goToSearchWithLocation=function (location) {
             $scope.searchMsg.location=location + '';
             $scope.searchMsg.rentFor='0';

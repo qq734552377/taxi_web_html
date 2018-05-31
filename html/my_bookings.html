@@ -22,121 +22,122 @@
                 </div>
             </div>
 
-            <div class="mytable my-box  margin-top-15">
+            <div class="container-fluid">
+                <div class="mytable my-box  margin-top-15">
 
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <div class="select-count">
-                                Show
-                                <select ng-model='avg' class="input-sm">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                entries
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6">
+                                <div class="select-count">
+                                    Show
+                                    <select ng-model='avg' class="input-sm">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                    entries
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-6 text-right">
+                                <button class="btn btn-success" ng-click="querry()">
+                                    <i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;
+                                    Refresh
+                                </button>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xs-6 text-right">
-                            <button class="btn btn-success" ng-click="querry()">
-                                <i class="glyphicon glyphicon-refresh"></i>&nbsp;&nbsp;
-                                Refresh
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 margin-top-25">
-                            <table class="responsive table table-hover table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Booking Ref</th>
-                                    <th>Car</th>
-                                    <th>Pickup</th>
-                                    <th>Return</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in currentPageBookings">
-                                    <td class="ref" ng-bind="item.LeaseNumber"></td>
-                                    <td class="car" ng-bind="item.VehicleModels+' ( '+ item.VehicleName + ' )'"></td>
-                                    <td class="pickup" >{{getFormatDateWithEnglishAppare(item.LeaseStartTime)}}</td>
-                                    <td class="return" >{{getFormatDateWithEnglishAppare(item.LeaseEndTime)}}</td>
-                                    <td class="amount" ng-bind="'$ '+((item.LeaseMount + item.RenewalMount)/100).toFixed(2)"></td>
-                                    <td class="status" ng-bind="item.LeaseStatusName"></td>
-                                    <td class="actions">
+                        <div class="row">
+                            <div class="col-md-12 margin-top-25">
+                                <table class="responsive table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Booking Ref</th>
+                                        <th>Car</th>
+                                        <th>Pickup</th>
+                                        <th>Return</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in currentPageBookings">
+                                        <td class="ref" ng-bind="item.LeaseNumber"></td>
+                                        <td class="car" ng-bind="item.VehicleModels+' ( '+ item.VehicleName + ' )'"></td>
+                                        <td class="pickup" >{{getFormatDateWithEnglishAppare(item.LeaseStartTime)}}</td>
+                                        <td class="return" >{{getFormatDateWithEnglishAppare(item.LeaseEndTime)}}</td>
+                                        <td class="amount" ng-bind="'$ '+((item.LeaseMount + item.RenewalMount)/100).toFixed(2)"></td>
+                                        <td class="status" ng-bind="item.LeaseStatusName"></td>
+                                        <td class="actions">
 
-                                        <div class=" btn-group">
-                                            <div class=" btn-group ">
-                                                <a type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                                   aria-expanded="false">
-                                                    Action
-                                                    <span class="caret"></span>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li>
-                                                        <a href="#/bookingdetails/{{item.LeaseNumber}}" class="text-center" style="line-height: 2.2em">
-                                                            DETAILS
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a ng-click="goToReportIssueWithLeaseNumber(item.LeaseNumber)" class="text-center" style="line-height: 2.2em">
-                                                            REPORT ISSUE
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#/sidemenu/issue_status/{{item.LeaseNumber}}" class="text-center" style="line-height: 2.2em">
-                                                            ALERT
-                                                        </a>
-                                                    </li>
-                                                    <!--<li><a ng-click="goToBreakDown('Report Break Down')">Break down</a></li>-->
-                                                    <!--<li><a ng-click="goToBreakDown('Report Accident')">Accident</a></li>-->
-                                                </ul>
+                                            <div class=" btn-group">
+                                                <div class=" btn-group ">
+                                                    <a type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                                       aria-expanded="false">
+                                                        Action
+                                                        <span class="caret"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-right">
+                                                        <li>
+                                                            <a href="#/bookingdetails/{{item.LeaseNumber}}" class="text-center" style="line-height: 2.2em">
+                                                                DETAILS
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a ng-click="goToReportIssueWithLeaseNumber(item.LeaseNumber)" class="text-center" style="line-height: 2.2em">
+                                                                REPORT ISSUE
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#/sidemenu/issue_status/{{item.LeaseNumber}}" class="text-center" style="line-height: 2.2em">
+                                                                ALERT
+                                                            </a>
+                                                        </li>
+                                                        <!--<li><a ng-click="goToBreakDown('Report Break Down')">Break down</a></li>-->
+                                                        <!--<li><a ng-click="goToBreakDown('Report Accident')">Accident</a></li>-->
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="show-counts">
-                                Showing {{currentIndex==0?0:(currentIndex-1)*avg+1}} to {{currentIndex==0?0:(currentIndex-1)*avg+currentPageBookings.length}} of {{sourceBookings.length}} entries
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="col-md-7">
-                            <div class="page-table">
-                                <ul class="pagination">
-                                    <li ng-class="{disabled:currentIndex==1||currentIndex==0}"   ng-click="jumpPage(currentIndex-1)">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="show-counts">
+                                    Showing {{currentIndex==0?0:(currentIndex-1)*avg+1}} to {{currentIndex==0?0:(currentIndex-1)*avg+currentPageBookings.length}} of {{sourceBookings.length}} entries
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="page-table">
+                                    <ul class="pagination">
+                                        <li ng-class="{disabled:currentIndex==1||currentIndex==0}"   ng-click="jumpPage(currentIndex-1)">
                                     <span  aria-label="Previous" >
                                         <span aria-hidden="true">&laquo;</span>
                                     </span>
-                                    </li>
-                                    <li ng-repeat="item in allPageBookings" ng-class="{active:currentIndex==item.index}" ng-if="item.index < 7"  ng-click="jumpPage(item.index)"><span  ng-bind="item.index"></span></li>
-                                    <li ng-if="allPageBookings.length >= 7"  ><span >...</span></li>
-                                    <li ng-class="{disabled:currentIndex==pageCount}"   ng-click="jumpPage(currentIndex+1)">
+                                        </li>
+                                        <li ng-repeat="item in allPageBookings" ng-class="{active:currentIndex==item.index}" ng-if="item.index < 7"  ng-click="jumpPage(item.index)"><span  ng-bind="item.index"></span></li>
+                                        <li ng-if="allPageBookings.length >= 7"  ><span >...</span></li>
+                                        <li ng-class="{disabled:currentIndex==pageCount}"   ng-click="jumpPage(currentIndex+1)">
                                     <span aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </span>
-                                    </li>
-                                </ul>
-                                </nav>
+                                        </li>
+                                    </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
+
+
+
                     </div>
 
 
-
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </div>

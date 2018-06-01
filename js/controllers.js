@@ -1323,6 +1323,14 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             return;
         }
 
+        $scope.signin_f = {
+            Phone:'',
+            oldPassword:'',
+            Password:'',
+            PasswordAgain:'',
+            Address:''
+        }
+
         $scope.errorMsg = {
             emailMsg: '',
             emailSpan: '',
@@ -1388,6 +1396,21 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             }
         });
 
+        $scope.$watch('signin_f.Address', function (newValue, oldValue, scope) {
+            if (newValue == undefined || newValue.length == 0) {
+                scope.errorMsg.AddressSpan = '';
+                scope.errorMsg.AddressMsg = '';
+                return;
+            }
+            if (newValue.length < 8) {
+                scope.errorMsg.AddressSpan = 'error-span';
+                scope.errorMsg.AddressMsg = 'At Least 8';
+            } else {
+                scope.errorMsg.AddressSpan = 'success-span';
+                scope.errorMsg.AddressMsg = 'OK';
+            }
+        });
+
         $scope.$watch('signin_f.Phone', function (newValue, oldValue, scope) {
             if (newValue == undefined || newValue.length == 0) {
                 scope.errorMsg.PhoneSpan = '';
@@ -1412,14 +1435,18 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             if($scope.errorMsg.oldPasswordSpan == 'error-span' ||
                 $scope.errorMsg.passwordSpan == 'error-span' ||
                 $scope.errorMsg.passwordAgainSpan == 'error-span'||
-                $scope.errorMsg.PhoneSpan == 'error-span'){
+                $scope.errorMsg.PhoneSpan == 'error-span'||
+                $scope.errorMsg.AddressSpan == 'error-span'
+            ){
                     return;
             }
 
             if($scope.errorMsg.oldPasswordSpan == '' &&
                 $scope.errorMsg.passwordSpan == '' &&
                 $scope.errorMsg.passwordAgainSpan == ''&&
-                $scope.errorMsg.PhoneSpan == ''){
+                $scope.errorMsg.PhoneSpan == ''&&
+                $scope.errorMsg.AddressSpan == ''
+            ){
                 $scope.errorMsgHandle(appContext.getAll().errorMsg.noChange);
                 return;
             }
@@ -1459,8 +1486,14 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                     appContext.getAll().isAllWaitting = false;
                     if (data.MsgType == 'Success') {
                         $scope.dataInfoErrorHandle(data);
-                        appContext.getAll().userMsg.Phone=$scope.signin_f.Phone;
+                        if($scope.signin_f.Phone != ''){
+                            appContext.getAll().userMsg.Phone = new String($scope.signin_f.Phone).replace('"','').replace("'",'');
+                        }
+                        if($scope.signin_f.Address != ''){
+                            appContext.getAll().userMsg.Address = new String($scope.signin_f.Address).replace('"','').replace("'",'');
+                        }
                         $scope.signin_f.Phone='';
+                        $scope.signin_f.Address='';
                         $scope.signin_f.oldPassword='';
                         $scope.signin_f.Password='';
                         $scope.signin_f.PasswordAgain='';
@@ -3382,6 +3415,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         $scope.searchMsg = appContext.getAll().searchMsg;
         if(appContext.getAll().isAut){
             window.location.replace('#/booking_search')
+            return
         }
         $scope.rateSearch= appContext.getAll().rateSearch;
         if ($scope.rateSearch.startDate == '') {

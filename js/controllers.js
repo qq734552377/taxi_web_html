@@ -1786,9 +1786,9 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
     })
     .controller('referCtr', function ($scope, $http, allUrl, appContext,getReferAwaed) {
         $scope.$emit('curPath', 'Refer a Friend');
-        $scope.baseUrl=allUrl.referHost+'/taxisharing/%23/signup_f/';
+        $scope.baseUrl=allUrl.referHost+'/%23/signup_f/';
         $scope.promoCode='';
-        $scope.copyUrl=allUrl.referHost+'/taxisharing/#/signup_f/'+$scope.promoCode;
+        $scope.copyUrl=allUrl.referHost+'/#/signup_f/'+$scope.promoCode;
         $scope.promoUrl=$scope.baseUrl;
         $scope.promoPrice='49';
 
@@ -1814,7 +1814,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 if (data.MsgType == 'Success') {
                     $scope.promoCode = data.Data.PromotionCode;
                     $scope.promoUrl=$scope.baseUrl+data.Data.PromotionCode;
-                    $scope.copyUrl=allUrl.referHost+'/taxisharing/#/signup_f/'+$scope.promoCode;
+                    $scope.copyUrl=allUrl.referHost+'/#/signup_f/'+$scope.promoCode;
                     $scope.promoPrice=data.Data.Money/100;
                 } else {
                     if (data.MsgType == 'TokenError') {
@@ -3243,6 +3243,8 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 if (data.MsgType == 'Success') {
                     allCarsMsg.addCars(data.Data)
                     $scope.recommendedCarList = data.Data;
+                }else if(data.MsgType == 'TokenError'){
+                    window.location.replace('#/main2')
                 }
             }).error(function () {
                 $scope.isWaitting = false;
@@ -3268,6 +3270,8 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 if (data.MsgType == 'Success') {
                     allCarsMsg.addCars(data.Data)
                     $scope.pastCarList = data.Data;
+                }else if(data.MsgType == 'TokenError'){
+                    window.location.replace('#/main2')
                 }
             }).error(function () {
                 $scope.isWaitting = false;

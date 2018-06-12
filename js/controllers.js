@@ -933,12 +933,18 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
             scope.searchMsg.vehicleNumber = '0';
             return;
         }
+        searchDuration = $scope.searchMsg.duration
+        if(!$scope.searchMsg.durationType){
+            searchDuration = computeWithHours($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00',$scope.searchMsg.endDate + ' ' + $scope.searchMsg.endTime + ':00')
+        }
 
         $http({
             method: "POST",
             url: allUrl.getVehicleNumberBylocationUrl,
             data: {
-                BindParking: newValue
+                Address: newValue,
+                StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+                Duration: searchDuration
             }
         }).success(function (data) {
             console.log(data);
@@ -3182,11 +3188,17 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 return;
             }
 
+            searchDuration = $scope.searchMsg.duration
+            if(!$scope.searchMsg.durationType){
+                searchDuration = computeWithHours($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00',$scope.searchMsg.endDate + ' ' + $scope.searchMsg.endTime + ':00')
+            }
             $http({
                 method: "POST",
                 url: allUrl.getVehicleNumberBylocationUrl,
                 data: {
-                    BindParking: newValue
+                    Address: newValue,
+                    StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
+                    Duration: searchDuration
                 }
             }).success(function (data) {
                 console.log(data);

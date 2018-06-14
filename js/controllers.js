@@ -1053,7 +1053,7 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
                     $scope.isOtherLocationCarViews = true;
                 }
                 localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
-                localStorage.setItem('duration',$scope.searchMsg.duration);
+                localStorage.setItem('duration',searchDuration);
 
             } else {
                 $scope.isNoCar = true;
@@ -2555,6 +2555,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         sendValue:''
     };
     $scope.totalFees=0;
+    $scope.AER=0;
     $scope.errorMsg={
         PromoCodeSpan:'',
         PromoCodeMsg:''
@@ -2650,7 +2651,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
 
     $scope.getPriceList = getPriceList;
 
-    $scope.getPriceList();
+
 
     function getPriceList() {
         $scope.isWaitting = true;
@@ -2665,6 +2666,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
                 VehiceType: $scope.carMsg.VehicleType,
                 LeaseType: $scope.carMsg.LeaseType,
                 VehicleModel: $scope.carMsg.VehicleModel,
+                Insurance:getQuerryCarPriceInsuranceSendString($scope.insuranceList)
             }
         }).success(function (data) {
             console.log(data)
@@ -2706,7 +2708,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             return;
         }
 
-        if($scope.insuranceMsg.totalPrice > 0){
+        if($scope.AER> 0){
             $('#AERIssueDialog').modal('show');
             $scope.isKnowAER = false;
             return;
@@ -2802,7 +2804,9 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             $scope.isGetCarStateWaitting = false;
         });
     }
+
     getInsurance();
+
     function getInsurance() {
         $scope.isWaitting = true;
         $scope.carPriceList = {};
@@ -2817,6 +2821,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             $scope.isWaitting = false;
             if(data.MsgType == 'Success'){
                 $scope.insuranceList=data.Data;
+                $scope.getPriceList();
             }
         }).error(function () {
 
@@ -2838,19 +2843,27 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         }
         for(var total=0;total < insuranceList.length;total++){
             $scope.insuranceMsg.totalPrice +=insuranceList[total].Premium;
-            $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal
+            // $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal
+            setSomePrice($scope,$scope.carPriceList.AER);
             $("#insuranceCheck"+insuranceList[total].ID).change(function(){
                 if($(this).get(0).checked){
-                    $scope.insuranceMsg.totalPrice += getPriceByID($(this).val());
+                    // $scope.insuranceMsg.totalPrice += getPriceByID($(this).val());
+                    setSomePrice($scope,$scope.carPriceList.AER);
                 }else{
-                    $scope.insuranceMsg.totalPrice -= getPriceByID($(this).val());
+                    // $scope.insuranceMsg.totalPrice -= getPriceByID($(this).val());
+                    setSomePrice($scope,0);
                 }
-                $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal
+                // $scope.totalFees=$scope.insuranceMsg.totalPrice*$scope.carMsg.Duration +$scope.carPriceList.BookingTotal
                 $scope.$apply();
             });
         }
         $scope.$apply();
     }
+    function setSomePrice(scope,aerval) {
+        scope.AER = aerval;
+        scope.totalFees = scope.AER + scope.carPriceList.BookingTotal;
+    }
+    
     function getPriceByID(id) {
         for (var start=0;start < $scope.insuranceList.length;start++){
             if($scope.insuranceList[start].ID == id){
@@ -3268,7 +3281,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 url: allUrl.getThreePastOrFavouriteUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration,
+                    Duration: searchDuration,
                     Lat:appContext.getAll().curposition.Lat,
                     Lon:appContext.getAll().curposition.Lon
                 },
@@ -3295,7 +3308,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 url: allUrl.searchUrl,
                 data: {
                     StartTime: ($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00'),
-                    Duration: $scope.searchMsg.duration,
+                    Duration: searchDuration,
                     LeaseType: $scope.searchMsg.rentFor,
                     VehiceType: $scope.searchMsg.category,
                     Address: $scope.searchMsg.location,
@@ -3314,7 +3327,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                         $scope.isOtherLocationCarViews = true;
                     }
                     localStorage.setItem('startTime',$scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00');
-                    localStorage.setItem('duration',$scope.searchMsg.duration);
+                    localStorage.setItem('duration',searchDuration);
 
                 } else {
                     $scope.isNoCar = true;
@@ -3723,6 +3736,17 @@ function getInsuranceSendString(insuranceList) {
         if($("#insuranceCheck" + insuranceList[total].ID).get(0).checked){
             arrSend[total]=$("#insuranceCheck" + insuranceList[total].ID).val();
         }
+    }
+    return arrSend.join('-');
+}
+//获取保险的checkbox的值并用-拼接
+function getQuerryCarPriceInsuranceSendString(insuranceList) {
+    if(insuranceList.length <= 0){
+        return;
+    }
+    var arrSend=[];
+    for(var total=0;total < insuranceList.length;total++) {
+        arrSend[total]=insuranceList[total].ID;
     }
     return arrSend.join('-');
 }

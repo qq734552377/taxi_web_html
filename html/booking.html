@@ -383,13 +383,13 @@
                                                                         <tr ng-if="carPriceList.CleaningFee > 0">
                                                                             <td class="left">
                                                                                 <strong>Cleaning Fee</strong><br>
-                                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
-                                                                                {{carMsg.Duration >1 ?
-                                                                                (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}
+                                                                                <!--${{(carPriceList.CleaningFee/100).toFixed(2)}} x-->
+                                                                                <!--{{carMsg.Duration >1 ?-->
+                                                                                <!--(carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}-->
                                                                             </td>
                                                                             <td class="right text-right">
                                                                                 <br>
-                                                                                ${{((carPriceList.CleaningFee*carMsg.Duration)/100).toFixed(2)}}
+                                                                                ${{((carPriceList.BookingTotal - carPriceList.LeaseFee)/100).toFixed(2)}}
                                                                             </td>
                                                                         </tr>
 
@@ -419,7 +419,8 @@
                                                                                     <b>{{appContext.AERString}}</b>
                                                                                 </td>
                                                                                 <td class="right text-right" id="totalInsurance">
-                                                                                    ${{(insuranceMsg.totalPrice*carMsg.Duration/100).toFixed(2)}}
+                                                                                    <!--${{(insuranceMsg.totalPrice*carMsg.Duration/100).toFixed(2)}}-->
+                                                                                    ${{(AER/100).toFixed(2)}}
                                                                                 </td>
                                                                             </tr>
 

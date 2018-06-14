@@ -327,13 +327,13 @@
                                                         <tr ng-if="carPriceList.CleaningFee > 0">
                                                             <td class="left">
                                                                 <strong>Cleaning Fee</strong><br>
-                                                                ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
+                                                               <!-- ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
                                                                 {{carMsg.Duration >1 ?
-                                                                (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}
+                                                                (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}-->
                                                             </td>
                                                             <td class="right text-right">
                                                                 <br>
-                                                                ${{((carPriceList.CleaningFee*carMsg.Duration)/100).toFixed(2)}}
+                                                                ${{((carPriceList.BookingTotal - carPriceList.LeaseFee)/100).toFixed(2)}}
                                                             </td>
                                                         </tr>
                                                         </tbody>

@@ -144,7 +144,9 @@
                                 <img src="img/list-pic.jpg" alt="thumb" class="box-body-thumb"/>
                             </div>
                             <div class="col-md-12 ">
-                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">Pickup Details</h5>
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">
+                                    Pickup Details
+                                </h5>
 
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-2 text-center">
@@ -174,8 +176,9 @@
 
                             </div>
                             <div class="col-md-12">
-                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">Drop off
-                                    Details</h5>
+                                <h5 class="bottom-border margin-top-20" style="font-size: 18px;font-weight: bold">
+                                    Drop off Details
+                                </h5>
 
                                 <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-2 text-center">
@@ -203,6 +206,43 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12" ng-if="bookingMsg.list.TripStart != null">
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">
+                                    Start Trip Time
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(bookingMsg.list.TripStart)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{getFormatDateWithEnglishAppare(bookingMsg.list.TripStart)}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" ng-if="bookingMsg.list.TripEnd != null">
+                                <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">
+                                    End Trip Time
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2 col-xs-2 text-center">
+                                        <p>
+                                            <i class="fa" ng-class="isDayOrNight(bookingMsg.list.TripEnd)"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                        <p>
+                                            {{getFormatDateWithEnglishAppare(bookingMsg.list.TripEnd)}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-6">

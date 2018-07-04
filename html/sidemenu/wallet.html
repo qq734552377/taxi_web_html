@@ -29,7 +29,7 @@
                             <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Type</th>
+                                <!--<th>Type</th>-->
                                 <th>Amount($)</th>
                                 <th>Entered By</th>
                                 <th>Booking Ref</th>
@@ -38,7 +38,7 @@
                             <tbody>
                             <tr ng-repeat="item in currentPageBookings">
                                 <td class="date" ng-bind="getFormatDateWithEnglishAppare(item.SaveTime)"></td>
-                                <td class="type" ng-bind="item.TrardetypeName"></td>
+                                <!--<td class="type" ng-bind="item.TrardetypeName"></td>-->
                                 <td class="amount"  ng-bind="'$ '+(item.TransactionAmount/100).toFixed(2)"></td>
                                 <td class="enteredBy"  ng-bind="item.WalletStatusName"></td>
                                 <td class="bookingRef"  ng-bind="item.Trardeno"></td>

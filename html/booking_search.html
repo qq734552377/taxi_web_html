@@ -32,7 +32,7 @@
         </div>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active fade in" id="hourly">
+            <div role="tabpanel" class="tab-pane active fade in" style="background-color: inherit" id="hourly">
                 <div class="my-box noborder" style="padding: 0;background-color: transparent">
                     <div class="container" style="padding: 0">
                         <!--<div class="box-header" style="background-color: #febb02;margin: 0">-->
@@ -61,7 +61,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                                                            <label class="control-label" for="pickupStartDate">Start Date</label>
+                                                            <label class="control-label" for="pickupStartDate">Start Date <span class="hidden-xs hidden-sm">(yyyy-mm-dd)</span></label>
                                                             <input ng-model="searchMsg.startDate" type="text"
                                                                    class="form-control datepicker" id="pickupStartDate" readonly>
                                                         </div>
@@ -76,7 +76,7 @@
                                                             <label class="control-label" for="pickupStartTime">Pick-up Time</label>
                                                             <select ng-model="searchMsg.startTime" id="pickupStartTime"
                                                                     class="form-control">
-                                                                <option value="">Pickup Time</option>
+                                                                <option value="">Pick-up Time</option>
                                                                 <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
                                                                     {{item.Time}}
                                                                 </option>
@@ -175,7 +175,7 @@
 
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="daily">
+            <div role="tabpanel" class="tab-pane fade" style="background-color: inherit" id="daily">
                 <div class="my-box noborder" style="padding: 0;background-color: transparent">
                     <div class="container" style="padding: 0">
                         <!--<div class="box-header" style="background-color: #febb02;margin: 0">-->
@@ -204,7 +204,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                                                            <label class="control-label" for="pickupStartDate">Start Date</label>
+                                                            <label class="control-label" for="pickupStartDate">Start Date <span class="hidden-xs hidden-sm">(yyyy-mm-dd)</span></label>
                                                             <input ng-model="searchMsg.startDate" type="text"
                                                                    class="form-control datepicker"  readonly>
                                                         </div>
@@ -219,7 +219,7 @@
                                                             <label class="control-label" for="pickupStartTime">Pick-up Time</label>
                                                             <select ng-model="searchMsg.startTime"
                                                                     class="form-control">
-                                                                <option value="">Pickup Time</option>
+                                                                <option value="">Pick-up Time</option>
                                                                 <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
                                                                     {{item.Time}}
                                                                 </option>
@@ -235,7 +235,7 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-calendar"></i>
                         </span>
-                                                            <label class="control-label" for="pickupStartDate">End Date</label>
+                                                            <label class="control-label" for="pickupStartDate">End Date <span class="hidden-xs hidden-sm">(yyyy-mm-dd)</span></label>
                                                             <input ng-model="searchMsg.endDate" type="text"
                                                                    class="form-control datepicker"  readonly>
                                                         </div>
@@ -247,10 +247,10 @@
                         <span class="input-group-addon">
                             <i class="glyphicon glyphicon-time"></i>
                         </span>
-                                                            <label class="control-label" for="pickupStartTime">Pick-up Time</label>
+                                                            <label class="control-label" for="pickupStartTime">Return Time</label>
                                                             <select ng-model="searchMsg.endTime"
                                                                     class="form-control">
-                                                                <option value="">Pickup Time</option>
+                                                                <option value="">Return Time</option>
                                                                 <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
                                                                     {{item.Time}}
                                                                 </option>
@@ -552,7 +552,7 @@
                                     Recommended Bookings</h4>
                             </div>
 
-                            <div class="box-body collapse in  " id="ismelast"
+                            <div class="box-body collapse in  " id="ismelast2"
                                  style="padding-bottom: 0;padding-top: 0;">
                                 <div class="row">
                                     <div ng-if="isWaitting" class="margin-top-20" style="padding-bottom: 150px;padding-top: 150px">
@@ -595,7 +595,7 @@
                                                         $ {{(item.TotalPrice/100).toFixed(2)}}
                                                     </div>
                                                     <div class="book-btn">
-                                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-orange" style="color: #000;font-weight: bold">VIEW DEAILS</a>
+                                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-orange" style="color: #000;font-weight: bold">VIEW DETAILS</a>
                                                     </div>
                                                 </div>
 
@@ -616,10 +616,10 @@
                         <div class="my-box noborder" style="background-color: #fff;padding: 0">
                             <div class="box-header" style="background-color: #ccc;margin: 0">
                                 <h4 class="box-header-title" style="color: #fff;font-size: 18px;margin-left: 25px">
-                                    Quick Book:Your Favourite/Past Bookings</h4>
+                                    Quick Book: Your Favourite / Past Bookings</h4>
                             </div>
 
-                            <div class="box-body collapse in  " id="ismelast"
+                            <div class="box-body collapse in  " id="ismelast1"
                                  style="padding-bottom: 0;padding-top: 0;">
                                 <div class="row">
                                     <div ng-if="isWaitting" class="margin-top-20" style="padding-bottom: 150px;padding-top: 150px">
@@ -645,7 +645,7 @@
                                                             {{item.Address}}
                                                         </a>
                                                     </div>
-                                                    <div class="time">{{getHour(item.StartTime)}} : {{getMinutes(item.StartTime)}} - {{getHour(item.EndTime)}}: {{getMinutes(item.EndTime)}}</div>
+                                                    <div class="time">{{getHour(item.StartTime)}} : {{getMinutes(item.StartTime)}} - {{getHour(item.EndTime)}} : {{getMinutes(item.EndTime)}}</div>
                                                     <div class="car-type">TAXI - {{item.VehicleTypeName}}</div>
                                                     <div class="car-seats">{{item.Seats}} Seater [ {{item.VehicleModelName}} - {{item.Plate}} ]</div>
                                                 </div>
@@ -665,7 +665,7 @@
                                                         $ {{((item.TotalPrice/item.Duration)/100).toFixed(2)}}/hr
                                                     </div>
                                                     <div class="book-btn">
-                                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-dark" style="font-weight: bold">VIEW DEAILS</a>
+                                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-dark" style="font-weight: bold">VIEW DETAILS</a>
                                                     </div>
                                                 </div>
 
@@ -735,10 +735,10 @@
                         <i class="fa fa-car" style="font-size: 40px"></i>
                     </div>
                     <div class="text-center margin-top-10" style="font-size: 32px;font-weight: bold">
-                        TAXI/CAR SHARE
+                        TAXI/VEHICLE SHARE
                     </div>
                     <div class="text-center" style="font-size: 24px;font-weight: bold;color: #fff;position: relative">
-                        MONTHLY PROMOTION
+                        MONTHLY PROMOTIONS
                         <div style="position: absolute;right: 5px;top:14px;font-size: 14px;" class="hidden-xs">
                             <a href="" style="color: #2d2d2d" >View More</a>
                         </div>
@@ -870,7 +870,7 @@
     <div ng-if="!isNoCar" class="view-car-list container margin-bottom-20" style="">
         <div class="row">
             <div class="col-md-12 text-center" style="font-size: 24px;font-weight: bold;">
-                Available Cars
+                AVAILABLE VEHICLES
             </div>
         </div>
         <div class="row">
@@ -908,7 +908,7 @@
                                         $ {{(item.TotalPrice/100).toFixed(2)}}
                                     </div>
                                     <div class="book-btn">
-                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-dark" style="">VIEW DEAILS</a>
+                                        <a href="#/booking_deatils/{{item.ID}}" class="btn btn-dark" style="">VIEW DETAILS</a>
                                     </div>
                                 </div>
 
@@ -963,13 +963,11 @@
                         </h4>
 
                         <p>
-                            There are no cars availabile in based on your selection for
-                            <b>Today</b>
-                            . You might want to:
+                            There are no cars availabile based on your selection. You might want to:
                         </p>
                         <ul>
-                            <li>Please select the right location for you</li>
-                            <li>Select another pickup time</li>
+                            <li>Select another location,</li>
+                            <li>Select another pick-up time, or</li>
                             <li>Select another vehicle number</li>
                         </ul>
                     </div>

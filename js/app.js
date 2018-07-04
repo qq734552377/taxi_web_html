@@ -121,11 +121,13 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
             //注入'isSide'服务
             resolve: {
                 app:'appContext',
-                goTop:'scrollToTop'
+                goTop:'scrollToTop',
+                initLocation:'initSometing'
             },
             // myIsSide 是解决依赖项注入控制器
-            onEnter: function(app,goTop){
+            onEnter: function(app,goTop,initLocation){
                 goTop.go();
+                initLocation.initSometing();
             },
             // myIsSide 是解决依赖项注入控制器
             onExit: function(app){
@@ -539,10 +541,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         resolve: {
             app:'appContext',
             goTop:'scrollToTop',
-            getADV:'getADV'
+            getADV:'getADV',
+            initLocation:'initSometing'
         },
         // myIsSide 是解决依赖项注入控制器
-        onEnter: function(app,goTop,getADV){
+        onEnter: function(app,goTop,getADV,initLocation){
+            initLocation.initSometing();
             app.getAll().userTitle = 'Booking Search';
             app.getAll().isNotificationShow = true;
             getADV.get();

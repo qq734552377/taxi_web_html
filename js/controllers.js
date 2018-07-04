@@ -3,8 +3,7 @@
  */
 var appControllers = angular.module('appControllers', ["allservice"]);
 
-appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path, appContext,allUrl, initSometing, logOut,getCurLocation) {
-    initSometing.initSometing();//初始化下拉菜单选项
+appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path, appContext,allUrl, logOut,getCurLocation) {
     JIANCE.init();//初始化是否已登录和token值
     appContext.getAll().isSidemenu = path.getResult().isSidemenu;//初始化isSidemenu
     $scope.appContext = appContext.getAll();
@@ -183,6 +182,8 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
 
     $scope.tokenErrorHandle = function () {
         appContext.getAll().isAut = false;
+        localStorage.removeItem("Token");
+        sessionStorage.removeItem("Token")
         window.location.replace("#/login");
     };
     $scope.netErrorHandle = function () {
@@ -926,6 +927,9 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     })
 
     $scope.$watch('searchMsg.location', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
+
         $scope.search();
         scope.searchMsg.vehicleNumbers = [];
 
@@ -964,18 +968,28 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
     });
 
     $scope.$watch('searchMsg.startDate', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
     $scope.$watch('searchMsg.startTime', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
     $scope.$watch('searchMsg.endDate', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
     $scope.$watch('searchMsg.endTime', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
     $scope.$watch('searchMsg.duration', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         if(newValue > 24){
             $('#d').tab('show');
             initEndDateAndTime(scope.searchMsg)
@@ -983,15 +997,19 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
         $scope.search();
     });
     $scope.$watch('searchMsg.rentFor', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
     $scope.$watch('searchMsg.vehicleNumber', function (newValue, oldValue, scope) {
+        if (newValue == oldValue)
+            return
         $scope.search();
     });
 
 
     $scope.$watch('searchMsg.locations', function (newValue, oldValue, scope) {
-        if (newValue.length <= 0)
+        if (newValue.length <= 0 )
             return
         $("#hourly_location").html("");
         $("#daily_location").html("");
@@ -1012,6 +1030,8 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
             }
         }
     });
+
+
 
     $scope.search = function () {
         $scope.isWaitting = true;
@@ -1066,7 +1086,7 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
 
     }
 
-
+    $scope.search();
 })
     .controller('mainsearchCtr', function ($scope, $http, appContext, allUrl) {
         $scope.searchMsg = appContext.getAll().searchMsg;
@@ -1988,7 +2008,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 appContext.getAll().isAllWaitting = false;
                 if (data.MsgType == 'Success') {
                     window.location.replace('#/sidemenu/account');
-                    $scope.errorMsgHandle('Report success!If you\'ve found other problems, you can click on Need Help -> Report Issue.');
+                    $scope.errorMsgHandle('Thank you for your submission. We will look into it.');
                 } else {
                     if (data.MsgType == 'TokenError') {
                         $scope.tokenErrorHandle();
@@ -2907,7 +2927,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         $scope.isWaitting = true;
         $scope.tishiBox = {
             isShow: true,
-            msg: 'Congratulations, your booking has been reserved.You may proceed to unlock the taxi in your account at the pickup time .'
+            msg: 'Your booking is successful. You may proceed to unlock the taxi using your account when you are ready to start the trip.'
         };
         if (!appContext.getAll().fromBookingPage.isFromBooking) {
             window.location.replace('#/search/');
@@ -3269,7 +3289,10 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                     allCarsMsg.addCars(data.Data)
                     $scope.recommendedCarList = data.Data;
                 }else if(data.MsgType == 'TokenError'){
-                    window.location.replace('#/main2')
+                    window.location.replace('#/main2');
+                    appContext.getAll().isAut = false;
+                    localStorage.removeItem("Token");
+                    sessionStorage.removeItem("Token")
                 }
             }).error(function () {
                 $scope.isWaitting = false;
@@ -3296,7 +3319,10 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                     allCarsMsg.addCars(data.Data)
                     $scope.pastCarList = data.Data;
                 }else if(data.MsgType == 'TokenError'){
-                    window.location.replace('#/main2')
+                    // window.location.replace('#/main2')
+                    appContext.getAll().isAut = false;
+                    localStorage.removeItem("Token");
+                    sessionStorage.removeItem("Token")
                 }
             }).error(function () {
                 $scope.isWaitting = false;
@@ -3434,7 +3460,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
         $scope.mainsearch = function () {
             if ($scope.searchMsg.location == 0) {
-                $scope.errorMsgHandle("Pelease select a location,thanks!");
+                $scope.errorMsgHandle("Pelease select a location.");
                 return;
             }
             window.location.replace('#/search/');
@@ -3472,16 +3498,23 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         $scope.querryRatesByTime = querryRatesByTime;
 
         $scope.$watch('rateSearch.startDate', function (newValue, oldValue, scope) {
+            if (newValue == oldValue)
+                return
             querryRatesByTime();
         });
         $scope.$watch('rateSearch.startTime', function (newValue, oldValue, scope) {
+            if (newValue == oldValue)
+                return
             querryRatesByTime();
         });
         $scope.$watch('rateSearch.duration', function (newValue, oldValue, scope) {
+            if (newValue == oldValue)
+                return
             querryRatesByTime();
         });
 
         querryAllTimePrice();
+        querryRatesByTime();
         function querryAllTimePrice() {
               appContext.getAll().isAllWaitting = true;
               $http({
@@ -3511,7 +3544,8 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                   }
               });
 
-          }function querryRatesByTime() {
+          }
+        function querryRatesByTime() {
               $scope.curRates = [];
               appContext.getAll().isAllWaitting = true;
               $http({

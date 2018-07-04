@@ -56,7 +56,7 @@
                                 <i class="glyphicon"></i>
                             </button>
                         </div>
-                        <h4 class="box-header-title">Address, Directions to vehicle</h4>
+                        <h4 class="box-header-title">Directions to vehicle</h4>
                     </div>
                     <div class="box-body collapse in my-box-boundary" id="isme2">
                         <div class="map-area" style="">
@@ -135,8 +135,8 @@
             <div class="col-md-4">
                 <div class="my-box my-box-top-border margin-top-20">
                     <div class="box-header">
-                        <h4 class="box-header-title text-center">Reservation No:{{bookingMsg.list.LeaseNumber}}</h4>
-                        <h4 class="box-header-title text-center">Vehical:{{ bookingMsg.list.VehicleModels +'('+bookingMsg.list.VehicleName+')'}}</h4>
+                        <h4 class="box-header-title text-center">Booking Ref No.: {{bookingMsg.list.LeaseNumber}}</h4>
+                        <h4 class="box-header-title text-center">Vehicle No.: {{ bookingMsg.list.VehicleModels +'('+bookingMsg.list.VehicleName+')'}}</h4>
                     </div>
                     <div class="box-body  my-box-boundary">
                         <div class="row">
@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-md-12 ">
                                 <h5 class="bottom-border" style="font-size: 18px;font-weight: bold">
-                                    Pickup Details
+                                    Pick-up Details
                                 </h5>
 
                                 <div class="row">
@@ -438,7 +438,7 @@
                             <div class="col-md-6 col-xs-6 col-sm-6 text-left "
                                  style="margin-top: 20px ;">
                                 <a style="font-size: 16px;font-weight: bold;" href="#/sidemenu/mybookings">
-                                    To Bookings
+                                    View Bookings
                                 </a>
                             </div>
 
@@ -470,25 +470,26 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">Are you sure you will cancel the booking ?</h4>
+                    <h4 class="modal-title">Are you sure you want to cancel the booking?</h4>
                 </div>
                 <div class="modal-body" style="">
 
                     <div class="form-group">
-                        <label for="cancel_reason">Cancel Reason</label>
+                        <label for="cancel_reason">Cancellation Reason</label>
                         <select ng-model="appContext.endTrip.LeaseCancelReason" id="cancel_reason"  class="form-control">
-                            <option value="0">I just want to cancel!</option>
+                            <option value="0">Personal reason</option>
+                            <option value="1">Wrong selection (Date, Time, Location)</option>
                             <option ng-repeat="item in appContext.CancelReasons" value="{{item.ID}}">{{item.LeaseCancelReason}}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="reason_description">Description of the Reason</label>
+                        <label for="reason_description">Description</label>
                         <textarea id="reason_description" ng-model="appContext.endTrip.Memo" class="form-control" rows="3"></textarea>
                     </div>
 
                     <p style="font-size: 16px">
                         <strong>Note:</strong>
-                        If you cancel the order, we will charge a certain fee!If you want to learn more, click <a ng-click="goToFaqCancelAq()"> here</a>.
+                        Cancellation fee applies. Click <a ng-click="goToFaqCancelAq()"> here</a> to find out more.
                     </p>
                 </div>
                 <div class="modal-footer">

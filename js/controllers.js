@@ -1096,7 +1096,7 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
 
         $scope.mainsearch = function () {
             if ($scope.searchMsg.location == 0) {
-                $scope.errorMsgHandle("Pelease select a location,thanks!");
+                $scope.errorMsgHandle("Please select a location.");
                 return;
             }
             window.location.href = '#/search/';
@@ -3460,7 +3460,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
         $scope.mainsearch = function () {
             if ($scope.searchMsg.location == 0) {
-                $scope.errorMsgHandle("Pelease select a location.");
+                $scope.errorMsgHandle("Please select a location.");
                 return;
             }
             window.location.replace('#/search/');

@@ -212,7 +212,7 @@
                                             <div class="form-group">
                                                 <label for="PostalCode" class="sign-in-label" >Postal Code</label>
                                                 <input ng-model="signin_s.PostalCode" type="text" class="form-control" id="PostalCode"
-                                                       required="required" placeholder="" pattern="^\d{6}$" oninvalid="setCustomValidity('Must be 6 Digits')">
+                                                       required="required" placeholder="" pattern="^\d{6}$" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Must be 6 Digits')">
                                             </div>
                                             <!--Postal Code end-->
                                         </div>

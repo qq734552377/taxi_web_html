@@ -56,6 +56,9 @@
                             <strong>Select amount to top up</strong>
                         </div>
 
+                        <div ng-if="appContext.userTopupMsg.Status != 'Activated'" class="col-md-2 col-xs-4 margin-top-10">
+                            <button class="btn btn-success btn-block" ng-click="isCanTopUp('100','2')">$ 1</button>
+                        </div>
                         <div hidden class="col-md-2 col-xs-4 margin-top-10">
                             <button class="btn btn-success btn-block" ng-click="isCanTopUp('1000','2')">$ 10</button>
                         </div>

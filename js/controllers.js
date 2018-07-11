@@ -222,7 +222,8 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
         url: allUrl.loginUrl,
         email: '',
         password: '',
-        loginSucessUrl: '#/booking_search'
+        // loginSucessUrl: '#/booking_search'
+        loginSucessUrl: '#'
     };
 
     function initLoginMsg() {
@@ -3468,10 +3469,11 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
     })
     .controller('main2Ctr', function ($scope,$http,appContext,allUrl) {
         $scope.searchMsg = appContext.getAll().searchMsg;
-        if(appContext.getAll().isAut){
-            window.location.replace('#/booking_search')
-            return
-        }
+        //没有登录与不登录的区别
+        // if(appContext.getAll().isAut){
+        //     window.location.replace('#/booking_search')
+        //     return
+        // }
         $scope.rateSearch= appContext.getAll().rateSearch;
         if ($scope.rateSearch.startDate == '') {
             initsearchTime($scope.rateSearch);

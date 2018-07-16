@@ -125,25 +125,25 @@
                                     </div>
                                     <div class="col-xs-12">
                                         <div class="row">
-                                            <div class="col-sm-6 item">
+                                            <div class="col-sm-6 item animate-box-left">
                                                 <img src="img/affordable.png">
                                                 <h3>Affordable</h3>
                                                 <p>Low hourly rates from $5.80 per hour (min. 3 hours).</p>
                                             </div>
-                                            <div class="col-sm-6  item">
+                                            <div class="col-sm-6 item animate-box-right">
                                                 <img src="img/flexible.png">
                                                 <h3>Flexible</h3>
                                                 <p>Available anytime. No contract needed.</p>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6 item">
+                                            <div class="col-sm-6 item animate-box-left" >
                                                 <img src="img/convenient.png">
                                                 <h3>Convenient</h3>
                                                 <p>Multiple pick up locations islandwide for taxi collection &
                                                     return.</p>
                                             </div>
-                                            <div class="col-sm-6  item">
+                                            <div class="col-sm-6  item animate-box-right">
                                                 <img src="img/fullyequipped.png">
                                                 <h3>Fully Equipped</h3>
                                                 <p>24-hr Ops centre, call booking and cashless payment terminal.</p>
@@ -181,7 +181,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="hand-phone-video-bg">
+                            <div class="hand-phone-video-bg animate-box-left">
                                 <div class="video-item">
                                     <h3>HOW TO USE </h3>
                                     <h2>
@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="row items-cotainer">
                                     <div class="col-md-3">
-                                        <div class="how-it-work-item">
+                                        <div class="how-it-work-item animate-box-right">
                                             <div class="how-it-work-item-cilcle">
                                                 <i class="fa fa-pencil"></i>
                                             </div>
@@ -218,7 +218,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="how-it-work-item">
+                                        <div class="how-it-work-item animate-box-right">
                                             <div class="how-it-work-item-cilcle">
                                                 <i class="fa fa-hand-pointer-o"></i>
                                             </div>
@@ -228,7 +228,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="how-it-work-item">
+                                        <div class="how-it-work-item animate-box-right">
                                             <div class="how-it-work-item-cilcle">
                                                 <i class="fa fa-unlock"></i>
                                             </div>
@@ -238,7 +238,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="how-it-work-item">
+                                        <div class="how-it-work-item animate-box-right">
                                             <div class="how-it-work-item-cilcle">
                                                 <i class="fa fa-reply"></i>
                                             </div>
@@ -270,7 +270,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="location-number">
-                <p>
+                <p class="animate-box-left">
                     607 TAXIS IN 603 LOCATIONS
                 </p>
             </div>
@@ -459,11 +459,11 @@
     </script>
 
     <div class="row">
-        <div class="col-md-12 text-center">
-            <b style="font-size: 24px">
+        <div class="col-md-12 text-center animate-box-left">
+            <b style="font-size: 24px" class="">
                 Do not have your <span style="color: #e81e06">licence</span> yet?
             </b>
-            <a href="">
+            <a href="" class="">
                 <img src="img/apply_online_pic.png" alt="">
             </a>
         </div>
@@ -490,6 +490,89 @@
         forceParse: 0,
         startDate: new Date()
     });
+    $(function () {
+        contentWayPoint();
+        contentWayPointLeft();
+        contentWayPointRight();
+        contentWayPointPulse();
+    });
+
+
+    var contentWayPoint = function () {
+        var i = 0;
+        $('.animate-box').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass(' animated  fadeInUp');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+
+    }
+    var contentWayPointLeft = function () {
+        var i = 0;
+        $('.animate-box-left').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box-left.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass('fadeInLeft animated');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+
+    };
+    var contentWayPointRight = function () {
+        var i = 0;
+        $('.animate-box-right').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box-right.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass('fadeInRight animated');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+    }
+    var contentWayPointPulse = function () {
+        var i = 0;
+        $('.animate-box-pulse').waypoint(function (direction) {
+            if (direction === 'down' && !$(this.element).hasClass('animated')) {
+                i++;
+                $(this.element).addClass('item-animate');
+                setTimeout(function () {
+                    $('body .animate-box-pulse.item-animate').each(function (k) {
+                        var el = $(this);
+                        setTimeout(function () {
+                            el.addClass('pulse  animated');
+                            el.removeClass('item-animate');
+                        }, k * 200, 'easeInOutExpo');
+                    });
+                }, 100);
+            }
+        }, {offset: '85%'});
+    }
+
 </script>
 
 

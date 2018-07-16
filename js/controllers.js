@@ -410,6 +410,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 },5000);
                 return;
             }
+
             if($scope.verificationCode.length != 6){
                 $scope.getVerificationBtn.msg='Code is 6 bit!';
                 $('#verificationCode').popover('show');
@@ -418,6 +419,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 },5000);
                 return;
             }
+            $scope.getVerificationBtn.msg = '';
             if(!$scope.newPassword.password || $scope.newPassword.password == ''){
                 $scope.newPassword.msg='New password cannot be empty!';
                 $('#newPassword').popover('show');
@@ -427,8 +429,8 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 return;
             }
 
-            if($scope.newPassword.password.length < 8){
-                $scope.newPassword.msg='New password at least 8 bit!';
+            if($scope.newPassword.password.length < 7){
+                $scope.newPassword.msg='New password at least 7 bit!';
                 $('#newPassword').popover('show');
                 $timeout(function () {
                     $('#newPassword').popover('hide');
@@ -436,6 +438,15 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 return;
             }
 
+            if(!(/[a-zA-Z]+/.test($scope.newPassword.password) && /\d+/.test($scope.newPassword.password))){
+                $scope.newPassword.msg='Must include letters and Numbers!';
+                $('#newPassword').popover('show');
+                $timeout(function () {
+                    $('#newPassword').popover('hide');
+                },5000);
+                return;
+            }
+            $scope.newPassword.msg = '';
             if($scope.errorMsg.emailSpan == 'success-span' && $scope.verificationCode && $scope.verificationCode.length == 6){
                 appContext.getAll().isAllWaitting = true;
                 $http({
@@ -516,17 +527,22 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 scope.errorMsg.passwordMsg = '';
                 return;
             }
-            if (newValue.length < 8) {
+            if (newValue.length < 7) {
                 scope.errorMsg.passwordSpan = 'error-span';
-                scope.errorMsg.passwordMsg = 'At Least 8';
+                scope.errorMsg.passwordMsg = 'At Least 7';
             } else {
+                if (!(/[a-zA-Z]+/.test(newValue) && /\d+/.test(newValue))){
+                    scope.errorMsg.passwordSpan = 'error-span';
+                    scope.errorMsg.passwordMsg = 'Must include letters and Numbers';
+                    return;
+                }
                 scope.errorMsg.passwordSpan = 'success-span';
                 scope.errorMsg.passwordMsg = 'OK';
             }
         });
 
         $scope.$watch('signin_f.PasswordAgain', function (newValue, oldValue, scope) {
-            if (newValue == undefined ||scope.signin_f.Password.length < 8) {
+            if (newValue == undefined ||scope.signin_f.Password.length < 7) {
                 return;
             }
             if (newValue == scope.signin_f.Password) {
@@ -1379,9 +1395,9 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 scope.errorMsg.oldPasswordMsg = '';
                 return;
             }
-            if (newValue.length < 8) {
+            if (newValue.length < 7) {
                 scope.errorMsg.oldPasswordSpan = 'error-span';
-                scope.errorMsg.oldPasswordMsg = 'At Least 8';
+                scope.errorMsg.oldPasswordMsg = 'At Least 7';
             } else {
                 scope.errorMsg.oldPasswordSpan = '';
                 scope.errorMsg.oldPasswordMsg = '';
@@ -1394,17 +1410,22 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 scope.errorMsg.passwordMsg = '';
                 return;
             }
-            if (newValue.length < 8) {
+            if (newValue.length < 7) {
                 scope.errorMsg.passwordSpan = 'error-span';
-                scope.errorMsg.passwordMsg = 'At Least 8';
+                scope.errorMsg.passwordMsg = 'At Least 7';
             } else {
+                if (!(/[a-zA-Z]+/.test(newValue) && /\d+/.test(newValue))){
+                    scope.errorMsg.passwordSpan = 'error-span';
+                    scope.errorMsg.passwordMsg = 'Must include letters and Numbers';
+                    return;
+                }
                 scope.errorMsg.passwordSpan = 'success-span';
                 scope.errorMsg.passwordMsg = 'OK';
             }
         });
 
         $scope.$watch('signin_f.PasswordAgain', function (newValue, oldValue, scope) {
-            if (newValue == undefined ||scope.signin_f.Password.length < 8) {
+            if (newValue == undefined ||scope.signin_f.Password.length < 7) {
                 scope.errorMsg.passwordAgainSpan = '';
                 scope.errorMsg.passwordAgainMsg = '';
                 return;

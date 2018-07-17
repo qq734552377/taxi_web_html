@@ -134,7 +134,7 @@ serviceModule.factory('allUrl',function () {
 })
     .factory('appContext',function (allUrl) {
         var appMsg= {
-            key:'AIzaSyAmZApCirzCpPnToCfTm3_2pDxUNMQJy94',
+            key:'AIzaSyAOG4cVPDLrOhF6EfwPUcDmnvJGT46qIcQ',
             zoom:'18',
             allCarsMsg: [],
             bookingDetailMsgs: [],
@@ -758,6 +758,35 @@ serviceModule.factory('allUrl',function () {
                appContext.getAll().isAllWaitting = false;
                jsToAndroid.sendToken("");
                jsToAndroid.sendUserName('');
+               appContext.getAll().signinMsg={
+                   Email:'',
+                   Password:'',
+                   PasswordAgain:'',
+                   Name:'',
+                   NRIC:'',
+                   Phone:'',
+                   firstSignUpCompete:false,
+
+                   LicenseType:'0',
+                   Salutation:'1',
+                   Gender:'1',
+                   Nationality:'1',
+                   Race:'1',
+                   MaritalStatus:'1',
+                   EducationLevel:'1',
+                   BlockNo:'',
+                   Storey:'',
+                   UnitNo:'',
+                   StreetName:'',
+                   PostalCode:'',
+                   DateOfBirth:'',
+                   LicenseIssueDate:'',
+                   TVDLIssue:'',
+                   TVDLExpiry:'',
+                   PVDLIssue:'',
+                   PVDLExpiry:'',
+                   ReferralCode:''
+               };
            }
        }
     })

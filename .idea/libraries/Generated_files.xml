@@ -2,6 +2,7 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/components/animation/jquery.waypoints.min.js" />
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery-3.1.1.min.js" />
         <item url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery.easing.min.js" />
@@ -17,6 +18,7 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery.easing.min.min.js" />
+      <root url="file://$PROJECT_DIR$/components/animation/jquery.waypoints.min.js" />
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/bootstrap.min.js" />
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery-3.1.1.min.js" />
       <root url="file://$PROJECT_DIR$/components/bootstrap-3.3.7-dist/js/jquery.easing.min.js" />

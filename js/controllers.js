@@ -1229,6 +1229,9 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             $('#issuerEndTrip').modal('hide');
             appContext.getAll().isAllWaitting = true;
             $('#issuerEndTrip').on('hidden.bs.modal', function (e) {
+                if (!appContext.getAll().isAllWaitting )
+                    return;
+
                 $http({
                     method: 'POST',
                     url: allUrl.getCanEndTripUrl,
@@ -1500,7 +1503,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
             }
 
             if($scope.signin_f.Password != $scope.signin_f.PasswordAgain){
-                if($scope.signin_f.oldPassword ==undefined || $scope.signin_f.oldPassword.length < 8 ) {
+                if($scope.signin_f.oldPassword ==undefined || $scope.signin_f.oldPassword.length < 7 ) {
                     $scope.errorMsgHandle(appContext.getAll().errorMsg.noOldPawordError);
                     return;
                 }
@@ -1514,51 +1517,54 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
         $scope.editPro=function () {
             $('#isUpdateProfiles').modal('hide');
             appContext.getAll().isAllWaitting = true;
-            $('#isUpdateProfiles').on('hidden.bs.modal', function (e) {
-                $http({
-                    method: 'POST',
-                    url: allUrl.editProfileUrl,
-                    data: {
-                        Contact : $scope.signin_f.Phone,
-                        OldPassword  : $scope.signin_f.oldPassword,
-                        Password   : $scope.signin_f.Password,
-                        ConfimPassword    : $scope.signin_f.PasswordAgain,
-                        Address    : $scope.signin_f.Address
-                    },
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: "Basic " + appContext.getAll().token
-                    }
-                }).success(function (data) {
-                    console.log(data);
-                    appContext.getAll().isAllWaitting = false;
-                    if (data.MsgType == 'Success') {
-                        $scope.dataInfoErrorHandle(data);
-                        if($scope.signin_f.Phone != ''){
-                            appContext.getAll().userMsg.Phone = new String($scope.signin_f.Phone).replace('"','').replace("'",'');
-                        }
-                        if($scope.signin_f.Address != ''){
-                            appContext.getAll().userMsg.Address = new String($scope.signin_f.Address).replace('"','').replace("'",'');
-                        }
-                        $scope.signin_f.Phone='';
-                        $scope.signin_f.Address='';
-                        $scope.signin_f.oldPassword='';
-                        $scope.signin_f.Password='';
-                        $scope.signin_f.PasswordAgain='';
-                    } else {
-                        if (data.MsgType == 'TokenError') {
-                            $scope.tokenErrorHandle();
-                            return;
-                        }
 
-                        $scope.dataInfoErrorHandle(data);
-                    }
-                }).error(function () {
-                    $scope.netErrorHandle();
-                });
-            });
         }
+        $('#isUpdateProfiles').on('hidden.bs.modal', function (e) {
+            if(!appContext.getAll().isAllWaitting)
+                return;
 
+            $http({
+                method: 'POST',
+                url: allUrl.editProfileUrl,
+                data: {
+                    Contact : $scope.signin_f.Phone,
+                    OldPassword  : $scope.signin_f.oldPassword,
+                    Password   : $scope.signin_f.Password,
+                    ConfimPassword    : $scope.signin_f.PasswordAgain,
+                    Address    : $scope.signin_f.Address
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: "Basic " + appContext.getAll().token
+                }
+            }).success(function (data) {
+                console.log(data);
+                appContext.getAll().isAllWaitting = false;
+                if (data.MsgType == 'Success') {
+                    $scope.dataInfoErrorHandle(data);
+                    if($scope.signin_f.Phone != ''){
+                        appContext.getAll().userMsg.Phone = new String($scope.signin_f.Phone).replace('"','').replace("'",'');
+                    }
+                    if($scope.signin_f.Address != ''){
+                        appContext.getAll().userMsg.Address = new String($scope.signin_f.Address).replace('"','').replace("'",'');
+                    }
+                    $scope.signin_f.Phone='';
+                    $scope.signin_f.Address='';
+                    $scope.signin_f.oldPassword='';
+                    $scope.signin_f.Password='';
+                    $scope.signin_f.PasswordAgain='';
+                } else {
+                    if (data.MsgType == 'TokenError') {
+                        $scope.tokenErrorHandle();
+                        return;
+                    }
+
+                    $scope.dataInfoErrorHandle(data);
+                }
+            }).error(function () {
+                $scope.netErrorHandle();
+            });
+        });
 
     })
     .controller('walletCtr', function ($scope, $http, allUrl, appContext) {
@@ -3014,6 +3020,9 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             //取消订单的api调用
             appContext.getAll().isAllWaitting = true;
             $('#issuerCancelTrip').on('hidden.bs.modal', function (e) {
+                if (!appContext.getAll().isAllWaitting )
+                    return;
+
                 $http({
                     method: 'POST',
                     url: allUrl.cansleBookingUrl,

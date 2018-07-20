@@ -16,7 +16,7 @@
                         <div class="col-md-6 col-md-offset-6">
                             <div class="car-introduce">
                                 <h2>
-                                    Toyota Prius<br>
+                                    TOYOTA PRIUS<br>
                                     <small>
                                         (PETROL / HYBRID)
                                     </small>
@@ -114,14 +114,16 @@
                         <div style="overflow-x:auto">
                             <table class="table table-striped  fleet-rates-table">
                                 <caption></caption>
-                                <tr>
+                                <tr style="color: #fff;background-color: #000">
                                     <th>Period</th>
                                     <th ng-if="firstItem.FontEndPriceTable[0].OldWeekly && firstItem.FontEndPriceTable[0].OldWeekly > 0">Weekly</th>
                                     <th ng-if="firstItem.FontEndPriceTable[0].OldDaily && firstItem.FontEndPriceTable[0].OldDaily > 0">Daily</th>
                                     <th ng-repeat="item in firstItem.FontEndPriceTable[0].PeriodData">
+                                        <span class="glyphicon glyphicon-time" aria-hidden="true" style="font-size: 20px;margin-top: -5px"></span>
                                         {{getGoodNumberShow(item.start)}}:00 – {{getGoodNumberShow(item.end)}}:59
                                     </th>
                                 </tr>
+                                <tr></tr>
                                 <tr ng-repeat="item in firstItem.FontEndPriceTable">
                                     <td class="middle-cell">
                                         {{item.Period}}

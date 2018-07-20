@@ -3508,6 +3508,25 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         if ($scope.rateSearch.startDate == '') {
             initsearchTime($scope.rateSearch);
         }
+        if ($scope.rateSearch.durationType){
+            $('#h').tab('show');
+        }else{
+            $('#d').tab('show');
+        }
+
+        $('#h').on('shown.bs.tab', function (e) {
+            $scope.rateSearch.durationType = true;
+        })
+        $('#d').on('shown.bs.tab', function (e) {
+            $scope.rateSearch.durationType = false;
+        })
+
+        $scope.$watch('rateSearch.duration', function (newValue, oldValue, scope) {
+            if(newValue > 24){
+                $('#d').tab('show');
+                initEndDateAndTime(scope.searchMsg)
+            }
+        });
 
         $('#advPicBox').modal('show');
         $scope.goToSearchWithLocation=function (location) {
@@ -3525,6 +3544,21 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         if ($scope.rateSearch.startDate == '') {
             initsearchTime($scope.rateSearch);
         }
+
+        if ($scope.rateSearch.durationType){
+            $('#h').tab('show');
+        }else{
+            $('#d').tab('show');
+        }
+
+        $('#h').on('shown.bs.tab', function (e) {
+            $scope.rateSearch.durationType = true;
+            querryRatesByTime();
+        })
+        $('#d').on('shown.bs.tab', function (e) {
+            $scope.rateSearch.durationType = false;
+            querryRatesByTime();
+        })
         $scope.curRates = [];
 
         $scope.querryRatesByTime = querryRatesByTime;
@@ -3539,9 +3573,23 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
                 return
             querryRatesByTime();
         });
+        $scope.$watch('rateSearch.endDate', function (newValue, oldValue, scope) {
+            if (newValue == oldValue)
+                return
+            querryRatesByTime();
+        });
+        $scope.$watch('rateSearch.endTime', function (newValue, oldValue, scope) {
+            if (newValue == oldValue)
+                return
+            querryRatesByTime();
+        });
         $scope.$watch('rateSearch.duration', function (newValue, oldValue, scope) {
             if (newValue == oldValue)
                 return
+            if(newValue > 24){
+                $('#d').tab('show');
+                initEndDateAndTime(scope.searchMsg)
+            }
             querryRatesByTime();
         });
 
@@ -3580,12 +3628,17 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
         function querryRatesByTime() {
               $scope.curRates = [];
               appContext.getAll().isAllWaitting = true;
+            searchDuration = $scope.rateSearch.duration
+            if(!$scope.rateSearch.durationType){
+                searchDuration = computeWithHours($scope.rateSearch.startDate + ' ' + $scope.rateSearch.startTime + ':00',$scope.rateSearch.endDate + ' ' + $scope.rateSearch.endTime + ':00')
+            }
+
               $http({
                   method: "POST",
                   url: allUrl.getRatesByTime,
                   data: {
                       StartTime: ($scope.rateSearch.startDate + ' ' + $scope.rateSearch.startTime + ':00'),
-                      Duration: $scope.rateSearch.duration
+                      Duration: searchDuration
                   }
               }).success(function (data) {
                   console.log(data);

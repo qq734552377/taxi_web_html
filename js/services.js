@@ -314,7 +314,8 @@ serviceModule.factory('allUrl',function () {
             rateSearch:{
                 startDate: '',
                 startTime: '0',
-                duration: '3'
+                duration: '3',
+                durationType: true
             },
             LicenseTypes:[],
             Nationalities:[],

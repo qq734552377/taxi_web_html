@@ -291,55 +291,144 @@
                             <h4 class="box-header-title">Rates Calculator</h4>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="searchCarForm" class="searchbar" style="background:none;">
-                                        <form id="searchPriceForm">
-                                            <div class="row">
-                                                <div class="col-md-3 col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="input-group controls input-append date form_date"
-                                                             data-date=""
-                                                             data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-calendar"></i>
+                                    <ul class="nav nav-tabs time-select-type" style="border-bottom: 0px" role="tablist" id="#tab1">
+                                        <li role="presentation" class="active">
+                                            <a id="h" data-target="#hourly" aria-controls="hourly" role="tab" data-toggle="tab">
+                                                Hourly
+                                            </a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a id="d"data-target="#daily" aria-controls="daily" role="tab" data-toggle="tab">
+                                                Daily
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active fade in" style="background-color: inherit" id="hourly">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="searchCarForm1" class="searchbar" style="background:none;">
+                                                <form id="searchPriceForm1">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group controls input-append date form_date"
+                                                                     data-date=""
+                                                                     data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </div>
+                                                                    <input ng-model="rateSearch.startDate" type="text"
+                                                                           class="form-control datepicker"
+                                                                           readonly>
+                                                                </div>
                                                             </div>
-                                                            <input ng-model="rateSearch.startDate" type="text"
-                                                                   class="form-control datepicker" id="rateStartDate"
-                                                                   readonly>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <div class="form-group">
+                                                                <select name="startTime" class="form-control"
+                                                                        ng-model="rateSearch.startTime">
+                                                                    <option value="0">Pick-up Time</option>
+                                                                    <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                        {{item.Time}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <div class="form-group">
+                                                                <select name="duration" class="form-control"
+                                                                        ng-model="rateSearch.duration">
+                                                                    <option value="0">Duration(hrs)</option>
+                                                                    <option ng-repeat="item in appContext.searchMsg.durations"
+                                                                            value="{{item.ID}}">
+                                                                        {{item.Duration}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <a ng-click="goToFleet_ratesWithId('ratesCalculator')" class="btn btn-block btn-warning">Get Rates
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-3 col-xs-6">
-                                                    <div class="form-group">
-                                                        <select id="startTime" name="startTime" class="form-control"
-                                                                ng-model="rateSearch.startTime">
-                                                            <option value="0">Pick-up Time</option>
-                                                            <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
-                                                                {{item.Time}}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-xs-6">
-                                                    <div class="form-group">
-                                                        <select id="duration" name="duration" class="form-control"
-                                                                ng-model="rateSearch.duration">
-                                                            <option value="0">Duration(hrs)</option>
-                                                            <option ng-repeat="item in appContext.searchMsg.durations"
-                                                                    value="{{item.ID}}">
-                                                                {{item.Duration}}
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 col-xs-6">
-                                                    <a ng-click="goToFleet_ratesWithId('ratesCalculator')" class="btn btn-block btn-warning">Get Rates
-                                                    </a>
-                                                </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" style="background-color: inherit" id="daily">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="searchCarForm2" class="searchbar" style="background:none;">
+                                                <form id="searchPriceForm2">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group controls input-append date form_date"
+                                                                     data-date=""
+                                                                     data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </div>
+                                                                    <input ng-model="rateSearch.startDate" type="text"
+                                                                           class="form-control datepicker"
+                                                                           readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-6">
+                                                            <div class="form-group">
+                                                                <select name="startTime" class="form-control"
+                                                                        ng-model="rateSearch.startTime">
+                                                                    <option value="0">Pick-up Time</option>
+                                                                    <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                        {{item.Time}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-xs-6">
+                                                            <div class="form-group">
+                                                                <div class="input-group controls input-append date form_date"
+                                                                     data-date=""
+                                                                     data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar"></i>
+                                                                    </div>
+                                                                    <input ng-model="rateSearch.endDate" type="text"
+                                                                           class="form-control datepicker"
+                                                                           readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-6">
+                                                            <div class="form-group">
+                                                                <select name="startTime" class="form-control"
+                                                                        ng-model="rateSearch.endTime">
+                                                                    <option value="0">Pick-up Time</option>
+                                                                    <option ng-repeat="item in appContext.searchMsg.pickTime" value="{{item.Value}}">
+                                                                        {{item.Time}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 col-xs-12">
+                                                            <a ng-click="goToFleet_ratesWithId('ratesCalculator')" class="btn btn-block btn-warning">Get Rates
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

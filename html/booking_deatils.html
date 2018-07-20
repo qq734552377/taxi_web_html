@@ -275,7 +275,7 @@
                                         <div class="col-xs-6">
                                             <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">PICK-UP</h5>
                                             <p  style="font-size: 16px;font-weight: bold">
-                                                {{getHour(carPriceList.StartTimeHour)}} : {{getMinutes(carPriceList.StartTimeHour)}}
+                                                {{getHour(carPriceList.StartTimeHour)}}:{{getMinutes(carPriceList.StartTimeHour)}}
                                             </p>
                                             <p style="font-size: 18px">
                                                 {{getEnglishYearAppare(carPriceList.StartTimeHour)}}
@@ -285,7 +285,7 @@
                                         <div class="col-xs-6">
                                             <h5 class="" style="font-size: 24px;font-weight: bold;color: #e81e06">RETURN</h5>
                                             <p style="font-size: 16px;font-weight: bold">
-                                                {{getHour(carPriceList.EndTimeHour)}} : {{getMinutes(carPriceList.EndTimeHour)}}
+                                                {{getHour(carPriceList.EndTimeHour)}}:{{getMinutes(carPriceList.EndTimeHour)}}
                                             </p>
                                             <p style="font-size: 18px">
                                               {{getEnglishYearAppare(carPriceList.EndTimeHour)}}
@@ -326,13 +326,12 @@
                                                         </tr>
                                                         <tr ng-if="carPriceList.CleaningFee > 0">
                                                             <td class="left">
-                                                                <strong>Cleaning Fee</strong><br>
+                                                                <strong>Cleaning Fee</strong>
                                                                <!-- ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
                                                                 {{carMsg.Duration >1 ?
                                                                 (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}-->
                                                             </td>
                                                             <td class="right text-right">
-                                                                <br>
                                                                 ${{((carPriceList.BookingTotal - carPriceList.LeaseFee)/100).toFixed(2)}}
                                                             </td>
                                                         </tr>

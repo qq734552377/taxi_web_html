@@ -32,13 +32,34 @@
                                 <table class="table table-no-border " style="margin-bottom: 0">
                                     <tbody>
                                     <tr>
-                                        <td class="left" style="font-size: 22px">
-                                            <b>
-                                                $ {{appContext.userTrueWalletMoney}}
-                                            </b>
+                                        <td class="left" style="font-size: 20px">
+                                                Balance
+                                        </td>
+                                        <td class="text-right" style="font-size: 20px">
+                                            $ {{appContext.userTrueWalletMoney}}
                                         </td>
                                         <td class="right text-right" style="font-size: 22px">
                                             <a href="#/sidemenu/topup" class="btn btn-dark"><b>TOP UP</b></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left" style="font-size: 20px">
+                                                Credit
+                                        </td>
+                                        <td class="text-right" style="font-size: 20px">
+                                            $ {{appContext.userCredit}}
+                                        </td>
+                                        <td class="right text-right" style="font-size: 22px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left" style="font-size: 20px;border-top: 1px #000 dashed">
+                                                Total
+                                        </td>
+                                        <td class="text-right" style="font-size: 20px;border-top: 1px #000 dashed">
+                                            $ {{appContext.userAccountMoney}}
+                                        </td>
+                                        <td class="right text-right" style="font-size: 22px">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -89,9 +110,9 @@
                                     <tr>
                                         <th>Date</th>
                                         <!--<th>Type</th>-->
-                                        <th>Amount($)</th>
+                                        <th>Amount</th>
                                         <th>Booking Status</th>
-                                        <th>Booking Ref</th>
+                                        <th>Remarks</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -100,7 +121,8 @@
                                         <!--<td class="type" ng-bind="item.TrardetypeName"></td>-->
                                         <td class="amount"  ng-bind="'$ '+(item.TransactionAmount/100).toFixed(2)"></td>
                                         <td class="enteredBy"  ng-bind="item.WalletStatusName"></td>
-                                        <td class="bookingRef"  ng-bind="item.Trardeno"></td>
+                                        <!--<td class="bookingRef"  ng-bind="item.Trardeno"></td>-->
+                                        <td class="remark"  ng-bind="item.RemarksRemarks"></td>
                                     </tr>
                                     </tbody>
 

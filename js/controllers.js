@@ -1066,6 +1066,10 @@ appControllers.controller('searchCtr', function ($scope, $http,$stateParams ,app
             searchDuration = computeWithHours($scope.searchMsg.startDate + ' ' + $scope.searchMsg.startTime + ':00',$scope.searchMsg.endDate + ' ' + $scope.searchMsg.endTime + ':00')
         }
 
+        if(!isCanSearch($scope,searchDuration)){
+            initsearchTime($scope.searchMsg);
+            return;
+        }
         //请求所有的车辆信息
         $http({
             method: "POST",
@@ -3942,6 +3946,16 @@ function initEndDateAndTime(searchObj) {
     searchObj.endTime =  (endTimeHour > 9 ? (endTimeHour) : ("0" + endTimeHour)) + ":" +endTimeMinus;
 }
 
+function isCanSearch(scope,searchDuration) {
+    var curTime = addHours(0);
+    var endTime = addByhours(getDateByString(scope.searchMsg.startDate + ' ' + scope.searchMsg.startTime + ':00'),searchDuration);
+    var durations = computeWithHours(getFormatStringByDate(curTime),getFormatStringByDate(endTime));
+    if( durations >= 744){
+        return false;
+    }
+    return true;
+}
+
 function getFormatTime(date) {
     var endDateTime = date;
     var endDate = endDateTime.getFullYear() + '-' + ((endDateTime.getMonth() + 1) > 9 ? (endDateTime.getMonth() + 1) : ('0' + (endDateTime.getMonth() + 1))) + '-' + (endDateTime.getDate() > 9 ? (endDateTime.getDate()) : ('0' + endDateTime.getDate()));
@@ -3955,6 +3969,10 @@ function getFormatTime(date) {
 function getDateByString(a) {
     var d = new Date(Date.parse((a+'').replace(/-/g, "/")));
     return d;
+}
+function getFormatStringByDate(date) {
+    var formatD = getFormatTime(date);
+    return formatD.Date + " " + formatD.Time + ":00";
 }
 
 function addHours(hours) {

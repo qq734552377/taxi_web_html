@@ -330,9 +330,19 @@
                                                                <!-- ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
                                                                 {{carMsg.Duration >1 ?
                                                                 (carMsg.Duration+' hrs'):(carMsg.Duration+' hr')}}-->
+                                                                <br>
+                                                                <span ng-repeat="item in carPriceList.CleaningFeeReport">
+                                                                    {{item.DayRentalFee}}
+                                                                    <br>
+                                                                </span>
                                                             </td>
                                                             <td class="right text-right">
-                                                                ${{((carPriceList.BookingTotal - carPriceList.LeaseFee)/100).toFixed(2)}}
+                                                                <!--${{((carPriceList.BookingTotal - carPriceList.LeaseFee)/100).toFixed(2)}}-->
+                                                                <br>
+                                                                <span ng-repeat="item in carPriceList.CleaningFeeReport">
+                                                                    {{((item.Price)/100).toFixed(2)}}
+                                                                    <br>
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                         </tbody>

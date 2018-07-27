@@ -31,8 +31,8 @@
                                 <th>Date</th>
                                 <!--<th>Type</th>-->
                                 <th>Amount</th>
-                                <th>Booking Status</th>
-                                <!--<th>Booking Ref</th>-->
+                                <!--<th>Booking Status</th>-->
+                                <th>Booking Ref</th>
                                 <th>Remarks</th>
                             </tr>
                             </thead>
@@ -41,8 +41,8 @@
                                 <td class="date" ng-bind="getFormatDateWithEnglishAppare(item.SaveTime)"></td>
                                 <!--<td class="type" ng-bind="item.TrardetypeName"></td>-->
                                 <td class="amount"  ng-bind="'$ '+(item.TransactionAmount/100).toFixed(2)"></td>
-                                <td class="enteredBy"  ng-bind="item.WalletStatusName"></td>
-                                <!--<td class="bookingRef"  ng-bind="item.Trardeno"></td>-->
+                                <!--<td class="enteredBy"  ng-bind="item.WalletStatusName"></td>-->
+                                <td class="bookingRef"  ng-bind="item.Trardeno"></td>
                                 <td class="remark"  ng-bind="item.RemarksRemarks"></td>
                             </tr>
                             </tbody>

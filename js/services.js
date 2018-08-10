@@ -391,8 +391,8 @@ serviceModule.factory('allUrl',function () {
                 noOldPawordError:'The original password cannot be empty!',
             },
             tishiMsg:{
-                registSucess:'Congratulations,registered successfully !',
-                registedMsg:'We will verify the information in 24 hours after recieved. If verification is successful you will recieve an email, then you can enjoy the rental service. During the verification proccess, you can log in and view the progress of the verification.'
+                registSucess:'The form has been  submitted successfully.',
+                registedMsg:'Your application will be processed and you will receive an email notification within 24 hours.'
             },
             motaiTishiBox:{
                 title:'',

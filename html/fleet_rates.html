@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div ng-repeat="firstItem in appContext.allPriceMsg" ng-if="firstItem.LeaseType" class="row margin-top-20 ">
+        <div ng-repeat="firstItem in appContext.allPriceMsg" ng-if="firstItem.LeaseType == 1" class="row margin-top-20 ">
             <div class="col-md-12 " >
                 <div class="row"  >
                     <div class="col-md-12 fleet-rates-seat-title">
@@ -348,7 +348,7 @@
                             <th>Category</th>
                             <th>Price ($)</th>
                         </tr>
-                        <tr ng-repeat="item in curRates">
+                        <tr ng-repeat="item in curRates" ng-if="item.LeaseTypeName == 'Taxi'">
                             <td >{{item.VehicleModelName}}  ({{ item.LeaseTypeName }})</td>
                             <td >{{(item.LeaseFee/100).toFixed(2)}}</td>
                         </tr>

@@ -882,6 +882,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                 method: 'POST',
                 url: url,
                 data: fd,
+                timeout: 60 * 1000 * 10,
                 headers: {
                     'Content-Type': undefined,
                     Authorization: "Basic " + appContext.getAll().token

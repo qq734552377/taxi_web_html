@@ -213,7 +213,7 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
 
 });
 
-appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,jsToAndroid, appContext) {
+appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JIANCE,jsToAndroid, appContext) {
     $scope.isRemeberMe = true;
     $scope.errorState = false;
     $scope.errorMsg = 'Incorrect account name or password!';
@@ -223,7 +223,7 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
         email: '',
         password: '',
         // loginSucessUrl: '#/booking_search'
-        loginSucessUrl: '#'
+        loginSucessUrl: 'main2'
     };
 
     function initLoginMsg() {
@@ -262,16 +262,18 @@ appControllers.controller('loginCtr', function ($scope, $http, allUrl, JIANCE,js
                         sessionStorage.setItem('Token', data.Info);
                         localStorage.removeItem('Token');
                     }
-                    jsToAndroid.sendToken(data.Info);
+                    // jsToAndroid.sendToken(data.Info);
                     appContext.getAll().isAut = true;
                     appContext.getAll().token = data.Info;
 
                     JIANCE.init();
 
                     if (appContext.getAll().fromBookingPage.isFromBooking) {
-                        window.location.replace('#/booking/' + appContext.getAll().fromBookingPage.id);
+                        $state.go('booking' ,{
+                            id : appContext.getAll().fromBookingPage.id
+                        });
                     } else {
-                        window.location.replace($scope.loginMsg.loginSucessUrl);
+                        $state.go($scope.loginMsg.loginSucessUrl);
                     }
                 } else {
                     $scope.errorState = true;

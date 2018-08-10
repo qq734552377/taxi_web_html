@@ -501,14 +501,14 @@ serviceModule.factory('allUrl',function () {
                         appContext.getAll().token=token;
                         appContext.getAll().username=data.Info;
                         localStorage.setItem('Username',data.Info);
-                        jsToAndroid.sendToken(token);
-                        jsToAndroid.sendUserName(data.Info);
+                        // jsToAndroid.sendToken(token);
+                        // jsToAndroid.sendUserName(data.Info);
                     } else {
                         appContext.getAll().isAut = false;
                         appContext.getAll().token = '';
                         appContext.getAll().username='Personal';
-                        jsToAndroid.sendToken('');
-                        jsToAndroid.sendUserName('');
+                        // jsToAndroid.sendToken('');
+                        // jsToAndroid.sendUserName('');
                     }
                 }).error(function () {
                     appContext.getAll().isAut = false;
@@ -758,8 +758,8 @@ serviceModule.factory('allUrl',function () {
                JIANCE.init();
                window.location.replace("#/login");
                appContext.getAll().isAllWaitting = false;
-               jsToAndroid.sendToken("");
-               jsToAndroid.sendUserName('');
+               // jsToAndroid.sendToken("");
+               // jsToAndroid.sendUserName('');
                appContext.getAll().signinMsg={
                    Email:'',
                    Password:'',
@@ -1020,18 +1020,25 @@ serviceModule.factory('allUrl',function () {
 
         return {
             sendToken: function (token) {
-                if(window.getSomethingByJs)
-                    window.getSomethingByJs.getUserToken(token);
+                try {
+                    if (window.getSomethingByJs)
+                        window.getSomethingByJs.getUserToken(token);
 
-                if(window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/))
-                    window.webkit.messageHandlers.getUserMsg.postMessage({Token: token});
+                    if (window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/))
+                        window.webkit.messageHandlers.getUserMsg.postMessage({Token: token});
+                }catch (err){
+
+                }
             },
             sendUserName:function (username) {
-                if(window.getSomethingByJs)
-                    window.getSomethingByJs.getUsername(username);
-                if(window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/))
-                    window.webkit.messageHandlers.getUserMsg.postMessage({UserName: username});
-            }
+                try {
+                    if (window.getSomethingByJs)
+                        window.getSomethingByJs.getUsername(username);
+                    if (window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/))
+                        window.webkit.messageHandlers.getUserMsg.postMessage({UserName: username});
+                }catch (err){
+
+                }           }
         }
     });
 

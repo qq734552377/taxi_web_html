@@ -44,7 +44,7 @@
                                                         <b>{{appContext.AERString}}</b>
                                                     </td>
                                                     <td class="right text-right" id="totalInsurance">
-                                                        ${{(insuranceMsg.totalPriceEveryHour*extensionTimes/100).toFixed(2)}}
+                                                        ${{(carPriceList.AER/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -82,14 +82,22 @@
                                             </tr>
                                             <tr ng-if="carPriceList.CleaningFee > 0">
                                                 <td class="left">
-                                                    <strong>Cleaning Fee</strong><br>
-                                                    ${{(carPriceList.CleaningFee/100).toFixed(2)}} x
-                                                    {{extensionTimes >1 ?
-                                                    (extensionTimes +' hrs'):(extensionTimes +' hr')}}
+                                                    <strong>Cleaning Fee</strong>
+                                                    <!--${{(carPriceList.CleaningFee/100).toFixed(2)}} x-->
+                                                    <!--{{extensionTimes >1 ?-->
+                                                    <!--(extensionTimes +' hrs'):(extensionTimes +' hr')}}-->
+                                                    <br>
+                                                    <span ng-repeat="item in carPriceList.CleaningFeeReport">
+                                                        {{item.DayRentalFee}}
+                                                        <br>
+                                                    </span>
                                                 </td>
                                                 <td class="right text-right">
                                                     <br>
-                                                    ${{((carPriceList.CleaningFee*extensionTimes)/100).toFixed(2)}}
+                                                    <span ng-repeat="item in carPriceList.CleaningFeeReport">
+                                                        ${{((item.Price)/100).toFixed(2)}}
+                                                        <br>
+                                                    </span>
                                                 </td>
                                             </tr>
 
@@ -126,7 +134,7 @@
                                                     <b>Total Payable</b>
                                                 </td>
                                                 <td class="right text-right" id="totalFees">
-                                                    ${{((carPriceList.BookingTotal+insuranceMsg.totalPriceEveryHour*extensionTimes)/100).toFixed(2)}}
+                                                    ${{((carPriceList.BookingTotal + carPriceList.AER)/100).toFixed(2)}}
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -183,19 +191,19 @@
                                                         <b>Total Payable</b>
                                                     </td>
                                                     <td class="right text-right">
-                                                        $-{{((carPriceList.BookingTotal+insuranceMsg.totalPriceEveryHour*extensionTimes)/100).toFixed(2)}}
+                                                        $-{{((carPriceList.BookingTotal + carPriceList.AER)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
-                                                <tr class="balance" ng-class="{'red-font':(appContext.userAccountMoney - (carPriceList.BookingTotal+insuranceMsg.totalPriceEveryHour*extensionTimes)/100) <= 0}">
+                                                <tr class="balance" ng-class="{'red-font':(appContext.userAccountMoney - (carPriceList.BookingTotal + carPriceList.AER)/100) <= 0}">
                                                     <td class="left ">
                                                         <b>Balance</b>
                                                     </td>
                                                     <td class="right text-right ">
-                                                        ${{(appContext.userAccountMoney - (carPriceList.BookingTotal+insuranceMsg.totalPriceEveryHour*extensionTimes)/100).toFixed(2)}}
+                                                        ${{(appContext.userAccountMoney - (carPriceList.BookingTotal + carPriceList.AER)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
 
-                                                <tr ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal+insuranceMsg.totalPriceEveryHour*extensionTimes)/100)<=0"
+                                                <tr ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal + carPriceList.AER)/100)<=0"
                                                     id="noMoreMoney"
                                                     class="noMoreMoney">
                                                     <td colspan="2">
@@ -253,7 +261,7 @@
                                             <option ng-repeat="item in appContext.ExtendDurations" value="{{item.ID}}">{{item.Duration}}</option>
                                         </select>
                                     </div>
-                                    <button ng-click="extend()" ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal/100)) > 0" class="btn btn-success">Extend Booking</button>
+                                    <button ng-click="extend()" ng-if="(appContext.userAccountMoney - (carPriceList.BookingTotal + carPriceList.AER)/100) > 0" class="btn btn-success">Extend Booking</button>
                                 </form>
                             </div>
                         </div>

@@ -1628,7 +1628,7 @@
       });
 
       this.$menuInner.css({
-        'max-height': menuInnerHeight + 'px',
+        'max-height': 200 + 'px',
         'overflow-y': 'auto',
         'min-height': menuInnerMinHeight + 'px'
       });

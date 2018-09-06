@@ -2572,6 +2572,7 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
             });
         }
 
+        appContext.getAll().isAgreeMe = false;
         $scope.searchMsg = appContext.getAll().searchMsg;
         $scope.isGetCarStateWaitting = true;
         $scope.carPriceList = {};

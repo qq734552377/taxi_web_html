@@ -355,26 +355,25 @@
                                                     </td>
                                                 </tr>
                                                 <!--订单费用-->
-                                                <tr hidden>
+                                                <tr >
                                                     <td class="left">
-                                                        <b>Rental Total</b>
+                                                        <b>Rental</b>
                                                     </td>
                                                     <td class="right text-right">
-                                                        $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential - bookingMsg.list.TotalPremium)/100).toFixed(2)}}
+                                                        $-{{((bookingMsg.fees.LeaseFee)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
-
-                                                <!--订单总费用-->
+                                                <!--清洁费用-->
                                                 <tr>
                                                     <td class="left">
-                                                        <b>Total Fees</b>
+                                                        <b>Cleaning Fee</b>
                                                     </td>
                                                     <td class="right text-right">
-                                                        $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential)/100).toFixed(2)}}
+                                                        $-{{((bookingMsg.list.LeaseMount - bookingMsg.list.TotalPremium - bookingMsg.fees.LeaseFee)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
                                                 <!--保险费用-->
-                                                <tr hidden ng-if="bookingMsg.list.TotalPremium > 0 ">
+                                                <tr  ng-if="bookingMsg.list.TotalPremium > 0 ">
                                                     <td class="left">
                                                         <b>{{appContext.AERStringAD}}</b>
                                                     </td>
@@ -382,15 +381,7 @@
                                                         $-{{(bookingMsg.list.TotalPremium/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
-                                                <!--清洁费用-->
-                                                <tr hidden ng-if="bookingMsg.list.CleaningFee > 0">
-                                                    <td class="left">
-                                                        <b>Cleaning Fee</b>
-                                                    </td>
-                                                    <td class="right text-right">
-                                                        $-{{(bookingMsg.list.CleaningFee/100).toFixed(2)}}
-                                                    </td>
-                                                </tr>
+
                                                 <!--优惠的价格-->
                                                 <tr ng-if="bookingMsg.fees.TotalPreferential > 0">
                                                     <td class="left">
@@ -398,6 +389,16 @@
                                                     </td>
                                                     <td class="right text-right">
                                                         $+{{(bookingMsg.fees.TotalPreferential/100).toFixed(2)}}
+                                                    </td>
+                                                </tr>
+
+                                                <!--订单总费用-->
+                                                <tr ng-if="!(bookingMsg.renewFees && bookingMsg.renewFees != null)" >
+                                                    <td class="left" style="line-height: 36px">
+                                                        <b>Total Fees</b>
+                                                    </td>
+                                                    <td class="right text-right" style="line-height: 36px">
+                                                        $-{{((bookingMsg.list.LeaseMount + bookingMsg.fees.TotalPreferential)/100).toFixed(2)}}
                                                     </td>
                                                 </tr>
                                                 <!--续订费用-->

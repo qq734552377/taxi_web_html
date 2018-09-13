@@ -65,6 +65,9 @@
                                 <p>
                                     {{bookingMsg.list.Remarks}}
                                 </p>
+                                <p ng-if="bookingMsg.list.Number && bookingMsg.list.Number != ''">
+                                    Carpark Lot No: {{bookingMsg.list.Number}}
+                                </p>
                             </div>
                         </div>
                     </div>

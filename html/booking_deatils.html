@@ -255,6 +255,9 @@
                                             <p>
                                                 {{carMsg.Remarks}}
                                             </p>
+                                            <p ng-if="carMsg.Number && carMsg.Number != ''">
+                                                Carpark Lot No: {{carMsg.Number}}
+                                            </p>
                                         </div>
                                     </div>
 

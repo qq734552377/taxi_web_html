@@ -222,8 +222,8 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         url: allUrl.loginUrl,
         email: '',
         password: '',
-        // loginSucessUrl: '#/booking_search'
-        loginSucessUrl: 'main2'
+        loginSucessUrl: 'booking_search'
+        // loginSucessUrl: 'main2'
     };
 
     function initLoginMsg() {

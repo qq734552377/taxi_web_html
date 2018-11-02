@@ -2949,6 +2949,45 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         };
         initCancelReason.init();
 
+        $scope.goToEndtrip = function () {
+            $('#issuerEndTrip').modal('hide');
+            appContext.getAll().isAllWaitting = true;
+            $('#issuerEndTrip').on('hidden.bs.modal', function (e) {
+                if (!appContext.getAll().isAllWaitting )
+                    return;
+
+                $http({
+                    method: 'POST',
+                    url: allUrl.getCanEndTripUrl,
+                    data: {
+                        OpenClose: '2',
+                        LeaseNumber: appContext.getAll().lastBooking.list.LeaseNumber
+                    },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: "Basic " + appContext.getAll().token
+                    }
+                }).success(function (data) {
+                    console.log(data);
+                    appContext.getAll().isAllWaitting = false;
+                    if (data.MsgType == 'Success') {
+                        appContext.getAll().fromBookingPage.isFromBooking = true;
+                        window.location.href = '#/sidemenu/endtrip/' + appContext.getAll().lastBooking.list.LeaseNumber;
+                    } else {
+                        if (data.MsgType == 'TokenError') {
+                            $scope.tokenErrorHandle();
+                            return;
+                        }
+
+                        $scope.dataInfoErrorHandle(data);
+                    }
+                }).error(function () {
+                    $scope.netErrorHandle();
+                });
+            });
+
+        };
+
         $scope.cancelTrip = function () {
             $('#issuerCancelTrip').modal('hide');
             // $('body').toggleClass('modal-open');

@@ -329,6 +329,13 @@
                                                     Cancel Trip
                                                 </a>
                                             </div>
+                                            <div ng-if="appContext.lastBooking.list.LeaseStatus==1"
+                                                 class="col-md-6 margin-top-20 col-sm-6 col-xs-6">
+                                                <button class="btn btn-block btn-danger " data-toggle="modal" data-target="#issuerEndTrip"
+                                                        style="color: #fff">
+                                                    End Trip
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -505,3 +512,46 @@
     </div>
 </div>
 <!--提示模态框结尾-->
+
+
+<div class="example-modal">
+    <div class="modal modal-default fade" id="issuerEndTrip" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-tribecar modal-header-bg-color" >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Before you end your trip </h4>
+                </div>
+                <div class="modal-body" style="">
+                    <p style="font-size: 16px">Are you parked at the designated lots @ {{appContext.lastBooking.list.Number}}, Lots Any lot withing deck {{appContext.lastBooking.list.Number}}
+                        ?</p>
+                    <form style="margin-left: 30px">
+                        <div class="radio" style="font-size: 16px" >
+                            <label>
+                                <input type="radio" ng-value=true ng-model="appContext.endTrip.isDesignLocation"  name="know">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="radio" style="font-size: 16px">
+                            <label>
+                                <input type="radio"ng-value=false ng-model="appContext.endTrip.isDesignLocation"  name="know">
+                                No
+                            </label>
+                        </div>
+
+                        <div class="form-group" ng-show="!appContext.endTrip.isDesignLocation">
+                            <textarea id="form_description" required="required" ng-model="appContext.endTrip.Remark"
+                                      placeholder="Please indicate where you parked. (e.g: Deck {{appContext.lastBooking.list.Number}})"
+                                      class="form-control" rows="2"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-success" ng-click="goToEndtrip()">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

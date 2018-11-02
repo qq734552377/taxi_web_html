@@ -166,7 +166,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
             // myIsSide 是解决依赖项注入控制器
             onEnter: function(app,goTop){
                 goTop.go();
-                app.getAll().userTitle = 'My Account';
+                app.getAll().userTitle = 'MY ACCOUNT';
             },
             // myIsSide 是解决依赖项注入控制器
             onExit: function(app){
@@ -547,7 +547,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop,getADV,initLocation){
             initLocation.initSometing();
-            app.getAll().userTitle = 'Booking Search';
+            app.getAll().userTitle = 'BOOKING SEARCH';
             app.getAll().isNotificationShow = true;
             getADV.get();
             goTop.go();
@@ -661,7 +661,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
-            app.getAll().userTitle = 'My Profile';
+            app.getAll().userTitle = 'MY PROFILE';
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
@@ -680,7 +680,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
-            app.getAll().userTitle = 'My Bookings';
+            app.getAll().userTitle = 'MY BOOKINGS';
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器
@@ -699,7 +699,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
         },
         // myIsSide 是解决依赖项注入控制器
         onEnter: function(app,goTop){
-            app.getAll().userTitle = 'E-Wallet';
+            app.getAll().userTitle = 'E-WALLET';
             goTop.go();
         },
         // myIsSide 是解决依赖项注入控制器

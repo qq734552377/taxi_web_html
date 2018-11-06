@@ -496,7 +496,9 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             PhoneMsg: '',
             PhoneSpan: '',
             ReferralCodeMsg: '',
-            ReferralCodeSpan: ''
+            ReferralCodeSpan: '',
+            NameMsg: '',
+            NameSpan: ''
         };
 
         $scope.$watch('signin_f.Email', function (newValue, oldValue, scope) {
@@ -515,7 +517,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 if (data.MsgType == 'Success') {
                     //邮箱已注册过了
                     scope.errorMsg.emailSpan = 'error-span';
-                    scope.errorMsg.emailMsg = 'Existing';
+                    scope.errorMsg.emailMsg = 'Email already exist';
                 } else {
                     //没有注册过
                     scope.errorMsg.emailSpan = 'success-span';
@@ -531,7 +533,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }
             if (newValue.length < 7) {
                 scope.errorMsg.passwordSpan = 'error-span';
-                scope.errorMsg.passwordMsg = 'At Least 7';
+                scope.errorMsg.passwordMsg = 'Mininum 7 alphanumeric characters value required';
             } else {
                 if (!(/[a-zA-Z]+/.test(newValue) && /\d+/.test(newValue))){
                     scope.errorMsg.passwordSpan = 'error-span';
@@ -611,14 +613,14 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }
             if (newValue.length < 8) {
                 scope.errorMsg.PhoneSpan = 'error-span';
-                scope.errorMsg.PhoneMsg = 'At Least 8';
+                scope.errorMsg.PhoneMsg = '8 digits value required';
             } else {
                 if(/^[8|9]\d{7}$/.test(newValue)) {
                     scope.errorMsg.PhoneSpan = 'success-span';
                     scope.errorMsg.PhoneMsg = 'OK';
                 }else {
                     scope.errorMsg.PhoneSpan = 'error-span';
-                    scope.errorMsg.PhoneMsg = 'Miss Spelled';
+                    scope.errorMsg.PhoneMsg = 'Invalid handphone value';
                 }
             }
         });
@@ -631,7 +633,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }
             if (newValue.length != 8) {
                 scope.errorMsg.ReferralCodeSpan = 'error-span';
-                scope.errorMsg.ReferralCodeMsg = 'Unavailable';
+                scope.errorMsg.ReferralCodeMsg = 'Invalid referral code';
                 return;
             }
             $http({
@@ -652,7 +654,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 } else {
                     //Nric不可用
                     scope.errorMsg.ReferralCodeSpan = 'error-span';
-                    scope.errorMsg.ReferralCodeMsg = "Inexistent";
+                    scope.errorMsg.ReferralCodeMsg = "Invalid";
                 }
             }).error(function () {
                 scope.errorMsg.ReferralCodeSpan = 'error-span';
@@ -663,10 +665,10 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
         $scope.signIn = function () {
 
+
             if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '' ||
                 $scope.signin_f.Password == undefined || $scope.signin_f.Password == '' ||
                 $scope.signin_f.PasswordAgain == undefined || $scope.signin_f.PasswordAgain == '' ||
-                $scope.signin_f.Name == undefined || $scope.signin_f.Name == '' ||
                 $scope.signin_f.NRIC == undefined || $scope.signin_f.NRIC == '' ||
                 $scope.signin_f.Phone == undefined || $scope.signin_f.Phone == ''
             ) {
@@ -680,6 +682,15 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             if ($scope.errorMsg.emailSpan != 'success-span' || $scope.errorMsg.NRICSpan != 'success-span' || $scope.errorMsg.PhoneSpan != 'success-span' || $scope.errorMsg.ReferralCodeSpan == 'error-span') {
                 return;
             }
+            if ($scope.signin_f.Name.replace(' ','') == ''){
+                $scope.errorMsg.NameSpan = 'error-span';
+                $scope.errorMsg.NameMsg = 'Please complete it';
+                return;
+            }else{
+                $scope.errorMsg.NameSpan = '';
+                $scope.errorMsg.NameMsg = '';
+            }
+
             $scope.signin_f.firstSignUpCompete = true;
             $state.go('signin_second',{
                 id : $scope.signin_f.ReferralCode
@@ -756,7 +767,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
             if (!appContext.getAll().isAgreeMe) {
                 $scope.motaiBox.title = 'Accept Terms and Conditions';
-                $scope.motaiBox.msg = 'To proceed booking the vehicle, you need to read and accept the Terms and Conditions.';
+                $scope.motaiBox.msg = 'To proceed registration, you need to read and accept the Terms and Conditions.';
                 $('#moTaiTishiBox').modal('show');
                 return;
             }
@@ -814,7 +825,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }
             if (!appContext.getAll().isAgreeMe) {
                 $scope.motaiBox.title = 'Accept Terms and Conditions';
-                $scope.motaiBox.msg = 'To proceed booking the vehicle, you need to read and accept the Terms and Conditions.';
+                $scope.motaiBox.msg = 'To proceed registration, you need to read and accept the Terms and Conditions.';
                 $('#moTaiTishiBox').modal('show');
                 return;
             }

@@ -18,7 +18,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="subtitle">SubTitle</label>
+                            <label for="subtitle">Sub Issue Type</label>
                             <select class="form-control" ng-model="reportIssueObj.IssueTypeId" id="subtitle">
                                 <option value="0">Please select one reason</option>
                                 <option ng-repeat="item in appContext.ReportIssueSubTitles" value="{{item.ID}}">
@@ -27,7 +27,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="form_description">Description of the Issue</label>
+                            <label for="form_description">Issue Description</label>
                             <textarea id="form_description" ng-model="reportIssueObj.Remarks"
                                       placeholder="e.g. light scratch on front bumper" class="form-control"
                                       rows="5"></textarea>

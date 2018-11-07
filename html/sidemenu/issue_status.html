@@ -29,7 +29,7 @@
                     </div>
                     <div hidden class="row ">
                         <div class="col-xs-6 col-md-4">
-                            <strong>SubTitle</strong>
+                            <strong>Sub Issue Type</strong>
                         </div>
                         <div class="col-xs-6 col-md-8">
                             {{}}
@@ -38,11 +38,10 @@
 
                     <div ng-if="item.Remarks" class="row">
                         <div class="col-xs-6 col-md-4">
-                            <strong>Description of the Issue</strong>
+                            <strong>Issue Description</strong>
                         </div>
                         <div class="col-xs-6 col-md-8">
-                            <p style="margin-left:10px">
-                                {{item.Remarks}}
+                            <p style="margin-left:10px" ng-bind-html="item.Remarks | trustHtml">
                             </p>
                         </div>
                     </div>
@@ -58,8 +57,6 @@
                 </div>
             </div>
             <!--Issue Report Status end-->
-
-
 
 
 

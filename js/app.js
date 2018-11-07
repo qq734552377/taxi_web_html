@@ -713,3 +713,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider,$locationProvider) {
     // $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/main2');
 });
+
+myApp.filter('trustHtml', function ($sce) {
+    return function (input) {
+        return $sce.trustAsHtml(input);
+    }
+});

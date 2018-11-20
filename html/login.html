@@ -20,6 +20,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                                 <input ng-model="loginMsg.email" type="email" class="form-control" value="" id="loginEmail"
+                                       autocomplete="off"
                                        placeholder="Email" required>
 
                             </div>
@@ -31,6 +32,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input ng-model="loginMsg.password" type="password" class="form-control" value="" id="loginPwd"
+                                       autocomplete="new-password" flag="password"
                                        placeholder="Password" required>
                             </div>
                             <!--<span class="glyphicon glyphicon-ok form-control-feedback " aria-hidden="true"></span>
@@ -71,3 +73,17 @@
 </div>
 
 <!--登录表结尾-->
+
+</div>
+<!-- 注册第一步结尾-->
+<script>
+    $(function () {
+        $("[flag='password']").bind('input propertychange', function(e) {
+            //取消事件的默认动作
+            e.preventDefault();
+            $(this).attr("type","password");
+        });
+    });
+
+
+</script>

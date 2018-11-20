@@ -482,6 +482,9 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
     })
     .controller('signinCtr', function ($scope, $http, $state,$stateParams, allUrl, appContext) {
 
+        passwordLen = 7;
+        spaceMsg = "Please complete it";
+
         $scope.signin_f = appContext.getAll().signinMsg;
         $scope.signin_f.ReferralCode = $stateParams.id;
         $scope.errorMsg = {
@@ -531,7 +534,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 scope.errorMsg.passwordMsg = '';
                 return;
             }
-            if (newValue.length < 7) {
+            if (newValue.length < passwordLen) {
                 scope.errorMsg.passwordSpan = 'error-span';
                 scope.errorMsg.passwordMsg = 'Mininum 7 alphanumeric characters value required';
             } else {
@@ -546,7 +549,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         });
 
         $scope.$watch('signin_f.PasswordAgain', function (newValue, oldValue, scope) {
-            if (newValue == undefined ||scope.signin_f.Password.length < 7) {
+            if (newValue == undefined ||scope.signin_f.Password.length < passwordLen) {
                 return;
             }
             if (newValue == scope.signin_f.Password) {
@@ -570,11 +573,11 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 return;
             }
             if (newValue.length < 9) {
-                scope.errorMsg.NRICSpan = 'error-span';
-                scope.errorMsg.NRICMsg = 'Unavailable';
+                scope.errorMsg.NRICSpan = '';
+                scope.errorMsg.NRICMsg = '';
                 return;
             }else{
-                if(/^[S|T]\d{7}\w{1}$/.test(newValue)) {
+                if(/^[S|T|s|t]\d{7}\w{1}$/.test(newValue)) {
                     // scope.errorMsg.NRICSpan = 'success-span';
                     // scope.errorMsg.NRICMsg = 'OK';
                 }else {
@@ -654,7 +657,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 } else {
                     //Nric不可用
                     scope.errorMsg.ReferralCodeSpan = 'error-span';
-                    scope.errorMsg.ReferralCodeMsg = "Invalid";
+                    scope.errorMsg.ReferralCodeMsg = "Invalid referral code";
                 }
             }).error(function () {
                 scope.errorMsg.ReferralCodeSpan = 'error-span';
@@ -664,32 +667,54 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         } );
 
         $scope.signIn = function () {
-
-
-            if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '' ||
-                $scope.signin_f.Password == undefined || $scope.signin_f.Password == '' ||
-                $scope.signin_f.PasswordAgain == undefined || $scope.signin_f.PasswordAgain == '' ||
-                $scope.signin_f.NRIC == undefined || $scope.signin_f.NRIC == '' ||
-                $scope.signin_f.Phone == undefined || $scope.signin_f.Phone == ''
-            ) {
+            if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '') {
+                $scope.errorMsg.emailSpan = 'error-span';
+                $scope.errorMsg.emailMsg = spaceMsg;
+                return;
+            }
+            if ($scope.signin_f.Password == undefined || $scope.signin_f.Password == ''){
+                $scope.errorMsg.passwordSpan = 'error-span';
+                $scope.errorMsg.passwordMsg = "Not all Spaces";
+                return;
+            }
+            if ($scope.signin_f.PasswordAgain == undefined || $scope.signin_f.PasswordAgain == ''){
+                $scope.errorMsg.passwordAgainSpan = 'error-span';
+                $scope.errorMsg.passwordAgainMsg = "Not all Spaces";
+                return;
+            }
+            if ($scope.signin_f.Name == null || $scope.signin_f.Name.replace(' ','') == ''){
+                $scope.errorMsg.NameSpan = 'error-span';
+                $scope.errorMsg.NameMsg = spaceMsg;
+                return;
+            }else{
+                $scope.errorMsg.NameSpan = 'success-span';
+                $scope.errorMsg.NameMsg = '';
+            }
+            if ($scope.signin_f.NRIC == undefined || $scope.signin_f.NRIC == ''){
+                $scope.errorMsg.NRICSpan = 'error-span';
+                $scope.errorMsg.NRICMsg = spaceMsg;
+                return;
+            }else {
+                if(!/^[S|T|s|t]\d{7}\w{1}$/.test($scope.signin_f.NRIC)) {
+                    $scope.errorMsg.NRICSpan = 'error-span';
+                    $scope.errorMsg.NRICMsg = 'Unavailable';
+                }
+            }
+            if ($scope.signin_f.Phone == undefined || $scope.signin_f.Phone == ''){
+                $scope.errorMsg.PhoneSpan = 'error-span';
+                $scope.errorMsg.PhoneMsg = spaceMsg;
                 return;
             }
 
-            if ($scope.signin_f.Password.length < 8 || $scope.signin_f.Password != $scope.signin_f.PasswordAgain) {
+
+            if ($scope.signin_f.Password.length < passwordLen ) {
                 return;
             }
 
             if ($scope.errorMsg.emailSpan != 'success-span' || $scope.errorMsg.NRICSpan != 'success-span' || $scope.errorMsg.PhoneSpan != 'success-span' || $scope.errorMsg.ReferralCodeSpan == 'error-span') {
                 return;
             }
-            if ($scope.signin_f.Name.replace(' ','') == ''){
-                $scope.errorMsg.NameSpan = 'error-span';
-                $scope.errorMsg.NameMsg = 'Please complete it';
-                return;
-            }else{
-                $scope.errorMsg.NameSpan = '';
-                $scope.errorMsg.NameMsg = '';
-            }
+
 
             $scope.signin_f.firstSignUpCompete = true;
             $state.go('signin_second',{
@@ -1244,6 +1269,15 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
 
         $scope.goToEndtrip = function () {
+            if(!appContext.getAll().endTrip.isDesignLocation){
+                if(appContext.getAll().endTrip.Remark == null || appContext.getAll().endTrip.Remark == ''){
+                    $scope.isShowDeck = true;
+                    return;
+                }else{
+                    $scope.isShowDeck = false;
+                }
+            }
+
             $('#issuerEndTrip').modal('hide');
             appContext.getAll().isAllWaitting = true;
             $('#issuerEndTrip').on('hidden.bs.modal', function (e) {
@@ -1471,9 +1505,9 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                 scope.errorMsg.AddressMsg = '';
                 return;
             }
-            if (newValue.length < 8) {
-                scope.errorMsg.AddressSpan = 'error-span';
-                scope.errorMsg.AddressMsg = 'At Least 8';
+            if (newValue.length < 2) {
+                // scope.errorMsg.AddressSpan = 'error-span';
+                // scope.errorMsg.AddressMsg = 'At Least 2';
             } else {
                 scope.errorMsg.AddressSpan = 'success-span';
                 scope.errorMsg.AddressMsg = 'OK';
@@ -2045,7 +2079,17 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
             var pic1 = document.getElementById("IssuePhoto1").files[0];
 
+            if ($scope.reportIssueObj.CategoryID == 0) {
+                appContext.getAll().motaiTishiBox.title = 'Message Alert:';
+                appContext.getAll().motaiTishiBox.msg = "Please select one Issue Type!";
+                $('#moTaiTishiBox').modal('show');
+                return;
+            }
             if ($scope.reportIssueObj.IssueTypeId == 0) {
+                appContext.getAll().motaiTishiBox.title = 'Message Alert:';
+                appContext.getAll().motaiTishiBox.msg = "Please select one Sub Issue Type!";
+                $('#moTaiTishiBox').modal('show');
+
                 return;
             }
             appContext.getAll().isAllWaitting = true;
@@ -2153,6 +2197,10 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
         function lockCarById() {
             if (!appContext.getAll().endTrip.endtripSure1 || !appContext.getAll().endTrip.endtripSure2 || !appContext.getAll().endTrip.endtripSure3 || !appContext.getAll().endTrip.endtripSure4 || !appContext.getAll().endTrip.endtripSure5) {
+                appContext.getAll().isAllWaitting = false;
+                appContext.getAll().motaiTishiBox.title = 'Message Alert:';
+                appContext.getAll().motaiTishiBox.msg = 'Please check all checkbox!';
+                $('#moTaiTishiBox').modal('show');
                 return;
             }
 
@@ -2961,6 +3009,14 @@ appControllers.controller('booking_deatilsCtr',function ($scope, $http, $statePa
         initCancelReason.init();
 
         $scope.goToEndtrip = function () {
+            if(!appContext.getAll().endTrip.isDesignLocation){
+                if(appContext.getAll().endTrip.Remark == null || appContext.getAll().endTrip.Remark == ''){
+                    $scope.isShowDeck = true;
+                    return;
+                }else{
+                    $scope.isShowDeck = false;
+                }
+            }
             $('#issuerEndTrip').modal('hide');
             appContext.getAll().isAllWaitting = true;
             $('#issuerEndTrip').on('hidden.bs.modal', function (e) {

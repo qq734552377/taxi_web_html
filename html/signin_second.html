@@ -177,7 +177,7 @@
                                             <!--Address-->
                                             <div class="form-group">
                                                 <label for="Address" class="sign-in-label">Address</label>
-                                                <input ng-model="signin_s.Address" type="text" class="form-control" id="Address"
+                                                <input ng-model="signin_s.Address" type="text" class="form-control" id="Address" autocomplete="off"
                                                        required="required" placeholder="">
                                             </div>
                                             <!--Address-->
@@ -217,7 +217,7 @@
                                             <!--Postal Code-->
                                             <div class="form-group">
                                                 <label for="PostalCode" class="sign-in-label" >Postal Code</label>
-                                                <input ng-model="signin_s.PostalCode" type="text" class="form-control" id="PostalCode"
+                                                <input ng-model="signin_s.PostalCode" type="text" class="form-control" id="PostalCode" autocomplete="off"
                                                        required="required" placeholder="" pattern="^\d{6}$" oninput="setCustomValidity('')" oninvalid="setCustomValidity('6 digits value required.')">
                                             </div>
                                             <!--Postal Code end-->
@@ -232,7 +232,7 @@
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
-                                                    <input ng-model="signin_s.DateOfBirth" type="text" class="form-control datepicker" id="DateOfBirth"
+                                                    <input ng-model="signin_s.DateOfBirth" type="text" class="form-control datepicker" id="DateOfBirth" autocomplete="off"
                                                            required placeholder="example:1990-01-01">
                                                 </div>
 
@@ -253,7 +253,7 @@
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
-                                                    <input ng-model="signin_s.LicenseIssueDate" type="text" class="form-control datepicker" id="LicenseIssueDate"
+                                                    <input ng-model="signin_s.LicenseIssueDate" type="text" class="form-control datepicker" id="LicenseIssueDate" autocomplete="off"
                                                            required placeholder="example:1990-01-01">
                                                 </div>
 
@@ -271,7 +271,7 @@
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
-                                                    <input ng-model="signin_s.TVDLIssue" type="text" class="form-control datepicker" id="TVDLIssue"
+                                                    <input ng-model="signin_s.TVDLIssue" type="text" class="form-control datepicker" id="TVDLIssue" autocomplete="off"
                                                            placeholder="example:1990-01-01">
                                                 </div>
 
@@ -289,7 +289,7 @@
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
-                                                    <input ng-model="signin_s.TVDLExpiry" type="text" class="form-control datepicker" id="TVDLExpiry"
+                                                    <input ng-model="signin_s.TVDLExpiry" type="text" class="form-control datepicker" id="TVDLExpiry" autocomplete="off"
                                                            placeholder="example:1990-01-01">
                                                 </div>
 

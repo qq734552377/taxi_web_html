@@ -647,6 +647,9 @@
                             <textarea id="form_description" required="required" ng-model="appContext.endTrip.Remark"
                                       placeholder="Please indicate where you parked. (e.g: Deck {{appContext.lastBooking.list.Number}})"
                                       class="form-control" rows="2"></textarea>
+                            <div ng-if="isShowDeck" style="color: red;font-size: 14px;margin-top: 5px">
+                                <p>Please fill it.</p>
+                            </div>
                         </div>
                     </form>
                 </div>

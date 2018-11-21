@@ -175,8 +175,8 @@
                                         <!--</div>-->
                                         <div class="col-md-5 col-xs-12">
                                             <!--Address-->
-                                            <div class="form-group">
-                                                <label for="Address" class="sign-in-label">Address</label>
+                                            <div class="form-group {{inputState.Address}}">
+                                                <label for="Address" class="sign-in-label control-label">Address</label>
                                                 <input ng-model="signin_s.Address" type="text" class="form-control" id="Address" autocomplete="off"
                                                        required="required" placeholder="">
                                             </div>
@@ -215,36 +215,41 @@
                                         <!--</div>-->
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Postal Code-->
-                                            <div class="form-group">
-                                                <label for="PostalCode" class="sign-in-label" >Postal Code</label>
+                                            <div class="form-group {{inputState.PostalCode}}">
+                                                <label for="PostalCode" class="sign-in-label control-label" >Postal Code</label>
                                                 <input ng-model="signin_s.PostalCode" type="text" class="form-control" id="PostalCode" autocomplete="off"
-                                                       required="required" placeholder="" pattern="^\d{6}$" oninput="setCustomValidity('')" oninvalid="setCustomValidity('6 digits value required.')">
+                                                       >
+                                            </div>
+                                            <div ng-if="inputState.PostalCode == 'has-error' " style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.PostalCodeMsg}}
                                             </div>
                                             <!--Postal Code end-->
                                         </div>
                                         <div class="col-md-5 col-xs-12">
                                             <!--Date of Birth-->
-                                            <div class="form-group">
-                                                <label for="DateOfBirth" class="sign-in-label">Date of Birth</label>
+                                            <div class="form-group {{inputState.DateOfBirth}}">
+                                                <label for="DateOfBirth" class="sign-in-label control-label">Date of Birth</label>
 
                                                 <div class="input-group controls input-append date form_date" data-date=""
                                                      data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
-                                        <span class="input-group-addon">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </span>
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                    </span>
                                                     <input ng-model="signin_s.DateOfBirth" type="text" class="form-control datepicker" id="DateOfBirth" autocomplete="off"
-                                                           required placeholder="example:1990-01-01">
+                                                           placeholder="example:1990-01-01">
                                                 </div>
-
                                             </div>
                                             <!--Date of Birth end-->
+                                            <div ng-if="inputState.DateOfBirth == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.DateOfBirthMsg}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div  class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--Driving License Issue Date-->
-                                            <div class="form-group">
-                                                <label for="LicenseIssueDate" class="sign-in-label" >Driving License
+                                            <div class="form-group {{inputState.LicenseIssueDate}}">
+                                                <label for="LicenseIssueDate" class="sign-in-label control-label" >Driving License
                                                     Passed
                                                     Date</label>
 
@@ -254,17 +259,19 @@
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                                     <input ng-model="signin_s.LicenseIssueDate" type="text" class="form-control datepicker" id="LicenseIssueDate" autocomplete="off"
-                                                           required placeholder="example:1990-01-01">
+                                                           placeholder="example:1990-01-01">
                                                 </div>
 
                                             </div>
                                             <!--Driving License Issue Date end-->
+                                            <div ng-if="inputState.LicenseIssueDate == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.LicenseIssueDateMsg}}
+                                            </div>
                                         </div>
                                         <div class="col-md-5 col-xs-12">
                                             <!--TDVL First Issue Date-->
-                                            <div class="form-group">
-                                                <label for="TVDLIssue" class="sign-in-label" >TDVL First Passed
-                                                    Date</label>
+                                            <div class="form-group {{inputState.TVDLIssue}}">
+                                                <label for="TVDLIssue" class="sign-in-label control-label" >TDVL First Passed Date</label>
 
                                                 <div class="input-group controls input-append date form_date" data-date=""
                                                      data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
@@ -277,13 +284,16 @@
 
                                             </div>
                                             <!--TDVL First Issue Date end-->
+                                            <div ng-if="inputState.TVDLIssue == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.TVDLIssueMsg}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--TDVL Expiry Date-->
-                                            <div class="form-group">
-                                                <label for="TVDLExpiry" class="sign-in-label">TDVL Expiry Date</label>
+                                            <div class="form-group {{inputState.TVDLExpiry}}">
+                                                <label for="TVDLExpiry" class="sign-in-label control-label">TDVL Expiry Date</label>
                                                 <div class="input-group controls input-append date form_date" data-date=""
                                                      data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                                         <span class="input-group-addon">
@@ -295,6 +305,9 @@
 
                                             </div>
                                             <!--TDVL Expiry Date end-->
+                                            <div ng-if="inputState.TVDLExpiry == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.TVDLExpiryMsg}}
+                                            </div>
                                         </div>
 
                                     </div>

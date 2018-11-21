@@ -741,18 +741,106 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
         $scope.signin_s = appContext.getAll().signinMsg;
         $scope.signin_s.ReferralCode = $stateParams.id;
+        
+        $scope.inputState = {
+            Address : '',
+            AddressMsg : '',
+            PostalCode : '',
+            PostalCodeMsg : '',
+            DateOfBirth : '',
+            DateOfBirthMsg : '',
+            LicenseIssueDate : '',
+            LicenseIssueDateMsg : '',
+            TVDLIssue : '',
+            TVDLIssueMsg : '',
+            TVDLExpiry : '',
+            TVDLExpiryMsg : ''
+        };
 
         $scope.isConfirmToSubmit = function () {
 
-            if (//$scope.signin_s.BlockNo == undefined || $scope.signin_s.BlockNo == '' ||
-            //     $scope.signin_s.Storey == undefined || $scope.signin_s.Storey == '' ||
-            //     $scope.signin_s.UnitNo == undefined || $scope.signin_s.UnitNo == '' ||
-            //     $scope.signin_s.StreetName == undefined || $scope.signin_s.StreetName == '' ||
-            $scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
-            $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
+
+
+            if (!/^\d{6}$/.test($scope.signin_s.PostalCode)){
+                $scope.inputState.PostalCode = 'has-error';
+                $scope.inputState.PostalCodeMsg = '6 digits value required.';
+            }else{
+                $scope.inputState.PostalCode = '';
+                $scope.inputState.PostalCodeMsg = '';
+            }
+            if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.DateOfBirth)){
+                $scope.inputState.DateOfBirth = 'has-error';
+                $scope.inputState.DateOfBirthMsg = "This value is not valid.";
+            }else{
+                if ( new Date().getTime() - getDateByString($scope.signin_s.DateOfBirth + " 00:00:00").getTime() > 30 * 365 * 24 * 3600 * 1000){
+                    $scope.inputState.DateOfBirth = '';
+                    $scope.inputState.DateOfBirthMsg = '';
+                }else{
+                    $scope.inputState.DateOfBirth = 'has-error';
+                    $scope.inputState.DateOfBirthMsg = "Your age must be more than 30 years old.";
+                }
+            }
+            if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.LicenseIssueDate)){
+                $scope.inputState.LicenseIssueDate = 'has-error';
+                $scope.inputState.LicenseIssueDateMsg = "This value is not valid.";
+            }else{
+                if (new Date().getTime() - getDateByString($scope.signin_s.LicenseIssueDate + " 00:00:00").getTime() > 30 * 24 * 3600 * 1000){
+                    $scope.inputState.LicenseIssueDate = '';
+                    $scope.inputState.LicenseIssueDateMsg = '';
+                }else{
+                    $scope.inputState.LicenseIssueDate = 'has-error';
+                    $scope.inputState.LicenseIssueDateMsg = 'DL should be valid more than 1 month.';
+                }
+
+            }
+            if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.TVDLIssue)){
+                $scope.inputState.TVDLIssue = 'has-error';
+                $scope.inputState.TVDLIssueMsg = 'This value is not valid.';
+            }else{
+                $scope.inputState.TVDLIssue = '';
+                $scope.inputState.TVDLIssueMsg = '';
+            }
+            if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.TVDLExpiry)){
+                $scope.inputState.TVDLExpiry = 'has-error';
+                $scope.inputState.TVDLExpiryMsg = 'This value is not valid.';
+            }else{
+                if (new Date().getTime() - getDateByString($scope.signin_s.TVDLExpiry + " 00:00:00").getTime() > 30 * 24 * 3600 * 1000) {
+                    $scope.inputState.TVDLExpiry = '';
+                    $scope.inputState.TVDLExpiryMsg = '';
+                }else{
+                    $scope.inputState.TVDLExpiry = 'has-error';
+                    $scope.inputState.TVDLExpiryMsg = 'TDVL should be valid more than 1 month.';
+                }
+            }
+
+
+            if ($scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''){
+                $scope.inputState.PostalCode = 'has-error';
+                $scope.inputState.PostalCodeMsg = 'Please enter in Postal Code.';
+            }
+            if ($scope.signin_s.DateOfBirth == undefined || $scope.signin_s.DateOfBirth == ''){
+                $scope.inputState.DateOfBirth = 'has-error';
+                $scope.inputState.DateOfBirthMsg = "Please enter in Date of Birth.";
+            }
+            if ($scope.signin_s.LicenseIssueDate == undefined || $scope.signin_s.LicenseIssueDate == ''){
+                $scope.inputState.LicenseIssueDate = 'has-error';
+                $scope.inputState.LicenseIssueDateMsg = "Please enter in Driving License Passed Date.";
+            }
+            if ($scope.signin_s.TVDLIssue == undefined || $scope.signin_s.TVDLIssue == ''){
+                $scope.inputState.TVDLIssue = 'has-error';
+                $scope.inputState.TVDLIssueMsg = 'Please enter in TDVL First Passed Date.';
+            }
+            if ($scope.signin_s.TVDLExpiry == undefined || $scope.signin_s.TVDLExpiry == ''){
+                $scope.inputState.TVDLExpiry = 'has-error';
+                $scope.inputState.TVDLExpiryMsg = 'Please enter in TDVL Expiry Date.';
+            }
+
+            if ($scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
+                $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
             ) {
                 return;
             }
+
             if ($scope.signin_s.DateOfBirth == undefined || $scope.signin_s.DateOfBirth == '' ||
                 $scope.signin_s.LicenseIssueDate == undefined || $scope.signin_s.LicenseIssueDate == '') {
                 $scope.errorState = true;
@@ -761,8 +849,6 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             } else {
                 $scope.errorState = false;
             }
-
-
             if ($scope.signin_s.TVDLIssue == undefined || $scope.signin_s.TVDLIssue == '' ||
                 $scope.signin_s.TVDLExpiry == undefined || $scope.signin_s.TVDLExpiry == '') {
                 $scope.errorState = true;
@@ -1825,7 +1911,7 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
 
     })
     .controller('mybookingsCtr', function ($scope, $http, allUrl, appContext) {
-        $scope.$emit('curPath', 'Booking');
+        $scope.$emit('curPath', 'Bookings');
         $scope.sourceBookings = [];
         $scope.avg = '10';
 

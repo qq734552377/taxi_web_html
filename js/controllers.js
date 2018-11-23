@@ -486,6 +486,8 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         spaceMsg = "Please complete it";
 
         $scope.signin_f = appContext.getAll().signinMsg;
+        $scope.signin_f.Password = '';
+        $scope.signin_f.PasswordAgain = '';
         $scope.signin_f.ReferralCode = $stateParams.id;
         $scope.errorMsg = {
             emailMsg: '',
@@ -505,9 +507,14 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         };
 
         $scope.$watch('signin_f.Email', function (newValue, oldValue, scope) {
-            if (newValue == undefined || newValue.length < 8) {
+            if (newValue == undefined || newValue.length < 6) {
                 scope.errorMsg.emailSpan = '';
                 scope.errorMsg.emailMsg = '';
+                return;
+            }
+            if(!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test(newValue)){
+                scope.errorMsg.emailSpan = 'error-span';
+                scope.errorMsg.emailMsg = 'Invalid email address';
                 return;
             }
             $http({
@@ -670,21 +677,32 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '') {
                 $scope.errorMsg.emailSpan = 'error-span';
                 $scope.errorMsg.emailMsg = spaceMsg;
+                scrollAndOpen('Email');
                 return;
+            }else{
+                if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test($scope.signin_f.Email)){
+                    $scope.errorMsg.emailSpan = 'error-span';
+                    $scope.errorMsg.emailMsg = "Invalid email address";
+                    scrollAndOpen('Email');
+                    return
+                }
             }
             if ($scope.signin_f.Password == undefined || $scope.signin_f.Password == ''){
                 $scope.errorMsg.passwordSpan = 'error-span';
                 $scope.errorMsg.passwordMsg = "Not all Spaces";
+                scrollAndOpen('Password');
                 return;
             }
             if ($scope.signin_f.PasswordAgain == undefined || $scope.signin_f.PasswordAgain == ''){
                 $scope.errorMsg.passwordAgainSpan = 'error-span';
                 $scope.errorMsg.passwordAgainMsg = "Not all Spaces";
+                scrollAndOpen('PasswordAgain');
                 return;
             }
             if ($scope.signin_f.Name == null || $scope.signin_f.Name.replace(' ','') == ''){
                 $scope.errorMsg.NameSpan = 'error-span';
                 $scope.errorMsg.NameMsg = spaceMsg;
+                scrollAndOpen('Name');
                 return;
             }else{
                 $scope.errorMsg.NameSpan = 'success-span';
@@ -693,16 +711,20 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             if ($scope.signin_f.NRIC == undefined || $scope.signin_f.NRIC == ''){
                 $scope.errorMsg.NRICSpan = 'error-span';
                 $scope.errorMsg.NRICMsg = spaceMsg;
+                scrollAndOpen('NRIC');
                 return;
             }else {
                 if(!/^[S|T|s|t]\d{7}\w{1}$/.test($scope.signin_f.NRIC)) {
                     $scope.errorMsg.NRICSpan = 'error-span';
                     $scope.errorMsg.NRICMsg = 'Unavailable';
+                    scrollAndOpen('NRIC');
+                    return;
                 }
             }
             if ($scope.signin_f.Phone == undefined || $scope.signin_f.Phone == ''){
                 $scope.errorMsg.PhoneSpan = 'error-span';
                 $scope.errorMsg.PhoneMsg = spaceMsg;
+                scrollAndOpen('Phone');
                 return;
             }
 
@@ -754,11 +776,18 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             TVDLIssue : '',
             TVDLIssueMsg : '',
             TVDLExpiry : '',
-            TVDLExpiryMsg : ''
+            TVDLExpiryMsg : '',
+            signInFileFront : '',
+            signInFileFrontMsg : '',
+            signInFileBack : '',
+            signInFileBackMsg : '',
+            signInMugShot : '',
+            signInMugShotMsg : '',
+            PDVLLetter : '',
+            PDVLLetterMsg : ''
         };
 
         $scope.isConfirmToSubmit = function () {
-
 
 
             if (!/^\d{6}$/.test($scope.signin_s.PostalCode)){
@@ -784,78 +813,65 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 $scope.inputState.LicenseIssueDate = 'has-error';
                 $scope.inputState.LicenseIssueDateMsg = "This value is not valid.";
             }else{
-                if (new Date().getTime() - getDateByString($scope.signin_s.LicenseIssueDate + " 00:00:00").getTime() > 30 * 24 * 3600 * 1000){
+                if (new Date().getTime() - getDateByString($scope.signin_s.LicenseIssueDate + " 00:00:00").getTime()  > 30 * 24 * 3600 * 1000){
                     $scope.inputState.LicenseIssueDate = '';
                     $scope.inputState.LicenseIssueDateMsg = '';
                 }else{
                     $scope.inputState.LicenseIssueDate = 'has-error';
                     $scope.inputState.LicenseIssueDateMsg = 'DL should be valid more than 1 month.';
                 }
-
             }
             if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.TVDLIssue)){
                 $scope.inputState.TVDLIssue = 'has-error';
                 $scope.inputState.TVDLIssueMsg = 'This value is not valid.';
             }else{
-                $scope.inputState.TVDLIssue = '';
-                $scope.inputState.TVDLIssueMsg = '';
+                if (new Date().getTime() - getDateByString($scope.signin_s.TVDLIssue + " 00:00:00").getTime()  > 30 * 24 * 3600 * 1000){
+                    $scope.inputState.TVDLIssue = '';
+                    $scope.inputState.TVDLIssueMsg = '';
+                }else {
+                    $scope.inputState.TVDLIssue = 'has-error';
+                    $scope.inputState.TVDLIssueMsg = 'TDVL should be valid more than 1 month.';
+                }
             }
             if (! /^\d{4}[-]\d{2}[-]\d{2}$/.test($scope.signin_s.TVDLExpiry)){
                 $scope.inputState.TVDLExpiry = 'has-error';
                 $scope.inputState.TVDLExpiryMsg = 'This value is not valid.';
             }else{
-                if (new Date().getTime() - getDateByString($scope.signin_s.TVDLExpiry + " 00:00:00").getTime() > 30 * 24 * 3600 * 1000) {
+                if (getDateByString($scope.signin_s.TVDLExpiry + " 00:00:00").getTime() - new Date().getTime() > 90 * 24 * 3600 * 1000 ) {
                     $scope.inputState.TVDLExpiry = '';
                     $scope.inputState.TVDLExpiryMsg = '';
                 }else{
                     $scope.inputState.TVDLExpiry = 'has-error';
-                    $scope.inputState.TVDLExpiryMsg = 'TDVL should be valid more than 1 month.';
+                    $scope.inputState.TVDLExpiryMsg = 'This value is not valid.';
                 }
             }
-
+            if ($scope.signin_s.Address == undefined || $scope.signin_s.Address == ''){
+                $scope.inputState.Address = 'has-error';
+                $scope.inputState.AddressMsg = 'Please fill out Address.';
+            }else{
+                $scope.inputState.Address = '';
+                $scope.inputState.AddressMsg = '';
+            }
 
             if ($scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''){
                 $scope.inputState.PostalCode = 'has-error';
-                $scope.inputState.PostalCodeMsg = 'Please enter in Postal Code.';
+                $scope.inputState.PostalCodeMsg = 'Please fill out Postal Code.';
             }
             if ($scope.signin_s.DateOfBirth == undefined || $scope.signin_s.DateOfBirth == ''){
                 $scope.inputState.DateOfBirth = 'has-error';
-                $scope.inputState.DateOfBirthMsg = "Please enter in Date of Birth.";
+                $scope.inputState.DateOfBirthMsg = "Please fill out Date of Birth.";
             }
             if ($scope.signin_s.LicenseIssueDate == undefined || $scope.signin_s.LicenseIssueDate == ''){
                 $scope.inputState.LicenseIssueDate = 'has-error';
-                $scope.inputState.LicenseIssueDateMsg = "Please enter in Driving License Passed Date.";
+                $scope.inputState.LicenseIssueDateMsg = "Please fill out Driving License Passed Date.";
             }
             if ($scope.signin_s.TVDLIssue == undefined || $scope.signin_s.TVDLIssue == ''){
                 $scope.inputState.TVDLIssue = 'has-error';
-                $scope.inputState.TVDLIssueMsg = 'Please enter in TDVL First Passed Date.';
+                $scope.inputState.TVDLIssueMsg = 'Please fill out TDVL First Passed Date.';
             }
             if ($scope.signin_s.TVDLExpiry == undefined || $scope.signin_s.TVDLExpiry == ''){
                 $scope.inputState.TVDLExpiry = 'has-error';
-                $scope.inputState.TVDLExpiryMsg = 'Please enter in TDVL Expiry Date.';
-            }
-
-            if ($scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
-                $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
-            ) {
-                return;
-            }
-
-            if ($scope.signin_s.DateOfBirth == undefined || $scope.signin_s.DateOfBirth == '' ||
-                $scope.signin_s.LicenseIssueDate == undefined || $scope.signin_s.LicenseIssueDate == '') {
-                $scope.errorState = true;
-                $scope.errorMsg = 'Please fill out the Date of Birth and Driving License Issue Date,thanks! ';
-                return;
-            } else {
-                $scope.errorState = false;
-            }
-            if ($scope.signin_s.TVDLIssue == undefined || $scope.signin_s.TVDLIssue == '' ||
-                $scope.signin_s.TVDLExpiry == undefined || $scope.signin_s.TVDLExpiry == '') {
-                $scope.errorState = true;
-                $scope.errorMsg = 'Please fill out the TDVL First Issue Date and TDVL Expiry Date,thanks! ';
-                return;
-            } else {
-                $scope.errorState = false;
+                $scope.inputState.TVDLExpiryMsg = 'Please fill out TDVL Expiry Date.';
             }
 
             var pic1 = document.getElementById("signInFileFront").files[0];
@@ -863,17 +879,76 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             var pic3 = document.getElementById("signInMugShot").files[0];
             var pic4 = undefined;
 
+            if (pic1 ==undefined){
+                $scope.inputState.signInFileFront = 'has-error';
+                $scope.inputState.signInFileFrontMsg = "Please select a picture.";
+            }else{
+                $scope.inputState.signInFileFront = '';
+                $scope.inputState.signInFileFrontMsg = "";
+            }
+            if (pic2 ==undefined){
+                $scope.inputState.signInFileBack = 'has-error';
+                $scope.inputState.signInFileBackMsg = "Please select a picture.";
+            }else{
+                $scope.inputState.signInFileBack = '';
+                $scope.inputState.signInFileBackMsg = "";
+            }
+            if (pic3 ==undefined){
+                $scope.inputState.signInMugShot = 'has-error';
+                $scope.inputState.signInMugShotMsg = "Please select a picture.";
+            }else{
+                $scope.inputState.signInMugShot = '';
+                $scope.inputState.signInMugShotMsg = "";
+            }
+
+            if ($scope.inputState.Address == 'has-error'){
+                scrollAndOpen('Address');
+                return;
+            }
+            if ($scope.inputState.PostalCode == 'has-error'){
+                scrollAndOpen('PostalCode');
+                return;
+            }
+            if ($scope.inputState.DateOfBirth == 'has-error'){
+                scrollAndOpen('DateOfBirth');
+                return;
+            }
+            if ($scope.inputState.LicenseIssueDate == 'has-error'){
+                scrollAndOpen('LicenseIssueDate');
+                return;
+            }
+            if ($scope.inputState.TVDLIssue == 'has-error'){
+                scrollAndOpen('TVDLIssue');
+                return;
+            }
+            if ($scope.inputState.TVDLExpiry == 'has-error'){
+                scrollAndOpen('TVDLExpiry');
+                return;
+            }
+            if (pic1 == undefined ){
+                scrollAndOpen('signInFileFront');
+                return;
+            }
+            if (pic2 == undefined ){
+                scrollAndOpen('signInFileBack');
+                return;
+            }
+            if (pic3 == undefined ){
+                scrollAndOpen('signInMugShot');
+                return;
+            }
 
             if ($scope.signin_s.LicenseType == 0) {
                 pic4 = document.getElementById("PDVLLetter").files[0];
                 if (pic4 == undefined) {
+                    $scope.inputState.PDVLLetter = 'has-error';
+                    $scope.inputState.PDVLLetterMsg = "Please select a picture.";
+                    scrollAndOpen('PDVLLetter');
                     return;
+                }else {
+                    $scope.inputState.PDVLLetter = '';
+                    $scope.inputState.PDVLLetterMsg = "";
                 }
-            }
-
-
-            if (pic1 == undefined || pic2 == undefined || pic3 == undefined) {
-                return;
             }
 
             if (!appContext.getAll().isAgreeMe) {
@@ -889,12 +964,8 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
         };
 
         $scope.sub = function () {
-            if (//$scope.signin_s.BlockNo == undefined || $scope.signin_s.BlockNo == '' ||
-            //     $scope.signin_s.Storey == undefined || $scope.signin_s.Storey == '' ||
-            //     $scope.signin_s.UnitNo == undefined || $scope.signin_s.UnitNo == '' ||
-            //     $scope.signin_s.StreetName == undefined || $scope.signin_s.StreetName == '' ||
-            $scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
-            $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
+            if ($scope.signin_s.Address == undefined || $scope.signin_s.Address == '' ||
+                $scope.signin_s.PostalCode == undefined || $scope.signin_s.PostalCode == ''
             ) {
                 return;
             }

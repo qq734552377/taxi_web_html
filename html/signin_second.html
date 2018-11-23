@@ -178,9 +178,12 @@
                                             <div class="form-group {{inputState.Address}}">
                                                 <label for="Address" class="sign-in-label control-label">Address</label>
                                                 <input ng-model="signin_s.Address" type="text" class="form-control" id="Address" autocomplete="off"
-                                                       required="required" placeholder="">
+                                                       placeholder="">
                                             </div>
                                             <!--Address-->
+                                            <div ng-if="inputState.Address == 'has-error' " style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.AddressMsg}}
+                                            </div>
                                         </div>
                                     </div>
                                     <!--<div class="row">-->
@@ -350,58 +353,66 @@
                                     <div class="row">
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--NRIC, Driving License, TDVL (Front)-->
-                                            <div class="form-group">
-                                                <label for="signInFileFront" class="sign-in-label" >{{msgAboutPic}}
+                                            <div class="form-group {{inputState.signInFileFront}}">
+                                                <label for="signInFileFront" class="sign-in-label control-label" >{{msgAboutPic}}
                                                     (Front)</label>
                                                 <div class="sign-in-modal">
                                                     <a data-toggle="modal" data-target="#modalTdvlPhoto">(Guidelines)</a>
                                                 </div>
                                                 <div class="sign-in-file">
-                                                    <input type="file"  id="signInFileFront"
-                                                           required="required">
+                                                    <input type="file"  id="signInFileFront">
                                                     <img height="140px" id="signInFileFrontImg" class="margin-top-10" style="display: none"/>
                                                 </div>
                                             </div>
                                             <!--NRIC, Driving License, TDVL (Front) end-->
+                                            <div ng-if="inputState.signInFileFront == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.signInFileFrontMsg}}
+                                            </div>
                                         </div>
                                         <div class="col-md-5 col-xs-12">
                                             <!--NRIC, Driving License, TDVL (Back)-->
-                                            <div class="form-group">
-                                                <label for="signInFileBack" class="sign-in-label" >{{msgAboutPic}}
+                                            <div class="form-group {{inputState.signInFileBack}}">
+                                                <label for="signInFileBack" class="sign-in-label control-label" >{{msgAboutPic}}
                                                     (Back)</label>
                                                 <div class="sign-in-modal">
                                                     <a data-toggle="modal" data-target="#modalTdvlPhoto">(Guidelines)</a>
                                                 </div>
                                                 <div class="sign-in-file">
-                                                    <input type="file" id="signInFileBack"
-                                                           required="required">
+                                                    <input type="file" id="signInFileBack" >
                                                     <img height="140px" id="signInFileBackImg" class="margin-top-10" style="display: none"/>
                                                 </div>
                                             </div>
                                             <!--NRIC, Driving License, TDVL (Back) end-->
+                                            <div ng-if="inputState.signInFileBack == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.signInFileBackMsg}}
+                                            </div>
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 col-md-offset-1 col-xs-12">
                                             <!--MugShot-->
-                                            <div class="form-group">
-                                                <label  for="signInMugShot">Frontal View</label>
-                                                <input type="file"  id="signInMugShot"
-                                                       required="required">
+                                            <div class="form-group {{inputState.signInMugShot}}">
+                                                <label  for="signInMugShot" class="control-label">Frontal View</label>
+                                                <input type="file"  id="signInMugShot">
                                                 <img height="140px" id="signInMugShotImg" class="margin-top-10" style="display: none"/>
                                             </div>
                                             <!--MugShot End-->
+                                            <div ng-if="inputState.signInMugShot == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.signInMugShotMsg}}
+                                            </div>
                                         </div>
                                         <div class="col-md-5 col-xs-12" ng-show="signin_s.LicenseType==0">
                                             <!--PDVLLetter-->
-                                            <div class="form-group">
-                                                <label for="PDVLLetter">PDVL Letter</label>
-                                                <input type="file"  id="PDVLLetter"
-                                                       ng-required="signin_s.LicenseType==0">
+                                            <div class="form-group {{inputState.PDVLLetter}}">
+                                                <label for="PDVLLetter" class="control-label">PDVL Letter</label>
+                                                <input type="file"  id="PDVLLetter" >
                                                 <img height="140px" id="PDVLLetterImg" class="margin-top-10" style="display: none"/>
                                             </div>
                                             <!--PDVLLetter end-->
+                                            <div ng-if="inputState.PDVLLetter == 'has-error'" style="color: #a94442;font-size: 14px;margin-bottom: 6px">
+                                                <i class = "fa fa-exclamation"></i> &nbsp;&nbsp;{{inputState.PDVLLetterMsg}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">

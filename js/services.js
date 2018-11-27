@@ -58,8 +58,8 @@ serviceModule.factory('fileReader', ["$q", "$log", function($q, $log){
 }]);
 
 serviceModule.factory('allUrl',function () {
-    // var host='http://58.246.122.118:12304/SmrtWebApi';
-    var host='https://www.ucast.sg';
+    var host='http://58.246.122.118:12304/SmrtWebApi';
+    // var host='https://www.ucast.sg';
     // var host='http://192.168.0.103:12907';
     // var host='http://192.168.0.56:12907';
     // var host='http://192.168.0.112:12300';

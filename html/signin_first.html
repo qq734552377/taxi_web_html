@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <label for="Email" class="col-md-3 control-label">Email</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.Email" type="text" class="form-control" id="Email"
+                                    <input ng-model="signin_f.Email" type="text" class="form-control" id="Email" ng-blur="EmailBlur()"
                                            autocomplete="off"
                                            placeholder="Your email address as login account">
                                 </div>
@@ -100,7 +100,7 @@
                             <div class="form-group">
                                 <label for="Password" class="col-md-3 control-label">Password</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.Password" type="text" class="form-control" id="Password"
+                                    <input ng-model="signin_f.Password" type="text" class="form-control" id="Password" ng-blur="PasswordBlur()"
                                            autocomplete="new-password" flag="password"
                                            placeholder="As a login password">
                                 </div>
@@ -111,7 +111,7 @@
                             <div class="form-group">
                                 <label for="PasswordAgain" class="col-md-3 control-label">Confirm password</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.PasswordAgain" type="text" class="form-control" id="PasswordAgain"
+                                    <input ng-model="signin_f.PasswordAgain" type="text" class="form-control" id="PasswordAgain" ng-blur="PasswordAgainBlur()"
                                            autocomplete="new-password"  flag="password"
                                            placeholder="Input login password again">
                                 </div>
@@ -123,7 +123,7 @@
                             <div class="form-group">
                                 <label for="Name" class="col-md-3 control-label">Name</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.Name" type="text" class="form-control" id="Name" autocomplete="off"
+                                    <input ng-model="signin_f.Name" type="text" class="form-control" id="Name" autocomplete="off"  ng-blur="NameBlur()"
                                            placeholder="Your Full Name">
                                 </div>
                                 <span class="tishi-msg col-md-3  col-xs-12 glyphicon {{errorMsg.NameSpan}}">  {{errorMsg.NameMsg}}</span>
@@ -136,7 +136,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="NRIC">NRIC</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.NRIC" type="text" class="form-control" id="NRIC" autocomplete="off"
+                                    <input ng-model="signin_f.NRIC" type="text" class="form-control" id="NRIC" autocomplete="off"  ng-blur="NRICBlur()"
                                            placeholder="Input your NRIC number">
                                 </div>
                                 <span class="tishi-msg col-md-3  col-xs-12 glyphicon {{errorMsg.NRICSpan}}">&nbsp;{{errorMsg.NRICMsg}}</span>
@@ -149,14 +149,14 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="Phone">Handphone</label>
                                 <div class="col-md-6">
-                                    <input ng-model="signin_f.Phone" type="text" class="form-control" id="Phone" autocomplete="off"
+                                    <input ng-model="signin_f.Phone" type="text" class="form-control" id="Phone" autocomplete="off" ng-blur="PhoneBlur()"
                                            placeholder="Your mobile number">
                                 </div>
                                 <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.PhoneSpan}}">&nbsp;{{errorMsg.PhoneMsg}}</span>
                             </div>
                         </div>
                         <!--Handphone end-->
-                        <!--Handphone-->
+                        <!--Referral Code-->
                         <div ng-show="appContext.userMsg.UserStatus!='Fail'" class="row">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="ReferralCode">Referral Code</label>
@@ -167,7 +167,7 @@
                                 <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.ReferralCodeSpan}}">&nbsp;{{errorMsg.ReferralCodeMsg}}</span>
                             </div>
                         </div>
-                        <!--Handphone end-->
+                        <!--Referral Code end-->
                         <div class="row">
                             <div class="form-group">
                                 <div class=" col-md-offset-3 col-md-6 col-xs-12">

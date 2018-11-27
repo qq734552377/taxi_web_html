@@ -122,8 +122,8 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
         var d = getDateByString(dateString);
         return d.getMinutes()> 9 ? d.getMinutes() : "0" + d.getMinutes();
     };
-    
-    
+
+
     $scope.getEnglishYearAppare = function (dataStrig) {
         var d = getDateByString(dataStrig);
         var day = d.getDate() > 9 ? (d.getDate()) : ('0' + d.getDate());
@@ -208,7 +208,7 @@ appControllers.controller('appCtr', function ($scope,$state,$http, JIANCE, path,
     $scope.getGoodNumberShow = function (num) {
         return num > 9 ? num : '0' + num;
     }
-    
+
     getCurLocation.get();
 
 });
@@ -317,7 +317,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
 
         $scope.$watch('Email', function (newValue, oldValue, scope) {
-            if (newValue == undefined || newValue.length < 8) {
+            if (newValue == undefined || newValue.length < 6) {
                 $scope.errorMsg = {
                     emailMsg: '',
                     emailSpan: ''
@@ -337,7 +337,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 if (data.MsgType == 'Success') {
                     //邮箱已注册过了
                     scope.errorMsg.emailSpan = 'success-span';
-                    scope.errorMsg.emailMsg = 'Available';
+                    scope.errorMsg.emailMsg = 'Valid';
                     $scope.getVerificationBtn = {
                         title:'Get verification',
                         disable:''
@@ -483,12 +483,22 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
     .controller('signinCtr', function ($scope, $http, $state,$stateParams, allUrl, appContext) {
 
         passwordLen = 7;
-        spaceMsg = "Please complete it";
+        spaceMsg = "Invalid";
+        netErorMsg = appContext.getAll().errorMsg.netError;
 
         $scope.signin_f = appContext.getAll().signinMsg;
         $scope.signin_f.Password = '';
         $scope.signin_f.PasswordAgain = '';
         $scope.signin_f.ReferralCode = $stateParams.id;
+        $scope.focusState = {
+            email:false,
+            password:false,
+            passwordAgain:false,
+            Name:false,
+            NRIC:false,
+            Phone:false,
+            ReferralCode:false
+        };
         $scope.errorMsg = {
             emailMsg: '',
             emailSpan: '',
@@ -505,16 +515,29 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             NameMsg: '',
             NameSpan: ''
         };
-
-        $scope.$watch('signin_f.Email', function (newValue, oldValue, scope) {
+        $scope.allShowMsg = {
+            ValidMsg : 'OK',
+            EmailInvalid: 'Invalid',
+            EmailRegistered: 'Email address registered',
+            NRICInvalid: 'Invalid',
+            PhoneInvalid: 'Invalid handphone value',
+            ReferralCodeInvalid: 'Invalid referral code',
+            PasswordLengthRequire : 'Mininum 7 alphanumeric characters value required',
+            PasswordValidRequire : 'Must include letters and numbers',
+            PasswordAganinMismatch : 'Mismatch',
+            PhoneLengthRequire : '8 digits required',
+        };
+        $scope.EmailBlur = function () {
+            var newValue = $scope.signin_f.Email;
+            var scope = $scope;
             if (newValue == undefined || newValue.length < 6) {
-                scope.errorMsg.emailSpan = '';
-                scope.errorMsg.emailMsg = '';
+                scope.errorMsg.emailSpan = 'error-span';
+                scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                 return;
             }
             if(!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test(newValue)){
                 scope.errorMsg.emailSpan = 'error-span';
-                scope.errorMsg.emailMsg = 'Invalid email address';
+                scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                 return;
             }
             $http({
@@ -527,11 +550,191 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 if (data.MsgType == 'Success') {
                     //邮箱已注册过了
                     scope.errorMsg.emailSpan = 'error-span';
-                    scope.errorMsg.emailMsg = 'Email already exist';
+                    scope.errorMsg.emailMsg = $scope.allShowMsg.EmailRegistered;
                 } else {
                     //没有注册过
                     scope.errorMsg.emailSpan = 'success-span';
-                    scope.errorMsg.emailMsg = 'Available';
+                    scope.errorMsg.emailMsg = $scope.allShowMsg.ValidMsg;
+                }
+            }).error(function () {
+                scope.errorMsg.emailSpan = 'error-span';
+                scope.errorMsg.emailMsg = netErorMsg;
+            });
+        };
+        $scope.PasswordBlur = function () {
+            var newValue = $scope.signin_f.Password;
+            var scope = $scope;
+            if (newValue == ''){
+                $scope.errorMsg.passwordSpan = 'error-span';
+                $scope.errorMsg.passwordMsg = spaceMsg;
+                return;
+            }
+            if (newValue.length < passwordLen) {
+                scope.errorMsg.passwordSpan = 'error-span';
+                scope.errorMsg.passwordMsg = $scope.allShowMsg.PasswordLengthRequire;
+            } else {
+                if (!(/[a-zA-Z]+/.test(newValue) && /\d+/.test(newValue))){
+                    scope.errorMsg.passwordSpan = 'error-span';
+                    scope.errorMsg.passwordMsg = $scope.allShowMsg.PasswordValidRequire;
+                    return;
+                }
+                scope.errorMsg.passwordSpan = 'success-span';
+                scope.errorMsg.passwordMsg = $scope.allShowMsg.ValidMsg;
+            }
+        };
+        $scope.PasswordAgainBlur = function () {
+            var newValue = $scope.signin_f.PasswordAgain;
+            var scope = $scope;
+            if (newValue == undefined || scope.signin_f.Password.length < passwordLen) {
+                scope.errorMsg.passwordAgainSpan = '';
+                scope.errorMsg.passwordAgainMsg = '';
+                return;
+            }
+            if (newValue == scope.signin_f.Password) {
+                if (scope.signin_f.Password != '') {
+                    scope.errorMsg.passwordAgainSpan = 'success-span';
+                    scope.errorMsg.passwordAgainMsg = $scope.allShowMsg.ValidMsg;
+                } else {
+                    scope.errorMsg.passwordAgainSpan = '';
+                    scope.errorMsg.passwordAgainMsg = '';
+                }
+            } else {
+                scope.errorMsg.passwordAgainSpan = 'error-span';
+                scope.errorMsg.passwordAgainMsg = $scope.allShowMsg.PasswordAganinMismatch;
+            }
+        };
+        $scope.NameBlur = function () {
+            var newValue = $scope.signin_f.Name;
+            var scope = $scope;
+
+            if (newValue == '') {
+                scope.errorMsg.NameSpan = 'error-span';
+                scope.errorMsg.NameMsg = spaceMsg;
+            }else {
+                scope.errorMsg.NameSpan = 'success-span';
+                scope.errorMsg.NameMsg = $scope.allShowMsg.ValidMsg;
+            }
+
+        };
+        $scope.NRICBlur = function () {
+            var newValue = $scope.signin_f.NRIC;
+            var scope = $scope;
+            if (newValue.length < 9) {
+                scope.errorMsg.NRICSpan = 'error-span';
+                scope.errorMsg.NRICMsg = $scope.allShowMsg.NRICInvalid;
+                return;
+            }else{
+                if(/^[S|T|s|t]\d{7}\w{1}$/.test(newValue)) {
+                    // scope.errorMsg.NRICSpan = 'success-span';
+                    // scope.errorMsg.NRICMsg = 'OK';
+                }else {
+                    scope.errorMsg.NRICSpan = 'error-span';
+                    scope.errorMsg.NRICMsg = $scope.allShowMsg.NRICInvalid;
+                    return;
+                }
+            }
+            $http({
+                method: "POST",
+                url: allUrl.getHasNRICUrl,
+                data: {NRIC: newValue},
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data) {
+                console.log(data)
+                if (data.MsgType == 'Success') {
+                    //Nric可用
+                    scope.errorMsg.NRICSpan = 'success-span';
+                    scope.errorMsg.NRICMsg = $scope.allShowMsg.ValidMsg;
+                } else {
+                    //Nric不可用
+                    scope.errorMsg.NRICSpan = 'error-span';
+                    scope.errorMsg.NRICMsg = data.Info;
+                }
+            }).error(function () {
+                scope.errorMsg.NRICSpan = 'error-span';
+                scope.errorMsg.NRICMsg = netErorMsg;
+            });
+        };
+        $scope.PhoneBlur = function () {
+            var newValue = $scope.signin_f.Phone;
+            var scope = $scope;
+            if (newValue.length < 8) {
+                scope.errorMsg.PhoneSpan = 'error-span';
+                scope.errorMsg.PhoneMsg = $scope.allShowMsg.PhoneLengthRequire;
+            } else {
+                if(/^[8|9]\d{7}$/.test(newValue)) {
+                    scope.errorMsg.PhoneSpan = 'success-span';
+                    scope.errorMsg.PhoneMsg = $scope.allShowMsg.ValidMsg;
+                }else {
+                    scope.errorMsg.PhoneSpan = 'error-span';
+                    scope.errorMsg.PhoneMsg = $scope.allShowMsg.PhoneInvalid;
+                }
+            }
+        };
+        // $scope.ReferralCodeBlur = function () {
+        //     var newValue = $scope.signin_f.ReferralCode;
+        //     var scope = $scope;
+        //     if (newValue == undefined || newValue.length == 0) {
+        //         scope.errorMsg.ReferralCodeSpan = '';
+        //         scope.errorMsg.ReferralCodeMsg = '';
+        //         return;
+        //     }
+        //     if (newValue.length != 8) {
+        //         scope.errorMsg.ReferralCodeSpan = 'error-span';
+        //         scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ReferralCodeInvalid;
+        //         return;
+        //     }
+        //     $http({
+        //         method: "POST",
+        //         url: allUrl.getReferralCodeCanUseUrl,
+        //         data: {
+        //             ReferralCode: scope.signin_f.ReferralCode
+        //         },
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         }
+        //     }).success(function (data) {
+        //         console.log(data)
+        //         if (data.MsgType == 'Success') {
+        //             //Nric可用
+        //             scope.errorMsg.ReferralCodeSpan = 'success-span';
+        //             scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ValidMsg;
+        //         } else {
+        //             //Nric不可用
+        //             scope.errorMsg.ReferralCodeSpan = 'error-span';
+        //             scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ReferralCodeInvalid;
+        //         }
+        //     }).error(function () {
+        //         scope.errorMsg.ReferralCodeSpan = 'error-span';
+        //         scope.errorMsg.ReferralCodeMsg = 'available?';
+        //     });
+        // };
+
+        $scope.$watch('signin_f.Email', function (newValue, oldValue, scope) {
+            if (newValue == undefined || newValue.length < 6) {
+                scope.errorMsg.emailSpan = '';
+                scope.errorMsg.emailMsg = '';
+                return;
+            }
+            if(!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test(newValue)){
+                scope.errorMsg.emailSpan = 'error-span';
+                scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
+                return;
+            }
+            $http({
+                method: "POST",
+                url: allUrl.getHasEmailUrl,
+                data: {Email: newValue},
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data) {
+                console.log(data)
+                if (data.MsgType == 'Success') {
+                    //邮箱已注册过了
+                    scope.errorMsg.emailSpan = 'error-span';
+                    scope.errorMsg.emailMsg = $scope.allShowMsg.EmailRegistered;
+                } else {
+                    //没有注册过
+                    scope.errorMsg.emailSpan = 'success-span';
+                    scope.errorMsg.emailMsg = $scope.allShowMsg.ValidMsg;
                 }
             });
         });
@@ -542,34 +745,37 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 return;
             }
             if (newValue.length < passwordLen) {
-                scope.errorMsg.passwordSpan = 'error-span';
-                scope.errorMsg.passwordMsg = 'Mininum 7 alphanumeric characters value required';
+                scope.errorMsg.passwordSpan = '';
+                // scope.errorMsg.passwordMsg = 'Mininum 7 alphanumeric characters value required';
+                scope.errorMsg.passwordMsg = '';
             } else {
                 if (!(/[a-zA-Z]+/.test(newValue) && /\d+/.test(newValue))){
                     scope.errorMsg.passwordSpan = 'error-span';
-                    scope.errorMsg.passwordMsg = 'Must include letters and Numbers';
+                    scope.errorMsg.passwordMsg = $scope.allShowMsg.PasswordValidRequire;
                     return;
                 }
                 scope.errorMsg.passwordSpan = 'success-span';
-                scope.errorMsg.passwordMsg = 'OK';
+                scope.errorMsg.passwordMsg = $scope.allShowMsg.ValidMsg;
             }
         });
 
         $scope.$watch('signin_f.PasswordAgain', function (newValue, oldValue, scope) {
-            if (newValue == undefined ||scope.signin_f.Password.length < passwordLen) {
+            if (newValue == undefined || newValue.length < passwordLen || scope.signin_f.Password.length < passwordLen) {
+                scope.errorMsg.passwordAgainSpan = '';
+                scope.errorMsg.passwordAgainMsg = '';
                 return;
             }
             if (newValue == scope.signin_f.Password) {
                 if (scope.signin_f.Password != '') {
                     scope.errorMsg.passwordAgainSpan = 'success-span';
-                    scope.errorMsg.passwordAgainMsg = 'OK';
+                    scope.errorMsg.passwordAgainMsg = $scope.allShowMsg.ValidMsg;
                 } else {
                     scope.errorMsg.passwordAgainSpan = '';
                     scope.errorMsg.passwordAgainMsg = '';
                 }
             } else {
                 scope.errorMsg.passwordAgainSpan = 'error-span';
-                scope.errorMsg.passwordAgainMsg = 'Mismatch';
+                scope.errorMsg.passwordAgainMsg = $scope.allShowMsg.PasswordAganinMismatch;
             }
         });
 
@@ -589,7 +795,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                     // scope.errorMsg.NRICMsg = 'OK';
                 }else {
                     scope.errorMsg.NRICSpan = 'error-span';
-                    scope.errorMsg.NRICMsg = 'Unavailable';
+                    scope.errorMsg.NRICMsg = $scope.allShowMsg.NRICInvalid;
                     return;
                 }
             }
@@ -603,15 +809,15 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 if (data.MsgType == 'Success') {
                     //Nric可用
                     scope.errorMsg.NRICSpan = 'success-span';
-                    scope.errorMsg.NRICMsg = 'OK';
+                    scope.errorMsg.NRICMsg = $scope.allShowMsg.ValidMsg;
                 } else {
                     //Nric不可用
                     scope.errorMsg.NRICSpan = 'error-span';
                     scope.errorMsg.NRICMsg = data.Info;
                 }
             }).error(function () {
-                scope.errorMsg.NRICSpan = 'success-span';
-                scope.errorMsg.NRICMsg = 'OK?';
+                scope.errorMsg.NRICSpan = 'error-span';
+                scope.errorMsg.NRICMsg = netErorMsg;
             });
         });
 
@@ -622,15 +828,17 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 return;
             }
             if (newValue.length < 8) {
-                scope.errorMsg.PhoneSpan = 'error-span';
-                scope.errorMsg.PhoneMsg = '8 digits value required';
+                // scope.errorMsg.PhoneSpan = 'error-span';
+                // scope.errorMsg.PhoneMsg = $scope.allShowMsg.PhoneLengthRequire;
+                scope.errorMsg.PhoneMsg = '';
+                scope.errorMsg.PhoneSpan = '';
             } else {
                 if(/^[8|9]\d{7}$/.test(newValue)) {
                     scope.errorMsg.PhoneSpan = 'success-span';
-                    scope.errorMsg.PhoneMsg = 'OK';
+                    scope.errorMsg.PhoneMsg = $scope.allShowMsg.ValidMsg;
                 }else {
                     scope.errorMsg.PhoneSpan = 'error-span';
-                    scope.errorMsg.PhoneMsg = 'Invalid handphone value';
+                    scope.errorMsg.PhoneMsg = $scope.allShowMsg.PhoneInvalid;
                 }
             }
         });
@@ -643,7 +851,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }
             if (newValue.length != 8) {
                 scope.errorMsg.ReferralCodeSpan = 'error-span';
-                scope.errorMsg.ReferralCodeMsg = 'Invalid referral code';
+                scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ReferralCodeInvalid;
                 return;
             }
             $http({
@@ -656,24 +864,34 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                     'Content-Type': 'application/json'
                 }
             }).success(function (data) {
-                console.log(data)
+                console.log(data);
                 if (data.MsgType == 'Success') {
                     //Nric可用
                     scope.errorMsg.ReferralCodeSpan = 'success-span';
-                    scope.errorMsg.ReferralCodeMsg = 'Available';
+                    scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ValidMsg;
                 } else {
                     //Nric不可用
                     scope.errorMsg.ReferralCodeSpan = 'error-span';
-                    scope.errorMsg.ReferralCodeMsg = "Invalid referral code";
+                    scope.errorMsg.ReferralCodeMsg = $scope.allShowMsg.ReferralCodeInvalid;
                 }
             }).error(function () {
                 scope.errorMsg.ReferralCodeSpan = 'error-span';
-                scope.errorMsg.ReferralCodeMsg = 'available?';
+                scope.errorMsg.ReferralCodeMsg = netErorMsg;
             });
 
         } );
 
         $scope.signIn = function () {
+            if(appContext.getAll().userMsg.UserStatus == 'Fail'){
+                $scope.signin_f.Password = '123456789';
+                $scope.signin_f.PasswordAgain = '123456789';
+                $scope.signin_f.firstSignUpCompete = true;
+                $state.go('signin_second',{
+                    id : $scope.signin_f.ReferralCode
+                });
+                return;
+            }
+
             if ($scope.signin_f.Email == undefined || $scope.signin_f.Email == '') {
                 $scope.errorMsg.emailSpan = 'error-span';
                 $scope.errorMsg.emailMsg = spaceMsg;
@@ -682,23 +900,30 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }else{
                 if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test($scope.signin_f.Email)){
                     $scope.errorMsg.emailSpan = 'error-span';
-                    $scope.errorMsg.emailMsg = "Invalid email address";
+                    $scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                     scrollAndOpen('Email');
                     return
                 }
             }
             if ($scope.signin_f.Password == undefined || $scope.signin_f.Password == ''){
                 $scope.errorMsg.passwordSpan = 'error-span';
-                $scope.errorMsg.passwordMsg = "Not all Spaces";
+                $scope.errorMsg.passwordMsg = spaceMsg;
                 scrollAndOpen('Password');
                 return;
             }
             if ($scope.signin_f.PasswordAgain == undefined || $scope.signin_f.PasswordAgain == ''){
                 $scope.errorMsg.passwordAgainSpan = 'error-span';
-                $scope.errorMsg.passwordAgainMsg = "Not all Spaces";
+                $scope.errorMsg.passwordAgainMsg = spaceMsg;
                 scrollAndOpen('PasswordAgain');
                 return;
             }
+            if ($scope.signin_f.PasswordAgain != $scope.signin_f.Password){
+                $scope.errorMsg.passwordAgainSpan = 'error-span';
+                $scope.errorMsg.passwordAgainMsg = $scope.allShowMsg.PasswordAganinMismatch;
+                scrollAndOpen('PasswordAgain');
+                return;
+            }
+
             if ($scope.signin_f.Name == null || $scope.signin_f.Name.replace(' ','') == ''){
                 $scope.errorMsg.NameSpan = 'error-span';
                 $scope.errorMsg.NameMsg = spaceMsg;
@@ -706,7 +931,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 return;
             }else{
                 $scope.errorMsg.NameSpan = 'success-span';
-                $scope.errorMsg.NameMsg = '';
+                $scope.errorMsg.NameMsg = $scope.allShowMsg.ValidMsg;
             }
             if ($scope.signin_f.NRIC == undefined || $scope.signin_f.NRIC == ''){
                 $scope.errorMsg.NRICSpan = 'error-span';
@@ -716,7 +941,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
             }else {
                 if(!/^[S|T|s|t]\d{7}\w{1}$/.test($scope.signin_f.NRIC)) {
                     $scope.errorMsg.NRICSpan = 'error-span';
-                    $scope.errorMsg.NRICMsg = 'Unavailable';
+                    $scope.errorMsg.NRICMsg = $scope.allShowMsg.NRICInvalid;
                     scrollAndOpen('NRIC');
                     return;
                 }
@@ -730,6 +955,10 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
 
             if ($scope.signin_f.Password.length < passwordLen ) {
+                return;
+            }
+
+            if ($scope.errorMsg.passwordSpan != "success-span" || $scope.errorMsg.passwordAgainSpan != "success-span"){
                 return;
             }
 
@@ -763,7 +992,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
 
         $scope.signin_s = appContext.getAll().signinMsg;
         $scope.signin_s.ReferralCode = $stateParams.id;
-        
+
         $scope.inputState = {
             Address : '',
             AddressMsg : '',
@@ -1505,6 +1734,11 @@ appControllers.controller('sidemenuCtr', function ($scope, $state, $location) {
                             appContext.getAll().signinMsg.MaritalStatus=data.Data.MaritalStatus + '';
                             appContext.getAll().signinMsg.Password= '123456789';
                             appContext.getAll().signinMsg.PasswordAgain= '123456789';
+                            appContext.getAll().signinMsg.DateOfBirth= getFormatTime(getDateByString(data.Data.DateOfBirth)).Date;
+                            appContext.getAll().signinMsg.LicenseIssueDate= getFormatTime(getDateByString(data.Data.LicenseIssueDate)).Date;
+                            appContext.getAll().signinMsg.TVDLIssue= getFormatTime(getDateByString(data.Data.TVDLIssue)).Date;
+                            appContext.getAll().signinMsg.TVDLExpiry= getFormatTime(getDateByString(data.Data.TVDLExpiry)).Date;
+
                         }
                     }
                 } else {
@@ -3421,7 +3655,7 @@ appControllers.controller('faqCtr', function ($scope,$stateParams,scrollToTop) {
 
 
         //////////////////////////分页//////////////////////////////////
-        
+
         $scope.isNoCar = false;
         $scope.isOtherLocationCarViews = false;
 

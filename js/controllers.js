@@ -535,7 +535,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                 return;
             }
-            if(!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test(newValue)){
+            if(!/([a-zA-Z]|[0-9])(\w|[+-.!#$%^&*_='/{|}~`])+@(\w|[+-.!#$%^&*_='/{|}~`])+\.([a-zA-Z]{1,8})$/.test(newValue)){
                 scope.errorMsg.emailSpan = 'error-span';
                 scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                 return;
@@ -715,7 +715,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 scope.errorMsg.emailMsg = '';
                 return;
             }
-            if(!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test(newValue)){
+            if(!/([a-zA-Z]|[0-9])(\w|[+-.!#$%^&*_='/{|}~`])+@(\w|[+-.!#$%^&*_='/{|}~`])+\.([a-zA-Z]{1,8})$/.test(newValue)){
                 scope.errorMsg.emailSpan = 'error-span';
                 scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                 return;
@@ -898,7 +898,7 @@ appControllers.controller('loginCtr', function ($scope, $http, $state,allUrl, JI
                 scrollAndOpen('Email');
                 return;
             }else{
-                if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,8})$/.test($scope.signin_f.Email)){
+                if (!/([a-zA-Z]|[0-9])(\w|[+-.!#$%^&*_='/{|}~`])+@(\w|[+-.!#$%^&*_='/{|}~`])+\.([a-zA-Z]{1,8})$/.test($scope.signin_f.Email)){
                     $scope.errorMsg.emailSpan = 'error-span';
                     $scope.errorMsg.emailMsg = $scope.allShowMsg.EmailInvalid;
                     scrollAndOpen('Email');

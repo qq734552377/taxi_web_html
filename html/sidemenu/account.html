@@ -74,7 +74,7 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
                                     <h4 style="font-size: 18px" ng-bind="tishiBox.title"></h4>
-                                    <p style="font-size: 16px" ng-bind="tishiBox.msg">
+                                    <p style="font-size: 16px" ng-bind="tishiBox.msg" ng-bind-html="tishiBox.msg | trustHtml">
 
                                     </p>
                                 </div>

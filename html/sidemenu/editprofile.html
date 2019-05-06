@@ -51,11 +51,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="oldPassword" class="col-md-2 control-label">Old Password</label>
+                            <label for="oldPassword" class="col-md-2 control-label">Current Password</label>
                             <div class="col-md-6">
                                 <input ng-model="signin_f.oldPassword" type="text" class="form-control" id="oldPassword"
                                        autocomplete="new-password"  flag="password"
-                                       placeholder="Your login password">
+                                       placeholder="Current login password">
                             </div>
                             <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.oldPasswordSpan}}">&nbsp;{{errorMsg.oldPasswordMsg}}</span>
                         </div>
@@ -65,16 +65,16 @@
                             <div class="col-md-6">
                                 <input ng-model="signin_f.Password" type="text" class="form-control" id="Password"
                                        autocomplete="new-password"  flag="password"
-                                       placeholder="A new login password">
+                                       placeholder="New login password">
                             </div>
                             <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.passwordSpan}}">&nbsp;{{errorMsg.passwordMsg}}</span>
                         </div>
                         <div class="form-group">
-                            <label for="PasswordAgain" class="col-md-2 control-label">Confirm Password</label>
+                            <label for="PasswordAgain" class="col-md-2 control-label">Confirm Reset Password</label>
                             <div class="col-md-6">
                                 <input ng-model="signin_f.PasswordAgain" type="text" class="form-control" id="PasswordAgain"
                                        autocomplete="new-password"  flag="password"
-                                       placeholder="Input new login password again">
+                                       placeholder="Confirm new login password">
                             </div>
                             <span class="tishi-msg col-md-3 col-xs-12 glyphicon {{errorMsg.passwordAgainSpan}}">&nbsp;{{errorMsg.passwordAgainMsg}}</span>
                         </div>

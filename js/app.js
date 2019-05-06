@@ -719,3 +719,16 @@ myApp.filter('trustHtml', function ($sce) {
         return $sce.trustAsHtml(input);
     }
 });
+myApp.config(function ($httpProvider) {
+    // Initialize get if not there
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};
+    }
+
+    // Enables Request.IsAjaxRequest() in ASP.NET MVC
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    //禁用IE对ajax的缓存
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+});

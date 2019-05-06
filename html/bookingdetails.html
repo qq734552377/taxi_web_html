@@ -432,7 +432,7 @@
                                                 <!--取消费用-->
                                                 <tr ng-if="bookingMsg.leaseCancelView && bookingMsg.leaseCancelView!= null">
                                                     <td class="left">
-                                                        <b>Cancel Return</b>
+                                                        <b>Total Refund</b>
                                                     </td>
                                                     <td class="right text-right">
                                                         ${{((bookingMsg.fees.BookingTotal + bookingMsg.list.RenewalMount - bookingMsg.leaseCancelView.LeaseCancelMount)/100).toFixed(2)}}
